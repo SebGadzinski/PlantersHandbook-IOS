@@ -1,0 +1,44 @@
+{
+    "collection": "SubBlock",
+    "database": "planters-handbook",
+    "id": "5ff9dc0231e90db8109eb55b",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "string"
+            },
+            "_partition": {
+                "bsonType": "string"
+            },
+            "blockId": {
+                "bsonType": "string"
+            },
+            "caches": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "title": {
+                "bsonType": "string"
+            }
+        },
+        "required": [
+            "_id",
+            "_partition",
+            "blockId",
+            "title"
+        ],
+        "title": "SubBlock"
+    }
+}
