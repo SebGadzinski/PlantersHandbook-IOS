@@ -19,4 +19,12 @@ class SubBlock: Object {
     override static func primaryKey() -> String? {
         return "_id"
     }
+    
+    convenience init(partition: String, title: String, blockId: String) {
+        self.init()
+        self._partition = partition
+        self.blockId = blockId
+        self.title = title
+    }
+    
 }

@@ -5,5 +5,10 @@ target 'PlantersHandbook' do
   use_frameworks!
 
   pod 'RealmSwift'
+  pod 'UnderLineTextField'
+  pod 'SwiftSpinner'
+  pod 'JDropDownAlert'
+  pod 'EmailValidator'
+  pod 'Navajo-Swift'
 
 end

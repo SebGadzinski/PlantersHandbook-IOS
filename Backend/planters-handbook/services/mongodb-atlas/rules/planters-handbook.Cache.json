@@ -20,6 +20,9 @@
             "_partition": {
                 "bsonType": "string"
             },
+            "subBlockId": {
+                "bsonType": "string"
+            },
             "bagUpsPerTreeTypes": {
                 "bsonType": "array",
                 "items": {
@@ -103,10 +106,8 @@
                 "items": {
                     "bsonType": "string"
                 }
-            },
-            "userId": {
-                "bsonType": "string"
             }
+           
         },
         "required": [
             "_id",

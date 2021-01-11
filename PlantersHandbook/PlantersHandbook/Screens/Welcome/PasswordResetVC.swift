@@ -7,37 +7,24 @@
 
 import UIKit
 
-class PasswordResetVC: UIViewController, ProgramicViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchData()
-        generateLayout()
-        configureViews()
-        setActions()
-        setUpOverlay()
-        // Do any additional setup after loading the view.
-    }
+class PasswordResetVC: ProgramicVC {
     
-    func fetchData() {
+    override func fetchData() {
         
     }
     
-    func generateLayout() {
+    override func generateLayout() {
         
     }
     
-    func configureViews() {
+    override func configureViews() {
         
     }
     
-    func setActions() {
+    override func setActions() {
         
     }
     
-    func setUpOverlay() {
-        
-    }
     
 
     /*

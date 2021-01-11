@@ -28,15 +28,11 @@
             },
             "title": {
                 "bsonType": "string"
-            },
-            "userId": {
-                "bsonType": "string"
             }
         },
         "required": [
             "_id",
             "_partition",
-            "userId",
             "title"
         ],
         "title": "Season"

@@ -25,6 +25,14 @@ class Cache: Object {
     override static func primaryKey() -> String? {
         return "_id"
     }
+    
+    convenience init(partition: String, title: String, subBlockId: String) {
+        self.init()
+        self._partition = partition
+        self.subBlockId = subBlockId
+        self.title = title
+    }
+    
 }
 
 //Realm Does not support double arrays, this is one solution

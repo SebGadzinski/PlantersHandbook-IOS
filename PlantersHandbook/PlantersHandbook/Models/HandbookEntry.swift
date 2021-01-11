@@ -18,4 +18,10 @@ class HandbookEntry: Object{
     override static func primaryKey() -> String? {
         return "_id"
     }
+    
+    convenience init(partition: String, seasonId: String) {
+        self.init()
+        self._partition = partition
+        self.seasonId = seasonId
+    }
 }

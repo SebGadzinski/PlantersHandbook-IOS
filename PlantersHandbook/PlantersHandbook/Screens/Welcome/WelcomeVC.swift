@@ -8,47 +8,54 @@
 import UIKit
 import Foundation
 
-class WelcomeVC: UIViewController, ProgramicViewController{
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchData()
-        generateLayout()
-        configureViews()
-        setActions()
-        setUpOverlay()
-        // Do any additional setup after loading the view.
+class WelcomeVC: ProgramicVC{
+    
+    fileprivate let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
+    fileprivate let signUpButton = ph_button(title: "SignUp", fontSize: FontSize.large)
+    fileprivate let loginButton = ph_button(title: "Login", fontSize: FontSize.large)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
     }
     
-    func fetchData() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func configureViews() {
+        [icon, signUpButton, loginButton].forEach{bgView.addSubview($0)}
         
-    }
-    
-    func generateLayout() {
+        icon.anchor(top: bgView.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 150, left: 0, bottom: 0, right: 0))
+        icon.anchorCenterX(to: bgView)
+        icon.anchorSize(size: CGSize(width: frame.width/2, height: frame.width/2))
         
-    }
-    
-    func configureViews() {
+        signUpButton.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 100, left: 0, bottom: 0, right: 0), size: .init(width: frame.width*0.5, height: frame.width*0.2))
+        signUpButton.anchorCenterX(to: bgView)
+        signUpButton.titleLabel?.textColor = .systemGreen
         
+        loginButton.anchor(top: signUpButton.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: frame.width*0.5, height: frame.width*0.2))
+        loginButton.anchorCenterX(to: bgView)
+        loginButton.titleLabel?.textColor = .systemGreen
     }
     
-    func setActions() {
-        
+    override func setActions() {
+        signUpButton.addTarget(self, action: #selector(signInAction), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
     }
     
-    func setUpOverlay() {
-        
+    @objc func signInAction(){
+        print("Sign In")
+        let vc = SignUpVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func loginAction(){
+        print("Login")
+        let vc = LoginVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    */
 
 }
 

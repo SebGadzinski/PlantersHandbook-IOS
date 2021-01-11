@@ -7,35 +7,21 @@
 
 import UIKit
 
-class SubBlockVC: UIViewController, ProgramicViewController {
+class SubBlockVC: ProgramicVC {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchData()
-        generateLayout()
-        configureViews()
-        setActions()
-        setUpOverlay()
-        // Do any additional setup after loading the view.
-    }
-    
-    func fetchData() {
+    override func fetchData() {
         
     }
     
-    func generateLayout() {
+    override func generateLayout() {
         
     }
     
-    func configureViews() {
+    override func configureViews() {
         
     }
     
-    func setActions() {
-        
-    }
-    
-    func setUpOverlay() {
+    override func setActions() {
         
     }
 

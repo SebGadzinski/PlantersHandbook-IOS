@@ -36,7 +36,8 @@
         "required": [
             "_id",
             "_partition",
-            "seasonId"
+            "seasonId",
+            "date"
         ],
         "title": "HandbookEntry"
     }

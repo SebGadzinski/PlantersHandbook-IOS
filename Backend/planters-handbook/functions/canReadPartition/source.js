@@ -1,5 +1,6 @@
 exports = async function(partitionValue) {
   try {
+    console.error(partitionValue);
     const callingUser = context.user;
 
     // The user custom data contains a canReadPartitions array that is managed
@@ -10,6 +11,7 @@ exports = async function(partitionValue) {
     return canReadPartitions && canReadPartitions.includes(partitionValue);
 
   } catch (error) {
+    console.error(partitionValue);
     console.error(error);
     return false;
   }
