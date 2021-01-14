@@ -10,10 +10,9 @@ import RealmSwift
 
 class Season: Object {
     @objc dynamic var _id: String = UUID().uuidString
-    //user:isdbiasdbvi89024358
     @objc dynamic var _partition: String = ""
     @objc dynamic var title: String = "Season"
-    var entrys = List<String>()
+    var entries = List<String>()
     
     override static func primaryKey() -> String? {
         return "_id"

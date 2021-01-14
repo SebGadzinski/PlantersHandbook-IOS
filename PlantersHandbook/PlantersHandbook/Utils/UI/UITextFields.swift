@@ -11,6 +11,7 @@ import UnderLineTextField
 
 func textField_form(placeholder: String?, textType: UITextContentType!) -> UnderLineTextField{
     let textField = UnderLineTextField()
+    textField.translatesAutoresizingMaskIntoConstraints = false
     textField.activeLineColor = PHColors.green
     textField.textContentType = textType
     textField.isSecureTextEntry = (textType == UITextContentType.password || textType == UITextContentType.newPassword)
@@ -21,3 +22,4 @@ func textField_form(placeholder: String?, textType: UITextContentType!) -> Under
     textField.errorTextColor = UIColor.red
     return textField
 }
+

@@ -20,8 +20,9 @@ class LoginVC: ProgramicVC {
     fileprivate let signUpTitle = label_normal(title: "Login", fontSize: FontSize.extraLarge)
     fileprivate let emailTextInput = textField_form(placeholder: "email", textType: .emailAddress)
     fileprivate let passwordTextInput = textField_form(placeholder: "password", textType: .newPassword)
+    fileprivate let forgotPassword = label_normal(title: "Forgot Password?", fontSize: FontSize.small)
     fileprivate let loginButton = ph_button(title: "Login!", fontSize: FontSize.large)
-    fileprivate var justSignedIn = false
+    fileprivate var credientialsGiven = false
     fileprivate let emailGivenFromSignUp : String
     fileprivate let passwordGivenFromSignUp : String
         
@@ -31,7 +32,7 @@ class LoginVC: ProgramicVC {
         
         super.init(nibName: nil, bundle: nil)
         
-        self.justSignedIn = true
+        self.credientialsGiven = true
     }
     
     init(){
@@ -58,14 +59,17 @@ class LoginVC: ProgramicVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if(justSignedIn){
+        if(credientialsGiven){
             
             emailTextInput.text = emailGivenFromSignUp
             passwordTextInput.text = passwordGivenFromSignUp
             
-            let alert = UIAlertController(title: "You must confirm your email before pressing login", message: email, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "I Will", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            //If there is no password it came from password reset or welcome page, if there is it came from sign up and user needs to confirm email
+            if(passwordGivenFromSignUp == ""){
+                let alert = UIAlertController(title: "You must confirm your email before pressing login", message: email, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "I Will", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
         }
         else{
             emailTextInput.text = "seb.gadzinski@gmail.com"
@@ -86,6 +90,8 @@ class LoginVC: ProgramicVC {
     
     override func setActions() {
         loginButton.addTarget(self, action: #selector(signIn), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToPasswordResetVC(tapGestureRecognizer:)))
+        forgotPassword.addGestureRecognizer(tapGesture)
     }
     
     func setUpOverlay() {
@@ -112,7 +118,7 @@ class LoginVC: ProgramicVC {
         let infoLayoutFrame = infoLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(20)
         
-        [emailTextInput, passwordTextInput, loginButton].forEach{infoLayout.addSubview($0)}
+        [emailTextInput, passwordTextInput, forgotPassword, loginButton].forEach{infoLayout.addSubview($0)}
         
         emailTextInput.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
         emailTextInput.tag = 0
@@ -121,6 +127,10 @@ class LoginVC: ProgramicVC {
         passwordTextInput.anchor(top: emailTextInput.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
         passwordTextInput.tag = 1
         passwordTextInput.delegate = self
+        
+        forgotPassword.anchor(top: passwordTextInput.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: infoLayoutFrame.width*0.6, height: infoLayoutFrame.height*0.1))
+        forgotPassword.isUserInteractionEnabled = true
+
         
         loginButton.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: infoLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: infoLayoutFrame.width*0.3, bottom: infoLayoutFrame.height*0.4, right: infoLayoutFrame.width*0.3),size: .init(width: 0, height: 0))
         
@@ -138,6 +148,11 @@ class LoginVC: ProgramicVC {
         emailTextInput.isEnabled = !loading
         passwordTextInput.isEnabled = !loading
         loginButton.isEnabled = !loading
+    }
+    
+    @objc func goToPasswordResetVC(tapGestureRecognizer: UITapGestureRecognizer) {
+      // Your code goes here
+        self.navigationController!.pushViewController(PasswordResetVC(emailGivenFromLogin: email!), animated: true)
     }
     
     @objc func signIn() {
@@ -170,7 +185,7 @@ class LoginVC: ProgramicVC {
                     var configuration = user.configuration(partitionValue: "user=\(user.id)")
                     // Only allow User objects in this partition.
                     
-                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self] //would just be season
+                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self]
                     // Open the realm asynchronously so that it downloads the remote copy before
                     // opening the local copy.
                                       
@@ -181,11 +196,16 @@ class LoginVC: ProgramicVC {
                                 self!.setLoading(false, message: "Deciding If your Good Enough");
                                 fatalError("Failed to open realm: \(error)")
                             case .success(let userRealm):
-//                                let user = userRealm.objects(User.self)
-//                                if : user.copany == "" ->  self!.navigationController!.pushViewController(CompanyInfoViewController(userRealm: userRealm), animated: true);
-                                // Go to the list of projects in the user object contained in the user realm.
                                 SwiftSpinner.show(duration: 0.5, title: "Success!")
-                                self!.navigationController!.pushViewController(GetCompanyVC(userRealm: userRealm), animated: true);
+                                let users = userRealm.objects(User.self)
+                                if let user = users.first {
+                                    if(user.company != ""){
+                                        self!.navigationController!.pushViewController(HomeTBC(realm: userRealm), animated: false)
+                                    }
+                                    else{
+                                        self!.navigationController!.pushViewController(GetCompanyVC(userRealm: userRealm), animated: true)
+                                    }
+                                }
                             }
                         }
                     }
@@ -194,3 +214,21 @@ class LoginVC: ProgramicVC {
         };
     }
 }
+
+extension LoginVC: UnderLineTextFieldDelegate{
+    func textFieldValidate(underLineTextField: UnderLineTextField) throws {
+        let result : String = emailValidator(email: emailTextInput.text!)
+        if result != "Success"{
+            throw UnderLineTextFieldErrors
+                .error(message: result)
+        }
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField is UnderLineTextField{
+            let goodTextField = textField as! UnderLineTextField
+            goodTextField.status = .normal
+        }
+        return true
+    }
+}
+

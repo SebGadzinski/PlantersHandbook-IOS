@@ -62,6 +62,9 @@
 		86C741F125AB8DD6000547F9 /* icons8-oak-tree-64 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 86C741E325AB8DD6000547F9 /* icons8-oak-tree-64 (1).png */; };
 		86C7420B25ABBC1F000547F9 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7420A25ABBC1F000547F9 /* Functions.swift */; };
 		86C7422125ABE8CF000547F9 /* GetCompanyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7422025ABE8CF000547F9 /* GetCompanyVC.swift */; };
+		86C7424425ACF057000547F9 /* sep_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7424325ACF057000547F9 /* sep_icon.png */; };
+		86C7424925B090ED000547F9 /* UITextViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7424825B090EC000547F9 /* UITextViews.swift */; };
+		86C7425225B0B843000547F9 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425125B0B842000547F9 /* Enumerations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +148,9 @@
 		86C741E325AB8DD6000547F9 /* icons8-oak-tree-64 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-oak-tree-64 (1).png"; sourceTree = "<group>"; };
 		86C7420A25ABBC1F000547F9 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		86C7422025ABE8CF000547F9 /* GetCompanyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCompanyVC.swift; sourceTree = "<group>"; };
+		86C7424325ACF057000547F9 /* sep_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sep_icon.png; sourceTree = "<group>"; };
+		86C7424825B090EC000547F9 /* UITextViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViews.swift; sourceTree = "<group>"; };
+		86C7425125B0B842000547F9 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +292,7 @@
 		860BEC9F25A9485B00B3D699 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				86C7425025B0B826000547F9 /* Enumerations */,
 				86C741B925AB7D98000547F9 /* Classes */,
 				860BED4225A9528600B3D699 /* Images */,
 				860BECA725A9491900B3D699 /* Structs */,
@@ -309,6 +316,7 @@
 				860BECDD25A94B2E00B3D699 /* UITableViews.swift */,
 				860BECE325A94B4900B3D699 /* UICollectionViews.swift */,
 				86C741AD25AB5D71000547F9 /* UIViews.swift */,
+				86C7424825B090EC000547F9 /* UITextViews.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -392,6 +400,7 @@
 		860BED4225A9528600B3D699 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				86C7424325ACF057000547F9 /* sep_icon.png */,
 				86C741D625AB8DD5000547F9 /* icons8-cash-app-50-white.png */,
 				86C741DA25AB8DD5000547F9 /* icons8-cash-app-100.png */,
 				86C741DD25AB8DD6000547F9 /* icons8-cent-50-white.png */,
@@ -416,6 +425,14 @@
 				86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		86C7425025B0B826000547F9 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				86C7425125B0B842000547F9 /* Enumerations.swift */,
+			);
+			path = Enumerations;
 			sourceTree = "<group>";
 		};
 		A030790ED78FFA92BCC1C0C9 /* Frameworks */ = {
@@ -542,6 +559,7 @@
 				86C741E825AB8DD6000547F9 /* icons8-cash-app-100.png in Resources */,
 				86C741EA25AB8DD6000547F9 /* icons8-floating-island-forest-64.png in Resources */,
 				86C741E625AB8DD6000547F9 /* icons8-cent-100.png in Resources */,
+				86C7424425ACF057000547F9 /* sep_icon.png in Resources */,
 				86C741F025AB8DD6000547F9 /* icons8-forest-ranger-50-white.png in Resources */,
 				86C741EF25AB8DD6000547F9 /* icons8-tree-64.png in Resources */,
 				86C741E925AB8DD6000547F9 /* icons8-hay-52-white.png in Resources */,
@@ -619,6 +637,7 @@
 				86C7420B25ABBC1F000547F9 /* Functions.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
 				860BECC725A94B0400B3D699 /* UIScrollVIews.swift in Sources */,
+				86C7424925B090ED000547F9 /* UITextViews.swift in Sources */,
 				860BECED25A94BB200B3D699 /* WelcomeVC.swift in Sources */,
 				860BED2025A94DB900B3D699 /* HandbookEntry.swift in Sources */,
 				860BED1625A94D3700B3D699 /* User.swift in Sources */,
@@ -635,6 +654,7 @@
 				860BED2A25A94E1C00B3D699 /* SubBlock.swift in Sources */,
 				860BED6D25A9573300B3D699 /* PlotsVC.swift in Sources */,
 				860BED1125A94CBD00B3D699 /* HandbookVC.swift in Sources */,
+				86C7425225B0B843000547F9 /* Enumerations.swift in Sources */,
 				860BED3925A9514600B3D699 /* StatisticsNC.swift in Sources */,
 				860BEC5325A9442700B3D699 /* AppDelegate.swift in Sources */,
 				86C741AE25AB5D71000547F9 /* UIViews.swift in Sources */,

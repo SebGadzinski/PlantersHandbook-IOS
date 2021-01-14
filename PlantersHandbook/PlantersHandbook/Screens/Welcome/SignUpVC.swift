@@ -22,6 +22,8 @@ class SignUpVC: ProgramicVC {
     fileprivate let passwordTextInput = textField_form(placeholder: "password", textType: .newPassword)
     fileprivate let passwordConfirmTextInput = textField_form(placeholder: "confirm password", textType: .password)
     fileprivate let signUpButton = ph_button(title: "Sign Up!", fontSize: FontSize.large)
+    fileprivate var credientialsGiven = false
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -186,13 +188,6 @@ extension SignUpVC: UnderLineTextFieldDelegate{
         }
         _ = nextTextField.becomeFirstResponder()
         return false
-    }
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField is UnderLineTextField{
-            let goodTextField = textField as! UnderLineTextField
-            goodTextField.status = .normal
-        }
-        return true
     }
     
 }

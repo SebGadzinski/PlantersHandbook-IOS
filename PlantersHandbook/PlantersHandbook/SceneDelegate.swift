@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import SwiftSpinner
 
 let app = App(id: "planters-handbook-unaje") // Public Key : FAZFDKLA | Private Key : 296432d3-6d71-4dfc-a311-9e66a95ad555
 
@@ -24,9 +25,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: WelcomeVC())
         
-        guard let _ = (scene as? UIWindowScene) else { return }
+        let navigationController = UINavigationController(rootViewController: WelcomeVC())
+        SwiftSpinner.show("")
+        if let _ = app.currentUser{
+            print("user is logged in")
+            
+            var configuration = app.currentUser!.configuration(partitionValue: "user=\(app.currentUser!.id)")
+            configuration.objectTypes = [User.self, Season.self, HandbookEntry.self] //would just be season
+            
+            Realm.asyncOpen(configuration: configuration) { [weak self](result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        fatalError("Failed to open realm: \(error)")
+                    case .success(let userRealm):
+                        let users = userRealm.objects(User.self)
+                        if let user = users.first {
+                            if(user.company != ""){
+                                navigationController.pushViewController(HomeTBC(realm: userRealm), animated: false)
+                            }
+                            else{
+                                navigationController.pushViewController(GetCompanyVC(userRealm: userRealm), animated: true)
+                            }
+                            SwiftSpinner.hide()
+                            
+                            self!.window?.rootViewController = navigationController
+                            
+                            guard let _ = (scene as? UIWindowScene) else { return }
+                        }
+                        
+                    }
+                }
+            }
+        } else {
+            SwiftSpinner.hide()
+            window?.rootViewController = navigationController
+            guard let _ = (scene as? UIWindowScene) else { return }
+            print("not logged in; present sign in/signup view")
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -36,3 +36,7 @@ func passwordValidator(password : String) -> String{
 func passwordConfirmValidator(password : String, confirmingPassword: String) -> String{
     return (password == confirmingPassword ? "Success" : "Passwords don't match up")
 }
+
+func companyValidator(companyName : String) -> String{
+    return (companyName != "" ? "Success" : "Unacceptable email")
+}
