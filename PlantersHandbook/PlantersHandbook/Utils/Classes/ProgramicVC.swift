@@ -13,6 +13,7 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
     internal let kb = UIToolbar()
     internal let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneClick))
     internal let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    internal var keyboardMoveUpWhenTextFieldTouched : CGFloat = 150
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
     }
 
      @objc func keyboardWillShow(sender: NSNotification) {
-          self.view.frame.origin.y = -150 // Move view 150 points upward
+          self.view.frame.origin.y = -keyboardMoveUpWhenTextFieldTouched // Move view 150 points upward
      }
 
      @objc func keyboardWillHide(sender: NSNotification) {

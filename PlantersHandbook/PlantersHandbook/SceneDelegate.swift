@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-        
+                
         let navigationController = UINavigationController(rootViewController: WelcomeVC())
         SwiftSpinner.show("")
         if let _ = app.currentUser{
@@ -40,20 +40,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     case .failure(let error):
                         fatalError("Failed to open realm: \(error)")
                     case .success(let userRealm):
-                        let users = userRealm.objects(User.self)
+                        let users = userRealm.objects(User.self).filter(NSPredicate(format: "_id = %@", app.currentUser!.id))
                         if let user = users.first {
+                            print(users)
                             if(user.company != ""){
                                 navigationController.pushViewController(HomeTBC(realm: userRealm), animated: false)
                             }
                             else{
                                 navigationController.pushViewController(GetCompanyVC(userRealm: userRealm), animated: true)
                             }
-                            SwiftSpinner.hide()
-                            
-                            self!.window?.rootViewController = navigationController
-                            
-                            guard let _ = (scene as? UIWindowScene) else { return }
                         }
+                            
+                        SwiftSpinner.hide()
+                        
+                        self!.window?.rootViewController = navigationController
+                        
+                        guard let _ = (scene as? UIWindowScene) else { return }
                         
                     }
                 }

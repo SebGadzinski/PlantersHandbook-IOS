@@ -65,7 +65,7 @@ class LoginVC: ProgramicVC {
             passwordTextInput.text = passwordGivenFromSignUp
             
             //If there is no password it came from password reset or welcome page, if there is it came from sign up and user needs to confirm email
-            if(passwordGivenFromSignUp == ""){
+            if(passwordGivenFromSignUp != ""){
                 let alert = UIAlertController(title: "You must confirm your email before pressing login", message: email, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "I Will", style: .default, handler: nil))
                 self.present(alert, animated: true)
@@ -137,13 +137,13 @@ class LoginVC: ProgramicVC {
     }
     
     // Turn on or off the activity indicator.
-    func setLoading(_ loading: Bool, message: String) {
+    func setLoading(_ loading: Bool, message: String?) {
         if loading {
-            SwiftSpinner.show(message)
+            SwiftSpinner.show(message!)
             emailTextInput.errorLabel.text = "";
             passwordTextInput.errorLabel.text = "";
         } else {
-            SwiftSpinner.show(message, animated: false)
+            SwiftSpinner.hide()
         }
         emailTextInput.isEnabled = !loading
         passwordTextInput.isEnabled = !loading
@@ -165,13 +165,13 @@ class LoginVC: ProgramicVC {
             // namely disabling the loading indicator and navigating to the next page,
             // are handled on the UI thread:
             DispatchQueue.main.async {
-                self!.setLoading(false, message: "...");
                 switch result {
                 case .failure(let error):
                     // Auth error: user already exists? Try logging in as that user.
                     print("Login failed: \(error)");
                     let alert = JDropDownAlert()
                     alert.alertWith("*** Error: \(error.localizedDescription) ***")
+                    self!.setLoading(false, message: nil);
                     return
                 case .success(let user):
                     print("Login succeeded!");
@@ -199,6 +199,7 @@ class LoginVC: ProgramicVC {
                                 SwiftSpinner.show(duration: 0.5, title: "Success!")
                                 let users = userRealm.objects(User.self)
                                 if let user = users.first {
+                                    print(users)
                                     if(user.company != ""){
                                         self!.navigationController!.pushViewController(HomeTBC(realm: userRealm), animated: false)
                                     }

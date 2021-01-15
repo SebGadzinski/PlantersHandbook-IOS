@@ -17,3 +17,12 @@ func label_normal(title: String?, fontSize: Float?) -> UILabel {
     lb.textAlignment = .center
     return lb
 }
+
+func label_date(fontSize: Float?) -> UILabel {
+    let lb = UILabel()
+    lb.text = getDate(from: Date())
+    lb.textAlignment = .center
+    lb.adjustsFontSizeToFitWidth = true
+    lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize!))
+    return lb
+}

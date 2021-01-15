@@ -13,6 +13,8 @@ import JDropDownAlert
 class GetCompanyVC: ProgramicVC {
     let userRealm: Realm
     var userData: User?
+    var notificationToken: NotificationToken?
+
     
     let companies = ["AkeHurst & Giltrap Reforestation", "Abderson & Yates Forest Consultants", "A&M Reforestation", "Backwoods Contracting", "Big Sky Silviculture", "Bivouac West Contracting", "Blue Collar Silviculture", "Brinkman & Associates", "Broland Enterprises", "Capstone Foresty", "Celtruc Reforestation", "Coast Range Contracting", "DJ Silviculture EnterPrises", "Dorsey Contracting", "Dynamic Reforestation", "Folklore Contracting", "Haveman Brothers Forestry Services", "Heritage Reforestation", "Hybrid 17 Contracting", "Leader Silviculture", "Little Smokey Forestry" , "Moose Creek Reforestation", "Nata Reforestation", "Nechako Reforestation Services", "Next Generation Reforestation", "New Growth Forestry", "Outland Reforestation", "Prt Frontier", "Quastuco Silviculture", "Ragen Forestry", "Rhino Reforestation Services", "SBS Forestry", "Seneca Enterprises", "Spectrum Resource Group", "Summit Reforestation & Forest Management LTD", "ThunderHouse Forest Services", "TreeLine Reforestation", "USIB Silviculture", "Wilderness Reforestation", "Wildwood Reforestation", "Windfirm Resources", "Zanzibar Holdings"]
     
@@ -26,19 +28,41 @@ class GetCompanyVC: ProgramicVC {
     fileprivate let companyTitle = label_normal(title: "Company", fontSize: FontSize.extraLarge)
     fileprivate let companyInfoMessage = textView_multiLine(text: "Please select the company you work for", fontSize: FontSize.meduim)
     fileprivate let companyTextInput = textField_form(placeholder: "Click to choose", textType: .name)
-    fileprivate let confirmButton = ph_button(title: "Send", fontSize: FontSize.large)
+    fileprivate let confirmButton = ph_button(title: "Confirm", fontSize: FontSize.large)
     
     init(userRealm: Realm) {
+        guard let syncConfiguration = userRealm.configuration.syncConfiguration else {
+            fatalError("Sync configuration not found! Realm not opened with sync?");
+        }
+        
         self.userRealm = userRealm
 
         super.init(nibName: nil, bundle: nil)
 
         let usersInRealm = userRealm.objects(User.self)
         userData = usersInRealm.first
+        
+        print(usersInRealm)
+        
+        notificationToken = usersInRealm.observe({ [weak self](changes) in
+            switch changes {
+            case .initial:
+                print("started")
+            case .update(_, _, _, let modifications):
+                print("there was a modification")
+                print(self!.userData)
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,7 +116,7 @@ class GetCompanyVC: ProgramicVC {
         companyTitle.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
         companyTitle.anchorCenterX(to: titleLayout)
         
-        companyInfoMessage.anchor(top: companyTitle.bottomAnchor, leading: titleLayout.leadingAnchor, bottom: nil, trailing: titleLayout.trailingAnchor, padding: .init(top: 5, left: 5, bottom: 0, right: 5), size: .init(width: 0, height: titleLayoutFrame.height*0.2))
+        companyInfoMessage.anchor(top: companyTitle.bottomAnchor, leading: titleLayout.leadingAnchor, bottom: titleLayout.bottomAnchor, trailing: titleLayout.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 0, right: 5), size: .init(width: 0, height: titleLayoutFrame.height*0.2))
         companyInfoMessage.anchorCenterX(to: titleLayout)
         companyInfoMessage.textAlignment = .center
         

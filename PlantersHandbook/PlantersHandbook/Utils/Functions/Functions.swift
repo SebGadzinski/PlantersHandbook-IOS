@@ -40,3 +40,47 @@ func passwordConfirmValidator(password : String, confirmingPassword: String) -> 
 func companyValidator(companyName : String) -> String{
     return (companyName != "" ? "Success" : "Unacceptable email")
 }
+
+func getDate(from: Date) -> String {
+    let curDate = Calendar.current.dateComponents([.year,.day,.month], from: from)
+    return String(curDate.year!) + " " + getMonth(month: curDate.month!) + " " +  String(curDate.day!)
+}
+
+func getMonth(month: Int) -> String{
+    if(month == 1){
+        return "Jan."
+    }
+    else if (month == 2){
+        return "Feb."
+    }
+    else if (month == 3){
+        return "Mar."
+    }
+    else if (month == 4){
+        return "Apr."
+    }
+    else if (month == 5){
+        return "Jun."
+    }
+    else if (month == 6){
+        return "Jun."
+    }
+    else if (month == 7){
+        return "Jul."
+    }
+    else if (month == 8){
+        return "Aug."
+    }
+    else if (month == 9){
+        return "Sep."
+    }
+    else if (month == 10){
+        return "Oct."
+    }
+    else if (month == 11){
+        return "Nov."
+    }
+    else{
+        return "Dec."
+    }
+}

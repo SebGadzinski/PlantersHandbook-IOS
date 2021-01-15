@@ -13,6 +13,7 @@ class HomeTBC: UITabBarController {
     
     init(realm: Realm) {
         self.realm = realm
+        print(realm)
         super.init(nibName: nil, bundle: nil)
     }
     
