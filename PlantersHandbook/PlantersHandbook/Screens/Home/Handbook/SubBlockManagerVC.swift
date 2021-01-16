@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SubBlockVC: ProgramicVC {
+class SubBlockManagerVC: ProgramicVC {
     
     override func fetchData() {
         

@@ -37,7 +37,7 @@
 		860BED3E25A9526F00B3D699 /* HomeTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED3D25A9526F00B3D699 /* HomeTBC.swift */; };
 		860BED4425A9531900B3D699 /* ProgramicVCInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED4325A9531900B3D699 /* ProgramicVCInterface.swift */; };
 		860BED5925A9568400B3D699 /* BlockManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED5825A9568400B3D699 /* BlockManagerVC.swift */; };
-		860BED5E25A9569100B3D699 /* SubBlockVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED5D25A9569100B3D699 /* SubBlockVC.swift */; };
+		860BED5E25A9569100B3D699 /* SubBlockManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED5D25A9569100B3D699 /* SubBlockManagerVC.swift */; };
 		860BED6325A956A400B3D699 /* CacheManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6225A956A400B3D699 /* CacheManagerVC.swift */; };
 		860BED6825A9570200B3D699 /* TallySheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6725A9570200B3D699 /* TallySheetVC.swift */; };
 		860BED6D25A9573300B3D699 /* PlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6C25A9573300B3D699 /* PlotsVC.swift */; };
@@ -124,7 +124,7 @@
 		860BED3D25A9526F00B3D699 /* HomeTBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTBC.swift; sourceTree = "<group>"; };
 		860BED4325A9531900B3D699 /* ProgramicVCInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramicVCInterface.swift; sourceTree = "<group>"; };
 		860BED5825A9568400B3D699 /* BlockManagerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManagerVC.swift; sourceTree = "<group>"; };
-		860BED5D25A9569100B3D699 /* SubBlockVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubBlockVC.swift; sourceTree = "<group>"; };
+		860BED5D25A9569100B3D699 /* SubBlockManagerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubBlockManagerVC.swift; sourceTree = "<group>"; };
 		860BED6225A956A400B3D699 /* CacheManagerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerVC.swift; sourceTree = "<group>"; };
 		860BED6725A9570200B3D699 /* TallySheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallySheetVC.swift; sourceTree = "<group>"; };
 		860BED6C25A9573300B3D699 /* PlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotsVC.swift; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 				860BED3325A9512E00B3D699 /* HandbookNC.swift */,
 				860BED1025A94CBD00B3D699 /* HandbookVC.swift */,
 				860BED5825A9568400B3D699 /* BlockManagerVC.swift */,
-				860BED5D25A9569100B3D699 /* SubBlockVC.swift */,
+				860BED5D25A9569100B3D699 /* SubBlockManagerVC.swift */,
 				860BED6225A956A400B3D699 /* CacheManagerVC.swift */,
 				860BED6725A9570200B3D699 /* TallySheetVC.swift */,
 				860BED6C25A9573300B3D699 /* PlotsVC.swift */,
@@ -680,7 +680,7 @@
 				860BECFF25A94C2400B3D699 /* StatisticsVC.swift in Sources */,
 				860BED6325A956A400B3D699 /* CacheManagerVC.swift in Sources */,
 				860BED1B25A94DA500B3D699 /* Season.swift in Sources */,
-				860BED5E25A9569100B3D699 /* SubBlockVC.swift in Sources */,
+				860BED5E25A9569100B3D699 /* SubBlockManagerVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
