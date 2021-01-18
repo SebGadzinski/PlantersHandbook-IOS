@@ -175,19 +175,13 @@ class LoginVC: ProgramicVC {
                     return
                 case .success(let user):
                     print("Login succeeded!");
-                    
-                    // Load again while we open the realm.
                     self!.setLoading(true, message: "Gathering Info From Database");
-                    // Get a configuration to open the synced realm.
                     
-                    print(user.id) //5ffc5a8b291706c5ea43ba17
+                    print(user.id)
                     
                     var configuration = user.configuration(partitionValue: "user=\(user.id)")
-                    // Only allow User objects in this partition.
                     
-                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self]
-                    // Open the realm asynchronously so that it downloads the remote copy before
-                    // opening the local copy.
+                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, Coordinate.self]
                                       
                     Realm.asyncOpen(configuration: configuration) { [weak self](result) in
                         DispatchQueue.main.async {
@@ -196,6 +190,7 @@ class LoginVC: ProgramicVC {
                                 self!.setLoading(false, message: "Deciding If your Good Enough");
                                 fatalError("Failed to open realm: \(error)")
                             case .success(let userRealm):
+                                
                                 SwiftSpinner.show(duration: 0.5, title: "Success!")
                                 let users = userRealm.objects(User.self)
                                 if let user = users.first {

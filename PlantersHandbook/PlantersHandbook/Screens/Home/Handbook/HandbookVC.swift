@@ -20,7 +20,7 @@ class HandbookVC: ProgramicVC {
     var handbookEntryNotificationToken: NotificationToken?
     let seasons: Results<Season>
     var handbookEntries: Results<HandbookEntry>
-    fileprivate let dateLb = label_date(fontSize: FontSize.large)
+    fileprivate let dateLb = label_date(fontSize: FontSize.extraLarge)
     fileprivate let addEntryButton = ph_button(title: "Add Entry", fontSize: FontSize.extraLarge)
     fileprivate let addSeasonButton = ph_button(title: "Add Season", fontSize: FontSize.meduim)
     fileprivate var seasonTableView = tableView_normal()
@@ -96,7 +96,7 @@ class HandbookVC: ProgramicVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func generateLayout() {
@@ -199,9 +199,10 @@ class HandbookVC: ProgramicVC {
     }
     
     func nextVC(entry: HandbookEntry) {
-//        let vc = HandbookVC_Blocks()
-//        vc.handbookEntryId = entry.id
-//        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(
+            BlockManagerVC(realm: realm, title: getDate(from: entry.date), handbookId: entry._id),
+            animated: true
+        );
     }
     
     @objc func addEntryAction(){
@@ -264,13 +265,12 @@ extension HandbookVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(tableView == handbookEntrysTableView){
-            let entry = handbookEntries[indexPath.row]
-            nextVC(entry: entry)
+            tableView.deselectRow(at: indexPath, animated: false)
+            nextVC(entry: handbookEntries[indexPath.row])
         }
         else{
-            let season = seasons[indexPath.row]
             seasonSelected = indexPath.row
-            setHandbookEntries(seasonId: season._id)
+            setHandbookEntries(seasonId: seasons[indexPath.row]._id)
         }
     }
 
@@ -279,21 +279,34 @@ extension HandbookVC: UITableViewDelegate, UITableViewDataSource{
         
         if(tableView == handbookEntrysTableView){
             let entry = handbookEntries[indexPath.row]
-            try! realm.write {
-                // Delete the Task.
-                realm.delete(entry)
+            deleteEntry(entry: entry, realm: realm){ (result) in
+                if(result){
+                    print("Entry Deleted")
+                }
+                else{
+                    let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Handbook Entry", preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
         else{
             let season = seasons[indexPath.row]
-            try! realm.write {
-                // Delete the Task.
-                realm.delete(season)
-            }
-            if(!seasons.isEmpty){
-                seasonSelected = 0
-                seasonTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
-                setHandbookEntries(seasonId: seasons[seasonSelected]._id)
+            deleteSeason(season: season, realm: realm){ (result) in
+                if(result){
+                    if(!seasons.isEmpty){
+                        seasonSelected = 0
+                        seasonTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+                        setHandbookEntries(seasonId: seasons[seasonSelected]._id)
+                    }
+                }
+                else{
+                    let alertController = UIAlertController(title: "Error: Realm", message: "Error Could Not Delete Season", preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
     }

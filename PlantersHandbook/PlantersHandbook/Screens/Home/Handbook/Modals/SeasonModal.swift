@@ -79,6 +79,11 @@ class SeasonModal: ProgramicVC {
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return false
+    }
 
 }
 

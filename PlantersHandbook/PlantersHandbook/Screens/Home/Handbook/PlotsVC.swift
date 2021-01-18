@@ -9,10 +9,6 @@ import UIKit
 
 class PlotsVC: ProgramicVC {
     
-    override func fetchData() {
-        
-    }
-    
     override func generateLayout() {
         
     }

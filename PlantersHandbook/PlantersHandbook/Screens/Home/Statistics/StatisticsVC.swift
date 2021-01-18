@@ -49,9 +49,6 @@ class StatisticsVC: ProgramicVC {
         self.navigationController?.navigationBar.isHidden = true
     }
     
-    override func fetchData() {
-        
-    }
     
     override func generateLayout() {
         

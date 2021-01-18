@@ -29,7 +29,6 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
         frame = bgView.safeAreaFrame
         
         keyboardSetUp()
-        fetchData()
         generateLayout()
         configureViews()
         setActions()
@@ -50,10 +49,6 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
     
     @objc func doneClick(){
         self.view.endEditing(true)
-    }
-
-    func fetchData() {
-        print("Fetched Data")
     }
     
     func generateLayout() {
