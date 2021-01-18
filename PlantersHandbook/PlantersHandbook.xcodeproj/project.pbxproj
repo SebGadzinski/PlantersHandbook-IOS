@@ -66,6 +66,7 @@
 		86C7424925B090ED000547F9 /* UITextViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7424825B090EC000547F9 /* UITextViews.swift */; };
 		86C7425225B0B843000547F9 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425125B0B842000547F9 /* Enumerations.swift */; };
 		86C7425E25B20E87000547F9 /* SeasonModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425D25B20E87000547F9 /* SeasonModal.swift */; };
+		86C7426C25B5DDB0000547F9 /* RealmDeletionWaterfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		86C7424825B090EC000547F9 /* UITextViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViews.swift; sourceTree = "<group>"; };
 		86C7425125B0B842000547F9 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		86C7425D25B20E87000547F9 /* SeasonModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModal.swift; sourceTree = "<group>"; };
+		86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDeletionWaterfall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 				860BEC9B25A947A400B3D699 /* Models */,
 				860BEC5225A9442700B3D699 /* AppDelegate.swift */,
 				860BEC5425A9442700B3D699 /* SceneDelegate.swift */,
+				86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */,
 				860BEC5B25A9442900B3D699 /* Assets.xcassets */,
 				860BEC5D25A9442900B3D699 /* LaunchScreen.storyboard */,
 				860BEC6025A9442900B3D699 /* Info.plist */,
@@ -657,6 +660,7 @@
 				86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */,
 				860BECD925A94B2400B3D699 /* UILabels.swift in Sources */,
 				86C7422125ABE8CF000547F9 /* GetCompanyVC.swift in Sources */,
+				86C7426C25B5DDB0000547F9 /* RealmDeletionWaterfall.swift in Sources */,
 				860BED4425A9531900B3D699 /* ProgramicVCInterface.swift in Sources */,
 				860BED3E25A9526F00B3D699 /* HomeTBC.swift in Sources */,
 				86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */,

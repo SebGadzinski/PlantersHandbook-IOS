@@ -8,7 +8,6 @@
 import Foundation
 
 protocol ProgramicVCInterface{
-    func fetchData() -> Void
     func generateLayout() -> Void
     func configureViews() -> Void
     func setActions() -> Void

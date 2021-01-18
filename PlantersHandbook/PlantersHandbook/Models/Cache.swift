@@ -18,9 +18,9 @@ class Cache: Object {
     var bundlesPerTreeTypes = List<Int>()
     var totalCashPerTreeTypes = List<Double>()
     var totalTreesPerTreeTypes = List<Int>()
-    var bagUpsPerTreeTypes = List<BagUpInput>()
-    var plots = List<PlotInput>()
-    var coordinatesCovered = List<Coordinate>()
+    var bagUpsPerTreeTypes = RealmSwift.List<BagUpInput>()
+    var plots = RealmSwift.List<PlotInput>()
+    var coordinatesCovered = RealmSwift.List<Coordinate>()
     
     override static func primaryKey() -> String? {
         return "_id"
@@ -47,6 +47,6 @@ class PlotInput: EmbeddedObject{
 }
 
 class Coordinate: EmbeddedObject{
-    var longitude : Float = 0.0
-    var latitude : Float = 0.0
+    @objc var longitude : Double = 0.0
+    @objc var latitude : Double = 0.0
 }

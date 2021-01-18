@@ -15,7 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -32,22 +31,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("user is logged in")
             
             var configuration = app.currentUser!.configuration(partitionValue: "user=\(app.currentUser!.id)")
-            configuration.objectTypes = [User.self, Season.self, HandbookEntry.self] //would just be season
+            configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, Coordinate.self]
             
             Realm.asyncOpen(configuration: configuration) { [weak self](result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
                         fatalError("Failed to open realm: \(error)")
-                    case .success(let userRealm):
-                        let users = userRealm.objects(User.self).filter(NSPredicate(format: "_id = %@", app.currentUser!.id))
+                    case .success(let realm):
+                        let users = realm.objects(User.self).filter(NSPredicate(format: "_id = %@", app.currentUser!.id))
                         if let user = users.first {
                             print(users)
                             if(user.company != ""){
-                                navigationController.pushViewController(HomeTBC(realm: userRealm), animated: false)
+                                navigationController.pushViewController(HomeTBC(realm: realm), animated: false)
                             }
                             else{
-                                navigationController.pushViewController(GetCompanyVC(userRealm: userRealm), animated: true)
+                                navigationController.pushViewController(GetCompanyVC(userRealm: realm), animated: true)
                             }
                         }
                             

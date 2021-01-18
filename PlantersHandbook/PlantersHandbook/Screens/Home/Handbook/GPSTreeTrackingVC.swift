@@ -9,10 +9,6 @@ import UIKit
 
 class GPSTreeTrackingVC: ProgramicVC {
     
-    override func fetchData() {
-        
-    }
-    
     override func generateLayout() {
         
     }

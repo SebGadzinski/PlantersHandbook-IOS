@@ -9,10 +9,6 @@ import UIKit
 
 class TallySheetVC: ProgramicVC {
     
-    override func fetchData() {
-        
-    }
-    
     override func generateLayout() {
         
     }
