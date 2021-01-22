@@ -101,6 +101,7 @@ class CacheManagerVC: ProgramicVC {
         titleLayout.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: bgView.leadingAnchor, bottom: nil, trailing: bgView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: frame.width, height: frame.height*0.1))
         
         actionLayout.anchor(top: titleLayout.bottomAnchor, leading: bgView.leadingAnchor, bottom: nil, trailing: bgView.trailingAnchor, size: .init(width: frame.width, height: frame.height*0.20))
+        
         tableViewLayout.anchor(top: actionLayout.bottomAnchor, leading: bgView.leadingAnchor, bottom: nil, trailing: bgView.trailingAnchor, size: .init(width: frame.width, height: frame.height*0.70))
     }
     
@@ -122,7 +123,7 @@ class CacheManagerVC: ProgramicVC {
         self.cacheNameInput.delegate = self
         cacheNameInput.textAlignment = .center
         
-        addCacheButton.anchor(top: cacheNameInput.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: actionFrame.height*0.4))
+        addCacheButton.anchor(top: cacheNameInput.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
         addCacheButton.anchorCenterX(to: actionLayout)
     }
     
@@ -141,7 +142,10 @@ class CacheManagerVC: ProgramicVC {
     }
     
     func nextVC(cache: Cache){
-
+        self.navigationController?.pushViewController(
+            TallySheetVC(realm: realm, cache: cache),
+            animated: true
+        )
     }
     
     @objc func addCacheAction(){
@@ -152,9 +156,11 @@ class CacheManagerVC: ProgramicVC {
                 return
         }
         else{
-            let cache = Cache(partition: partitionValue, title: cacheNameInput.text!, subBlockId: subBlockId)
-            try! self.realm.write {
-                self.realm.add(cache)
+            if(cacheNameInput.text! != ""){
+                let cache = Cache(partition: partitionValue, title: cacheNameInput.text!, subBlockId: subBlockId)
+                try! self.realm.write {
+                    self.realm.add(cache)
+                }
             }
         }
         cacheNameInput.text = ""
