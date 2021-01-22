@@ -41,7 +41,7 @@ class HandbookVC: ProgramicVC {
         seasons = realm.objects(Season.self).sorted(byKeyPath: "_id")
         if let season = seasons.first{
             let predicate = NSPredicate(format: "seasonId = %@", season._id)
-            handbookEntries = realm.objects(HandbookEntry.self).filter(predicate)
+            handbookEntries = realm.objects(HandbookEntry.self).filter(predicate).sorted(byKeyPath: "_id")
         }
         else{
             handbookEntries = realm.objects(HandbookEntry.self).filter(NSPredicate(format: "seasonId = %@", "Empty"))
@@ -237,8 +237,12 @@ class HandbookVC: ProgramicVC {
     }
     
     @objc func logoutAction(){
-        app.currentUser?.logOut(){ (result) in
-            self.navigationController?.navigationController?.popToRootViewController(animated: true)
+        app.currentUser?.logOut(){ [weak self] error in
+            DispatchQueue.main.async {
+                if(error == nil){
+                    self!.navigationController?.navigationController?.popToRootViewController(animated: true)
+                }
+            }
         }
     }
 }

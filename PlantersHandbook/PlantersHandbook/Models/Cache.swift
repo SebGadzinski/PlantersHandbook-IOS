@@ -31,6 +31,13 @@ class Cache: Object {
         self._partition = partition
         self.subBlockId = subBlockId
         self.title = title
+        emptyTallyStringList(list: self.treeTypes)
+        emptyTallyDoubleList(list: self.centPerTreeTypes)
+        emptyTallyIntList(list: self.bundlesPerTreeTypes)
+        emptyTallyDoubleList(list: self.totalCashPerTreeTypes)
+        emptyTallyIntList(list: self.totalTreesPerTreeTypes)
+        emptyTallyBagUps(list: self.bagUpsPerTreeTypes)
+        emptyTallyPlots(list: self.plots)
     }
     
 }
@@ -50,3 +57,4 @@ class Coordinate: EmbeddedObject{
     @objc var longitude : Double = 0.0
     @objc var latitude : Double = 0.0
 }
+

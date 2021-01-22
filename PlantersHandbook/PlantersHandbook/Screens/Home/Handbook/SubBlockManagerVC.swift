@@ -101,6 +101,7 @@ class SubBlockManagerVC: ProgramicVC {
         titleLayout.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: bgView.leadingAnchor, bottom: nil, trailing: bgView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: frame.width, height: frame.height*0.1))
         
         actionLayout.anchor(top: titleLayout.bottomAnchor, leading: bgView.leadingAnchor, bottom: nil, trailing: bgView.trailingAnchor, size: .init(width: frame.width, height: frame.height*0.20))
+        
         tableViewLayout.anchor(top: actionLayout.bottomAnchor, leading: bgView.leadingAnchor, bottom: nil, trailing: bgView.trailingAnchor, size: .init(width: frame.width, height: frame.height*0.70))
     }
     
@@ -122,7 +123,7 @@ class SubBlockManagerVC: ProgramicVC {
         self.subBlockNameInput.delegate = self
         subBlockNameInput.textAlignment = .center
         
-        addSubBlockButton.anchor(top: subBlockNameInput.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: actionFrame.height*0.4))
+        addSubBlockButton.anchor(top: subBlockNameInput.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
         addSubBlockButton.anchorCenterX(to: actionLayout)
     }
     
@@ -155,9 +156,11 @@ class SubBlockManagerVC: ProgramicVC {
                 return
         }
         else{
-            let subBlock = SubBlock(partition: partitionValue, title: subBlockNameInput.text!, blockId: blockId)
-            try! self.realm.write {
-                self.realm.add(subBlock)
+            if(subBlockNameInput.text! != ""){
+                let subBlock = SubBlock(partition: partitionValue, title: subBlockNameInput.text!, blockId: blockId)
+                try! self.realm.write {
+                    self.realm.add(subBlock)
+                }
             }
         }
         subBlockNameInput.text = ""

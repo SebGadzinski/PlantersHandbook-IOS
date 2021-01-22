@@ -40,9 +40,11 @@
 		860BED5E25A9569100B3D699 /* SubBlockManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED5D25A9569100B3D699 /* SubBlockManagerVC.swift */; };
 		860BED6325A956A400B3D699 /* CacheManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6225A956A400B3D699 /* CacheManagerVC.swift */; };
 		860BED6825A9570200B3D699 /* TallySheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6725A9570200B3D699 /* TallySheetVC.swift */; };
-		860BED6D25A9573300B3D699 /* PlotsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6C25A9573300B3D699 /* PlotsVC.swift */; };
-		860BED7225A9577300B3D699 /* GPSTreeTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED7125A9577200B3D699 /* GPSTreeTrackingVC.swift */; };
+		860BED6D25A9573300B3D699 /* PlotsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6C25A9573300B3D699 /* PlotsModal.swift */; };
+		860BED7225A9577300B3D699 /* GPSTreeTrackingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED7125A9577200B3D699 /* GPSTreeTrackingModal.swift */; };
 		860BED7A25AA296A00B3D699 /* PasswordResetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED7925AA296A00B3D699 /* PasswordResetVC.swift */; };
+		86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854B9E25BA5A620089CF2D /* DoubleExtension.swift */; };
+		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
 		86C741AE25AB5D71000547F9 /* UIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* UIViews.swift */; };
 		86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */; };
 		86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */; };
@@ -67,6 +69,7 @@
 		86C7425225B0B843000547F9 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425125B0B842000547F9 /* Enumerations.swift */; };
 		86C7425E25B20E87000547F9 /* SeasonModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425D25B20E87000547F9 /* SeasonModal.swift */; };
 		86C7426C25B5DDB0000547F9 /* RealmDeletionWaterfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */; };
+		86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7427925B673A7000547F9 /* TallyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,9 +131,11 @@
 		860BED5D25A9569100B3D699 /* SubBlockManagerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubBlockManagerVC.swift; sourceTree = "<group>"; };
 		860BED6225A956A400B3D699 /* CacheManagerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerVC.swift; sourceTree = "<group>"; };
 		860BED6725A9570200B3D699 /* TallySheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallySheetVC.swift; sourceTree = "<group>"; };
-		860BED6C25A9573300B3D699 /* PlotsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotsVC.swift; sourceTree = "<group>"; };
-		860BED7125A9577200B3D699 /* GPSTreeTrackingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTreeTrackingVC.swift; sourceTree = "<group>"; };
+		860BED6C25A9573300B3D699 /* PlotsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotsModal.swift; sourceTree = "<group>"; };
+		860BED7125A9577200B3D699 /* GPSTreeTrackingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTreeTrackingModal.swift; sourceTree = "<group>"; };
 		860BED7925AA296A00B3D699 /* PasswordResetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetVC.swift; sourceTree = "<group>"; };
+		86854B9E25BA5A620089CF2D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* UIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViews.swift; sourceTree = "<group>"; };
 		86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramicVC.swift; sourceTree = "<group>"; };
 		86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -155,6 +160,7 @@
 		86C7425125B0B842000547F9 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		86C7425D25B20E87000547F9 /* SeasonModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModal.swift; sourceTree = "<group>"; };
 		86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDeletionWaterfall.swift; sourceTree = "<group>"; };
+		86C7427925B673A7000547F9 /* TallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,8 +286,6 @@
 				860BED5D25A9569100B3D699 /* SubBlockManagerVC.swift */,
 				860BED6225A956A400B3D699 /* CacheManagerVC.swift */,
 				860BED6725A9570200B3D699 /* TallySheetVC.swift */,
-				860BED6C25A9573300B3D699 /* PlotsVC.swift */,
-				860BED7125A9577200B3D699 /* GPSTreeTrackingVC.swift */,
 			);
 			path = Handbook;
 			sourceTree = "<group>";
@@ -339,6 +343,8 @@
 			isa = PBXGroup;
 			children = (
 				86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */,
+				86854B9E25BA5A620089CF2D /* DoubleExtension.swift */,
+				86854BA625BA60680089CF2D /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -370,6 +376,7 @@
 		860BECC425A94AA400B3D699 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				86C7427925B673A7000547F9 /* TallyCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -444,7 +451,9 @@
 		86C7425C25B20E50000547F9 /* Modals */ = {
 			isa = PBXGroup;
 			children = (
+				860BED6C25A9573300B3D699 /* PlotsModal.swift */,
 				86C7425D25B20E87000547F9 /* SeasonModal.swift */,
+				860BED7125A9577200B3D699 /* GPSTreeTrackingModal.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -647,14 +656,17 @@
 			files = (
 				860BECF525A94BCE00B3D699 /* LoginVC.swift in Sources */,
 				860BECD425A94B1A00B3D699 /* UIButtons.swift in Sources */,
+				86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */,
 				860BED5925A9568400B3D699 /* BlockManagerVC.swift in Sources */,
 				86C7420B25ABBC1F000547F9 /* Functions.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
 				860BECC725A94B0400B3D699 /* UIScrollVIews.swift in Sources */,
 				86C7424925B090ED000547F9 /* UITextViews.swift in Sources */,
+				86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */,
 				860BECED25A94BB200B3D699 /* WelcomeVC.swift in Sources */,
 				860BED2025A94DB900B3D699 /* HandbookEntry.swift in Sources */,
 				860BED1625A94D3700B3D699 /* User.swift in Sources */,
+				86854BA725BA60680089CF2D /* StringExtension.swift in Sources */,
 				860BED2F25A94E2A00B3D699 /* Cache.swift in Sources */,
 				860BED3425A9512E00B3D699 /* HandbookNC.swift in Sources */,
 				86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */,
@@ -667,7 +679,7 @@
 				860BECB125A94A2400B3D699 /* Accessories.swift in Sources */,
 				860BECE425A94B4900B3D699 /* UICollectionViews.swift in Sources */,
 				860BED2A25A94E1C00B3D699 /* SubBlock.swift in Sources */,
-				860BED6D25A9573300B3D699 /* PlotsVC.swift in Sources */,
+				860BED6D25A9573300B3D699 /* PlotsModal.swift in Sources */,
 				860BED1125A94CBD00B3D699 /* HandbookVC.swift in Sources */,
 				86C7425E25B20E87000547F9 /* SeasonModal.swift in Sources */,
 				86C7425225B0B843000547F9 /* Enumerations.swift in Sources */,
@@ -677,7 +689,7 @@
 				860BED6825A9570200B3D699 /* TallySheetVC.swift in Sources */,
 				860BEC5525A9442700B3D699 /* SceneDelegate.swift in Sources */,
 				860BECDE25A94B2E00B3D699 /* UITableViews.swift in Sources */,
-				860BED7225A9577300B3D699 /* GPSTreeTrackingVC.swift in Sources */,
+				860BED7225A9577300B3D699 /* GPSTreeTrackingModal.swift in Sources */,
 				860BECFA25A94BE600B3D699 /* SignUpVC.swift in Sources */,
 				860BECCF25A94B0F00B3D699 /* UITextFields.swift in Sources */,
 				860BED7A25AA296A00B3D699 /* PasswordResetVC.swift in Sources */,

@@ -8,6 +8,7 @@
 import Foundation
 import EmailValidator
 import Navajo_Swift
+import RealmSwift
 
 func emailValidator(email : String) -> String{
     return (EmailValidator.validate(email: email) ? "Success" : "Unacceptable email")
@@ -83,4 +84,63 @@ func getMonth(month: Int) -> String{
     else{
         return "Dec."
     }
+}
+
+func emptyTallyStringList(list: List<String>){
+    list.removeAll()
+    for _ in 0..<8{
+        list.append("")
+    }
+}
+
+func emptyTallyDoubleList(list: List<Double>){
+    list.removeAll()
+    for _ in 0..<8{
+        list.append(0)
+    }
+}
+
+func emptyTallyIntList(list: List<Int>){
+    list.removeAll()
+    for _ in 0..<8{
+        list.append(0)
+    }
+}
+
+func emptyTallyBagUps(list: List<BagUpInput>){
+    list.removeAll()
+    for _ in 0..<20{
+        let bagUpInput = BagUpInput()
+        emptyTallyIntList(list: bagUpInput.input)
+        list.append(bagUpInput)
+    }
+}
+
+func emptyTallyPlots(list: List<PlotInput>){
+    list.removeAll()
+    for _ in 0..<20{
+        list.append(PlotInput())
+    }
+}
+
+func createAdvancedTallyCell(cell: TallyCell, toolBar: UIToolbar, tag: Int, keyboardType: UIKeyboardType){
+    cell.input.inputAccessoryView = toolBar
+    cell.input.tag = tag
+    cell.input.keyboardType = keyboardType
+}
+
+func integer(from textField: UITextField) -> Int {
+    guard let text = textField.text, let number = Int(text) else {
+        return 0
+    }
+    return number
+}
+
+func containsLetters(input: String) -> Bool {
+   for chr in input {
+      if ((chr >= "a" && chr <= "z") || (chr >= "A" && chr <= "Z") ) {
+         return true
+      }
+   }
+   return false
 }

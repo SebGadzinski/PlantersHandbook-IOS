@@ -14,6 +14,7 @@ func scrollViewNormal() -> UIScrollView {
     scrollView.backgroundColor = .systemBackground
     scrollView.isScrollEnabled = true
     scrollView.showsHorizontalScrollIndicator = false
+    scrollView.isDirectionalLockEnabled = true
     scrollView.showsVerticalScrollIndicator = true
     return scrollView
 }

@@ -122,7 +122,7 @@ class BlockManagerVC: ProgramicVC {
         self.blockNameInput.delegate = self
         blockNameInput.textAlignment = .center
         
-        addBlockButton.anchor(top: blockNameInput.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: actionFrame.height*0.4))
+        addBlockButton.anchor(top: blockNameInput.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
         addBlockButton.anchorCenterX(to: actionLayout)
     }
     
@@ -155,9 +155,11 @@ class BlockManagerVC: ProgramicVC {
                 return
         }
         else{
-            let block = Block(partition: partitionValue, title: blockNameInput.text!, entryId: handbookId)
-            try! self.realm.write {
-                self.realm.add(block)
+            if(blockNameInput.text! != ""){
+                let block = Block(partition: partitionValue, title: blockNameInput.text!, entryId: handbookId)
+                try! self.realm.write {
+                    self.realm.add(block)
+                }
             }
         }
         blockNameInput.text = ""

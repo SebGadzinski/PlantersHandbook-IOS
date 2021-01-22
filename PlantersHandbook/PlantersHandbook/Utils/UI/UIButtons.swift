@@ -16,6 +16,7 @@ func button_normal(title: String?, textColor: UIColor?, backgroundColor: UIColor
     btn.titleLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat((fontSize != nil ? fontSize! : FontSize.meduim)))
     btn.layer.borderColor = (borderColor != nil ? borderColor! : UIColor.black.cgColor)
     btn.titleLabel?.adjustsFontSizeToFitWidth = true
+    btn.titleLabel?.adjustsFontForContentSizeCategory = true
     //For recording purposes
     btn.showsTouchWhenHighlighted = true
     btn.translatesAutoresizingMaskIntoConstraints = false
@@ -32,5 +33,11 @@ func button_rounded(title: String?, textColor: UIColor?, backgroundColor: UIColo
 
 func ph_button(title: String, fontSize: Float) -> UIButton{
     return button_rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: PHColors.green.cgColor, radius: CornerRaduis.small, borderWidth: BorderWidth.extraThin)
+}
+
+func ph_button_tally(title: String, fontSize: Float, borderColor: CGColor) -> UIButton{
+    let button = button_rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: borderColor, radius: CornerRaduis.meduim, borderWidth: BorderWidth.extraThin)
+    button.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
+    return button
 }
 

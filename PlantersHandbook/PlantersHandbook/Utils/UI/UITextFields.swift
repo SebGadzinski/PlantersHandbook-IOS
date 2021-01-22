@@ -23,3 +23,19 @@ func textField_form(placeholder: String?, textType: UITextContentType!) -> Under
     return textField
 }
 
+func textField_bagUp() -> UITextField {
+    let textField = UITextField()
+    textField.translatesAutoresizingMaskIntoConstraints = false
+    textField.backgroundColor = .systemBackground
+    textField.textColor = .label
+    textField.borderStyle = .none
+    textField.backgroundColor = .systemBackground
+    textField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.meduim))
+    textField.layer.masksToBounds = true
+    textField.textAlignment = .center
+    textField.autocorrectionType = .no
+    textField.adjustsFontSizeToFitWidth = true
+    textField.minimumFontSize = 10
+    textField.clipsToBounds = true
+    return textField
+}
