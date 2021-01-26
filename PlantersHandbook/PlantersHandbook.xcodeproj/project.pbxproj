@@ -62,14 +62,16 @@
 		86C741EF25AB8DD6000547F9 /* icons8-tree-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C741E125AB8DD6000547F9 /* icons8-tree-64.png */; };
 		86C741F025AB8DD6000547F9 /* icons8-forest-ranger-50-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C741E225AB8DD6000547F9 /* icons8-forest-ranger-50-white.png */; };
 		86C741F125AB8DD6000547F9 /* icons8-oak-tree-64 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 86C741E325AB8DD6000547F9 /* icons8-oak-tree-64 (1).png */; };
-		86C7420B25ABBC1F000547F9 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7420A25ABBC1F000547F9 /* Functions.swift */; };
+		86C7420B25ABBC1F000547F9 /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7420A25ABBC1F000547F9 /* GeneralFunctions.swift */; };
 		86C7422125ABE8CF000547F9 /* GetCompanyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7422025ABE8CF000547F9 /* GetCompanyVC.swift */; };
 		86C7424425ACF057000547F9 /* sep_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86C7424325ACF057000547F9 /* sep_icon.png */; };
 		86C7424925B090ED000547F9 /* UITextViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7424825B090EC000547F9 /* UITextViews.swift */; };
 		86C7425225B0B843000547F9 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425125B0B842000547F9 /* Enumerations.swift */; };
 		86C7425E25B20E87000547F9 /* SeasonModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425D25B20E87000547F9 /* SeasonModal.swift */; };
-		86C7426C25B5DDB0000547F9 /* RealmDeletionWaterfall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */; };
 		86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7427925B673A7000547F9 /* TallyCell.swift */; };
+		86D2220325BDEC9D003D7394 /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D2220225BDEC9D003D7394 /* undo.png */; };
+		86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */; };
+		86D2221525BFD45F003D7394 /* RealmFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D2221425BFD45F003D7394 /* RealmFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,14 +155,16 @@
 		86C741E125AB8DD6000547F9 /* icons8-tree-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-tree-64.png"; sourceTree = "<group>"; };
 		86C741E225AB8DD6000547F9 /* icons8-forest-ranger-50-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-forest-ranger-50-white.png"; sourceTree = "<group>"; };
 		86C741E325AB8DD6000547F9 /* icons8-oak-tree-64 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-oak-tree-64 (1).png"; sourceTree = "<group>"; };
-		86C7420A25ABBC1F000547F9 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		86C7420A25ABBC1F000547F9 /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
 		86C7422025ABE8CF000547F9 /* GetCompanyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCompanyVC.swift; sourceTree = "<group>"; };
 		86C7424325ACF057000547F9 /* sep_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sep_icon.png; sourceTree = "<group>"; };
 		86C7424825B090EC000547F9 /* UITextViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViews.swift; sourceTree = "<group>"; };
 		86C7425125B0B842000547F9 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		86C7425D25B20E87000547F9 /* SeasonModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModal.swift; sourceTree = "<group>"; };
-		86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDeletionWaterfall.swift; sourceTree = "<group>"; };
 		86C7427925B673A7000547F9 /* TallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallyCell.swift; sourceTree = "<group>"; };
+		86D2220225BDEC9D003D7394 /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
+		86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		86D2221425BFD45F003D7394 /* RealmFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,7 +232,7 @@
 				860BEC9B25A947A400B3D699 /* Models */,
 				860BEC5225A9442700B3D699 /* AppDelegate.swift */,
 				860BEC5425A9442700B3D699 /* SceneDelegate.swift */,
-				86C7426B25B5DDB0000547F9 /* RealmDeletionWaterfall.swift */,
+				86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */,
 				860BEC5B25A9442900B3D699 /* Assets.xcassets */,
 				860BEC5D25A9442900B3D699 /* LaunchScreen.storyboard */,
 				860BEC6025A9442900B3D699 /* Info.plist */,
@@ -334,7 +338,8 @@
 		860BECA125A9487F00B3D699 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
-				86C7420A25ABBC1F000547F9 /* Functions.swift */,
+				86C7420A25ABBC1F000547F9 /* GeneralFunctions.swift */,
+				86D2221425BFD45F003D7394 /* RealmFunctions.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 		860BED4225A9528600B3D699 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				86D2220225BDEC9D003D7394 /* undo.png */,
 				86C7424325ACF057000547F9 /* sep_icon.png */,
 				86C741D625AB8DD5000547F9 /* icons8-cash-app-50-white.png */,
 				86C741DA25AB8DD5000547F9 /* icons8-cash-app-100.png */,
@@ -478,6 +484,7 @@
 				860BEC4C25A9442700B3D699 /* Frameworks */,
 				860BEC4D25A9442700B3D699 /* Resources */,
 				6D6D3633073779B8E7440615 /* [CP] Embed Pods Frameworks */,
+				C49F305F26FF29055830FE2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -582,6 +589,7 @@
 				86C741E825AB8DD6000547F9 /* icons8-cash-app-100.png in Resources */,
 				86C741EA25AB8DD6000547F9 /* icons8-floating-island-forest-64.png in Resources */,
 				86C741E625AB8DD6000547F9 /* icons8-cent-100.png in Resources */,
+				86D2220325BDEC9D003D7394 /* undo.png in Resources */,
 				86C7424425ACF057000547F9 /* sep_icon.png in Resources */,
 				86C741F025AB8DD6000547F9 /* icons8-forest-ranger-50-white.png in Resources */,
 				86C741EF25AB8DD6000547F9 /* icons8-tree-64.png in Resources */,
@@ -625,6 +633,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PlantersHandbook/Pods-PlantersHandbook-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C49F305F26FF29055830FE2D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PlantersHandbook/Pods-PlantersHandbook-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PlantersHandbook/Pods-PlantersHandbook-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PlantersHandbook/Pods-PlantersHandbook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F614430085EAFEB1CCF3E50F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -658,8 +683,10 @@
 				860BECD425A94B1A00B3D699 /* UIButtons.swift in Sources */,
 				86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */,
 				860BED5925A9568400B3D699 /* BlockManagerVC.swift in Sources */,
-				86C7420B25ABBC1F000547F9 /* Functions.swift in Sources */,
+				86C7420B25ABBC1F000547F9 /* GeneralFunctions.swift in Sources */,
+				86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
+				86D2221525BFD45F003D7394 /* RealmFunctions.swift in Sources */,
 				860BECC725A94B0400B3D699 /* UIScrollVIews.swift in Sources */,
 				86C7424925B090ED000547F9 /* UITextViews.swift in Sources */,
 				86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */,
@@ -672,7 +699,6 @@
 				86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */,
 				860BECD925A94B2400B3D699 /* UILabels.swift in Sources */,
 				86C7422125ABE8CF000547F9 /* GetCompanyVC.swift in Sources */,
-				86C7426C25B5DDB0000547F9 /* RealmDeletionWaterfall.swift in Sources */,
 				860BED4425A9531900B3D699 /* ProgramicVCInterface.swift in Sources */,
 				860BED3E25A9526F00B3D699 /* HomeTBC.swift in Sources */,
 				86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */,

@@ -15,8 +15,6 @@ class SubBlockManagerVC: ProgramicVC {
     fileprivate var tableViewLayout : UIView!
     
     let blockId: String
-    let realm: Realm
-    let partitionValue: String
     var subBlockNotificationToken: NotificationToken?
     let subBlocks: Results<SubBlock>
     fileprivate let titleLb : UILabel
@@ -24,14 +22,8 @@ class SubBlockManagerVC: ProgramicVC {
     fileprivate let addSubBlockButton = ph_button(title: "Add SubBlock", fontSize: FontSize.large)
     fileprivate var subBlockTableView = tableView_normal()
     
-    required init(realm: Realm, title: String, blockId: String) {
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?");
-        }
-        
-        self.realm = realm
-        self.partitionValue = syncConfiguration.partitionValue!.stringValue!
-        self.subBlocks = realm.objects(SubBlock.self).filter(NSPredicate(format: "blockId = %@", blockId)).sorted(byKeyPath: "_id")
+    required init(title: String, blockId: String) {
+        self.subBlocks = realmDatabase.getSubBlockRealm(predicate: NSPredicate(format: "blockId = %@", blockId)).sorted(byKeyPath: "_id")
         self.blockId = blockId
         self.titleLb = label_normal(title: "Block: " + title, fontSize: FontSize.extraLarge)
        
@@ -72,7 +64,6 @@ class SubBlockManagerVC: ProgramicVC {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func generateLayout() {
         titleLayout = generalLayout(backgoundColor: .systemBackground)
@@ -143,7 +134,7 @@ class SubBlockManagerVC: ProgramicVC {
     
     func nextVC(subBlock: SubBlock){
         self.navigationController?.pushViewController(
-            CacheManagerVC(realm: realm, title: subBlock.title, subBlockId: subBlock._id),
+            CacheManagerVC(title: subBlock.title, subBlockId: subBlock._id),
             animated: true
         )
     }
@@ -157,10 +148,8 @@ class SubBlockManagerVC: ProgramicVC {
         }
         else{
             if(subBlockNameInput.text! != ""){
-                let subBlock = SubBlock(partition: partitionValue, title: subBlockNameInput.text!, blockId: blockId)
-                try! self.realm.write {
-                    self.realm.add(subBlock)
-                }
+                let subBlock = SubBlock(partition: realmDatabase.getParitionValue()!, title: subBlockNameInput.text!, blockId: blockId)
+                realmDatabase.add(item: subBlock)
             }
         }
         subBlockNameInput.text = ""
@@ -196,9 +185,9 @@ extension SubBlockManagerVC: UITableViewDelegate, UITableViewDataSource{
         guard editingStyle == .delete else { return }
         
         let subBlock = subBlocks[indexPath.row]
-        deleteSubBlock(subBlock: subBlock, realm: realm){ (result) in
+        realmDatabase.deleteSubBlock(subBlock: subBlock){ (result) in
             if(result){
-                print("SubBlock Deleted")
+                print("SubBlock Deleted From SubBlockManager")
             }
             else{
                 let alertController = UIAlertController(title: "Error: Realm Erro", message: "Could Not Delete SubBlock", preferredStyle: .alert)

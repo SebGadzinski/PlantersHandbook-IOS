@@ -69,7 +69,7 @@ class SeasonModal: ProgramicVC {
     
     @objc func addButtonAction(_ sender: Any) {
         if(seasonNameInput.text != ""){
-            let newSeason = Season(partition: "user="+app.currentUser!.id, title: seasonNameInput.text!)
+            let newSeason = Season(partition: realmDatabase.getParitionValue()!, title: seasonNameInput.text!)
 
             if let delegate = delegate{
                 delegate.createSeason(season: newSeason)

@@ -10,15 +10,13 @@ import RealmSwift
 import SwiftSpinner
 
 let app = App(id: "planters-handbook-unaje") // Public Key : FAZFDKLA | Private Key : 296432d3-6d71-4dfc-a311-9e66a95ad555
+var realmDatabase = RealmDatabase()
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
@@ -31,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("user is logged in")
             
             var configuration = app.currentUser!.configuration(partitionValue: "user=\(app.currentUser!.id)")
-            configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, Coordinate.self]
+            configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, CoordinateInput.self, Coordinate.self]
             
             Realm.asyncOpen(configuration: configuration) { [weak self](result) in
                 DispatchQueue.main.async {
@@ -39,14 +37,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     case .failure(let error):
                         fatalError("Failed to open realm: \(error)")
                     case .success(let realm):
-                        let users = realm.objects(User.self).filter(NSPredicate(format: "_id = %@", app.currentUser!.id))
-                        if let user = users.first {
-                            print(users)
+                        realmDatabase.connectToRealm(realm: realm)
+                        if let user = realmDatabase.getLocalUser(){
                             if(user.company != ""){
-                                navigationController.pushViewController(HomeTBC(realm: realm), animated: false)
+                                navigationController.pushViewController(HomeTBC(), animated: false)
                             }
                             else{
-                                navigationController.pushViewController(GetCompanyVC(userRealm: realm), animated: true)
+                                navigationController.pushViewController(GetCompanyVC(), animated: true)
                             }
                         }
                             

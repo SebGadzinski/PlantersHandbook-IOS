@@ -53,17 +53,30 @@
             "coordinatesCovered": {
                 "bsonType": "array",
                 "items": {
-                    "bsonType": "object",
-                    "properties": {
-                        "inputOne": {
-                            "bsonType": "double"
-                        },
-                        "inputTwo": {
-                            "bsonType": "double"
-                        }
+                  "bsonType": "object",
+                  "properties": {
+                    "input": {
+                      "bsonType": "array",
+                        "items": {
+                        "bsonType": "object",
+                  "properties": {
+                    "longitude": {
+                      "bsonType": "double"
                     },
-                    "title": "Coordinate"
+                   "latitude": {
+                      "bsonType": "double"
+                    }
+                  },
+                  "title": "Coordinate",
+                  "required": [
+                    "longitude",
+                    "latitude"
+                  ]
                 }
+                  }
+                },
+                "title": "CoordinateInput"
+              }
             },
             "plots": {
                 "bsonType": "array",

@@ -13,6 +13,8 @@ class Cache: Object {
     @objc dynamic var _partition: String = ""
     @objc dynamic var subBlockId : String = UUID().uuidString
     @objc dynamic var title: String = "Cache"
+    @objc dynamic var isPlanting: Bool = false
+    @objc dynamic var treePerPlot: Int = 0
     var treeTypes = List<String>()
     var centPerTreeTypes = List<Double>()
     var bundlesPerTreeTypes = List<Int>()
@@ -20,7 +22,7 @@ class Cache: Object {
     var totalTreesPerTreeTypes = List<Int>()
     var bagUpsPerTreeTypes = RealmSwift.List<BagUpInput>()
     var plots = RealmSwift.List<PlotInput>()
-    var coordinatesCovered = RealmSwift.List<Coordinate>()
+    var coordinatesCovered = RealmSwift.List<CoordinateInput>()
     
     override static func primaryKey() -> String? {
         return "_id"
@@ -31,13 +33,14 @@ class Cache: Object {
         self._partition = partition
         self.subBlockId = subBlockId
         self.title = title
-        emptyTallyStringList(list: self.treeTypes)
-        emptyTallyDoubleList(list: self.centPerTreeTypes)
-        emptyTallyIntList(list: self.bundlesPerTreeTypes)
-        emptyTallyDoubleList(list: self.totalCashPerTreeTypes)
-        emptyTallyIntList(list: self.totalTreesPerTreeTypes)
-        emptyTallyBagUps(list: self.bagUpsPerTreeTypes)
-        emptyTallyPlots(list: self.plots)
+        realmDatabase.emptyTallyPrimitiveList(list: self.treeTypes, appending: "" )
+        realmDatabase.emptyTallyPrimitiveList(list: self.centPerTreeTypes, appending: 0.0)
+        realmDatabase.emptyTallyPrimitiveList(list: self.bundlesPerTreeTypes, appending: 0)
+        realmDatabase.emptyTallyPrimitiveList(list: self.totalCashPerTreeTypes, appending: 0.0)
+        realmDatabase.emptyTallyPrimitiveList(list: self.totalTreesPerTreeTypes, appending: 0)
+        realmDatabase.emptyTallyBagUps(list: self.bagUpsPerTreeTypes)
+        realmDatabase.emptyTallyPlots(list: self.plots)
+        realmDatabase.emptyCacheCoordinates(list: self.coordinatesCovered)
     }
     
 }
@@ -53,8 +56,19 @@ class PlotInput: EmbeddedObject{
     var inputTwo = List<Int>()
 }
 
+class CoordinateInput: EmbeddedObject{
+    var input = List<Coordinate>()
+}
+
 class Coordinate: EmbeddedObject{
-    @objc var longitude : Double = 0.0
-    @objc var latitude : Double = 0.0
+    @objc dynamic var longitude : Double = 0.0
+    @objc dynamic var latitude : Double = 0.0
+    
+    
+    convenience init(longitude: Double, latitude: Double) {
+        self.init()
+        self.longitude = longitude
+        self.latitude = latitude
+    }
 }
 

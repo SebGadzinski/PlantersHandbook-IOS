@@ -15,8 +15,6 @@ class BlockManagerVC: ProgramicVC {
     fileprivate var tableViewLayout : UIView!
     
     let handbookId: String
-    let realm: Realm
-    let partitionValue: String
     var blockNotificationToken: NotificationToken?
     let blocks: Results<Block>
     fileprivate let titleLb : UILabel
@@ -24,21 +22,15 @@ class BlockManagerVC: ProgramicVC {
     fileprivate let addBlockButton = ph_button(title: "Add Block", fontSize: FontSize.large)
     fileprivate var blockTableView = tableView_normal()
     
-    required init(realm: Realm, title: String, handbookId: String) {
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?");
-        }
-        
-        self.realm = realm
-        self.partitionValue = syncConfiguration.partitionValue!.stringValue!
-        self.blocks = realm.objects(Block.self).filter(NSPredicate(format: "entryId = %@", handbookId)).sorted(byKeyPath: "_id")
+    required init(title: String, handbookId: String) {
+        self.blocks = realmDatabase.getBlockRealm(predicate: NSPredicate(format: "entryId = %@", handbookId)).sorted(byKeyPath: "_id")
         self.handbookId = handbookId
         self.titleLb = label_normal(title: title, fontSize: FontSize.extraLarge)
-       
+        
         super.init(nibName: nil, bundle: nil)
         
         self.title = "Blocks"
-        
+
         blockNotificationToken = blocks.observe { [weak self] (changes) in
             guard let tableView = self?.blockTableView else { return }
             switch changes {
@@ -72,7 +64,6 @@ class BlockManagerVC: ProgramicVC {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func generateLayout() {
         titleLayout = generalLayout(backgoundColor: .systemBackground)
@@ -142,7 +133,7 @@ class BlockManagerVC: ProgramicVC {
     
     func nextVC(block: Block){
         self.navigationController?.pushViewController(
-            SubBlockManagerVC(realm: realm, title: block.title, blockId: block._id),
+            SubBlockManagerVC(title: block.title, blockId: block._id),
             animated: true
         )
     }
@@ -156,10 +147,8 @@ class BlockManagerVC: ProgramicVC {
         }
         else{
             if(blockNameInput.text! != ""){
-                let block = Block(partition: partitionValue, title: blockNameInput.text!, entryId: handbookId)
-                try! self.realm.write {
-                    self.realm.add(block)
-                }
+                let block = Block(partition: realmDatabase.getParitionValue()!, title: blockNameInput.text!, entryId: handbookId)
+                realmDatabase.add(item: block)
             }
         }
         blockNameInput.text = ""
@@ -195,9 +184,9 @@ extension BlockManagerVC: UITableViewDelegate, UITableViewDataSource{
         guard editingStyle == .delete else { return }
         
         let block = blocks[indexPath.row]
-        deleteBlock(block: block, realm: realm){ (result) in
+        realmDatabase.deleteBlock(block: block){ (result) in
             if(result){
-                print("Block Deleted")
+                print("Block Deleted From BlockManager")
             }
             else{
                 let alertController = UIAlertController(title: "Error: Realm Erro", message: "Could Not Delete Block", preferredStyle: .alert)

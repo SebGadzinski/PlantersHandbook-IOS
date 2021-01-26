@@ -14,8 +14,6 @@ class HandbookVC: ProgramicVC {
     fileprivate var actionLayout : UIView!
     fileprivate var tableViewLayout : UIView!
     
-    let realm: Realm
-    let partitionValue: String
     var seasonNotificationToken: NotificationToken?
     var handbookEntryNotificationToken: NotificationToken?
     let seasons: Results<Season>
@@ -28,39 +26,25 @@ class HandbookVC: ProgramicVC {
     fileprivate var logoutButton = ph_button(title: "Logout", fontSize: FontSize.small)
     fileprivate var seasonSelected = -1;
     
-    required init(realm: Realm) {
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?");
-        }
-        self.realm = realm
-
-        // Partition value must be of string type.
-        partitionValue = syncConfiguration.partitionValue!.stringValue!
-
-        // Access all tasks in the realm, sorted by _id so that the ordering is defined.
-        seasons = realm.objects(Season.self).sorted(byKeyPath: "_id")
+    required init() {
+        seasons = realmDatabase.getSeasonRealm(predicate: nil).sorted(byKeyPath: "_id")
+        
         if let season = seasons.first{
-            let predicate = NSPredicate(format: "seasonId = %@", season._id)
-            handbookEntries = realm.objects(HandbookEntry.self).filter(predicate).sorted(byKeyPath: "_id")
+            handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", season._id)).sorted(byKeyPath: "date", ascending: false)
         }
         else{
-            handbookEntries = realm.objects(HandbookEntry.self).filter(NSPredicate(format: "seasonId = %@", "Empty"))
+            handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", "Empty"))
         }
         
         super.init(nibName: nil, bundle: nil)
-
+    
         seasonNotificationToken = seasons.observe { [weak self] (changes) in
             guard let tableView = self?.seasonTableView else { return }
             switch changes {
             case .initial:
-                // Results are now populated and can be accessed without blocking the UI
                 tableView.reloadData()
             case .update(_, let deletions, let insertions, let modifications):
-                // Query results have changed, so apply them to the UITableView.
                 tableView.performBatchUpdates({
-                    // It's important to be sure to always update a table in this order:
-                    // deletions, insertions, then updates. Otherwise, you could be unintentionally
-                    // updating at the wrong index!
                     tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0) }),
                         with: .automatic)
                     tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
@@ -69,7 +53,6 @@ class HandbookVC: ProgramicVC {
                         with: .automatic)
                 })
             case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(error)")
             }
         }
@@ -171,7 +154,7 @@ class HandbookVC: ProgramicVC {
     }
     
     func setHandbookEntries(seasonId: String){
-        handbookEntries = realm.objects(HandbookEntry.self).filter(NSPredicate(format: "seasonId = %@", seasonId))
+        handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", seasonId)).sorted(byKeyPath: "date", ascending: false)
         handbookEntryNotificationToken = handbookEntries.observe { [weak self] (changes) in
             guard let tableView = self?.handbookEntrysTableView else { return }
             switch changes {
@@ -200,14 +183,15 @@ class HandbookVC: ProgramicVC {
     
     func nextVC(entry: HandbookEntry) {
         self.navigationController?.pushViewController(
-            BlockManagerVC(realm: realm, title: getDate(from: entry.date), handbookId: entry._id),
+            BlockManagerVC(title: getDate(from: entry.date), handbookId: entry._id),
             animated: true
         );
     }
     
     @objc func addEntryAction(){
         if (seasonSelected > -1) {
-            let entries = realm.objects(HandbookEntry.self).filter(NSPredicate(format: "seasonId = %@", seasons[seasonSelected]._id))
+            
+            let entries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", seasons[seasonSelected]._id)).sorted(byKeyPath: "date", ascending: false)
             if entries.contains{getDate(from: $0.date) == getDate(from: Date())}{
                 let alert = UIAlertController(title: "Duplicate Entry", message: "You already have a entry for today, please edit or delete it to add entry", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -215,10 +199,8 @@ class HandbookVC: ProgramicVC {
                 return
             }
             else{
-                let entry = HandbookEntry(partition: "user=" + app.currentUser!.id, seasonId: seasons[seasonSelected]._id)
-                try! self.realm.write {
-                    self.realm.add(entry)
-                }
+                let entry = HandbookEntry(partition: realmDatabase.getParitionValue()!, seasonId: seasons[seasonSelected]._id)
+                realmDatabase.add(item: entry)
             }
         }
         else{
@@ -283,9 +265,9 @@ extension HandbookVC: UITableViewDelegate, UITableViewDataSource{
         
         if(tableView == handbookEntrysTableView){
             let entry = handbookEntries[indexPath.row]
-            deleteEntry(entry: entry, realm: realm){ (result) in
+            realmDatabase.deleteEntry(entry: entry){ (result) in
                 if(result){
-                    print("Entry Deleted")
+                    print("Entry Deleted From Entry Manager")
                 }
                 else{
                     let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Handbook Entry", preferredStyle: .alert)
@@ -297,8 +279,9 @@ extension HandbookVC: UITableViewDelegate, UITableViewDataSource{
         }
         else{
             let season = seasons[indexPath.row]
-            deleteSeason(season: season, realm: realm){ (result) in
+            realmDatabase.deleteSeason(season: season){ (result) in
                 if(result){
+                    print("Season Deleted From Season Manager")
                     if(!seasons.isEmpty){
                         seasonSelected = 0
                         seasonTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
@@ -327,9 +310,7 @@ extension HandbookVC: SeasonModal_Delegate{
             self.present(alertController, animated: true, completion: nil)
         }
         else{
-            try! realm.write{
-                realm.add(season)
-            }
+            realmDatabase.add(item: season)
             setHandbookEntries(seasonId: season._id)
         }
     }

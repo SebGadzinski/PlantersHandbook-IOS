@@ -181,7 +181,7 @@ class LoginVC: ProgramicVC {
                     
                     var configuration = user.configuration(partitionValue: "user=\(user.id)")
                     
-                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, Coordinate.self]
+                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, CoordinateInput.self, Coordinate.self]
                                       
                     Realm.asyncOpen(configuration: configuration) { [weak self](result) in
                         DispatchQueue.main.async {
@@ -189,17 +189,15 @@ class LoginVC: ProgramicVC {
                             case .failure(let error):
                                 self!.setLoading(false, message: "Deciding If your Good Enough");
                                 fatalError("Failed to open realm: \(error)")
-                            case .success(let userRealm):
-                                
+                            case .success(let realm):
                                 SwiftSpinner.show(duration: 0.5, title: "Success!")
-                                let users = userRealm.objects(User.self)
-                                if let user = users.first {
-                                    print(users)
+                                realmDatabase.connectToRealm(realm: realm)
+                                if let user = realmDatabase.getLocalUser(){
                                     if(user.company != ""){
-                                        self!.navigationController!.pushViewController(HomeTBC(realm: userRealm), animated: false)
+                                        self!.navigationController!.pushViewController(HomeTBC(), animated: false)
                                     }
                                     else{
-                                        self!.navigationController!.pushViewController(GetCompanyVC(userRealm: userRealm), animated: true)
+                                        self!.navigationController!.pushViewController(GetCompanyVC(), animated: true)
                                     }
                                 }
                             }
