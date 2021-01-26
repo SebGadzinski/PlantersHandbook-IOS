@@ -1,13 +1,24 @@
-# How To Run
+## Running Project
 
+# Prerequisite
 Ensure CocoaPods is installed on your computer
 
 https://cocoapods.org/
 
-Generate pods required for the workspace
+Install Xcode (Must have a mac or Virtual Machine)
 
-pod install
+# Generate pods required for the workspace
 
-Run the application
+Ensure Folder location is : PlantersHandbook-IOS/PlantersHandbook
+
+Open Terminal 
+
+Type Command : pod install
+
+# Run On Xcode
+
+Open xcode and open 
+
+PlantersHandbook.xcworkspace
 
 Go to xcode click run button
