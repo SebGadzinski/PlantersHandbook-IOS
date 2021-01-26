@@ -10,5 +10,7 @@ target 'PlantersHandbook' do
   pod 'JDropDownAlert'
   pod 'EmailValidator'
   pod 'Navajo-Swift'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
 end

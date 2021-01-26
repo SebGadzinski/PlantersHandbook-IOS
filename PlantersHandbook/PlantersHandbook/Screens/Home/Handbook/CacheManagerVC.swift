@@ -15,8 +15,6 @@ class CacheManagerVC: ProgramicVC {
     fileprivate var tableViewLayout : UIView!
     
     let subBlockId: String
-    let realm: Realm
-    let partitionValue: String
     var cacheNotificationToken: NotificationToken?
     let caches: Results<Cache>
     fileprivate let titleLb : UILabel
@@ -24,14 +22,8 @@ class CacheManagerVC: ProgramicVC {
     fileprivate let addCacheButton = ph_button(title: "Add Cache", fontSize: FontSize.large)
     fileprivate var cacheTableView = tableView_normal()
     
-    required init(realm: Realm, title: String, subBlockId: String) {
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?");
-        }
-        
-        self.realm = realm
-        self.partitionValue = syncConfiguration.partitionValue!.stringValue!
-        self.caches = realm.objects(Cache.self).filter(NSPredicate(format: "subBlockId = %@", subBlockId)).sorted(byKeyPath: "_id")
+    required init(title: String, subBlockId: String) {
+        self.caches = realmDatabase.getCacheRealm(predicate: NSPredicate(format: "subBlockId = %@", subBlockId)).sorted(byKeyPath: "_id")
         self.subBlockId = subBlockId
         self.titleLb = label_normal(title: "SubBlock: " + title, fontSize: FontSize.extraLarge)
        
@@ -72,7 +64,7 @@ class CacheManagerVC: ProgramicVC {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     
     override func generateLayout() {
         titleLayout = generalLayout(backgoundColor: .systemBackground)
@@ -143,24 +135,22 @@ class CacheManagerVC: ProgramicVC {
     
     func nextVC(cache: Cache){
         self.navigationController?.pushViewController(
-            TallySheetVC(realm: realm, cache: cache),
+            TallySheetVC(cache: cache),
             animated: true
         )
     }
     
     @objc func addCacheAction(){
         if (caches.contains{$0.title == cacheNameInput.text!}) {
-                let alert = UIAlertController(title: "Duplicate SubBlock", message: "You already have a subBlock with that name in this entry, use a different name", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Duplicate Cache", message: "You already have a cache with that name in this entry, use a different name", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 return
         }
         else{
             if(cacheNameInput.text! != ""){
-                let cache = Cache(partition: partitionValue, title: cacheNameInput.text!, subBlockId: subBlockId)
-                try! self.realm.write {
-                    self.realm.add(cache)
-                }
+                let cache = Cache(partition: realmDatabase.getParitionValue()!, title: cacheNameInput.text!, subBlockId: subBlockId)
+                realmDatabase.add(item: cache)
             }
         }
         cacheNameInput.text = ""
@@ -196,9 +186,9 @@ extension CacheManagerVC: UITableViewDelegate, UITableViewDataSource{
         guard editingStyle == .delete else { return }
         
         let cache = caches[indexPath.row]
-        deleteCache(cache: cache, realm: realm){ (result) in
+        realmDatabase.deleteCache(cache: cache){ (result) in
             if(result){
-                print("Cache Deleted")
+                print("Cache Deleted From CacheManager")
             }
             else{
                 let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Cache", preferredStyle: .alert)

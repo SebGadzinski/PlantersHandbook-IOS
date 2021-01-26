@@ -9,23 +9,12 @@ import UIKit
 import RealmSwift
 
 class HomeTBC: UITabBarController {
-    let realm: Realm
-    
-    init(realm: Realm) {
-        self.realm = realm
-        print(realm)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let handbookNav = HandbookNC(rootViewController: HandbookVC(realm: realm))
-        let statsNav = StatisticsNC(rootViewController: StatisticsVC(realm: realm))
+        let handbookNav = HandbookNC(rootViewController: HandbookVC())
+        let statsNav = StatisticsNC(rootViewController: StatisticsVC())
         
         self.setViewControllers([handbookNav, statsNav], animated: false)
         self.tabBar.barTintColor = .systemGreen

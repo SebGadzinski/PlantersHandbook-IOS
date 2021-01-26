@@ -11,11 +11,9 @@ import UnderLineTextField
 import JDropDownAlert
 
 class GetCompanyVC: ProgramicVC {
-    let userRealm: Realm
     var userData: User?
     var notificationToken: NotificationToken?
 
-    
     let companies = ["AkeHurst & Giltrap Reforestation", "Abderson & Yates Forest Consultants", "A&M Reforestation", "Backwoods Contracting", "Big Sky Silviculture", "Bivouac West Contracting", "Blue Collar Silviculture", "Brinkman & Associates", "Broland Enterprises", "Capstone Foresty", "Celtruc Reforestation", "Coast Range Contracting", "DJ Silviculture EnterPrises", "Dorsey Contracting", "Dynamic Reforestation", "Folklore Contracting", "Haveman Brothers Forestry Services", "Heritage Reforestation", "Hybrid 17 Contracting", "Leader Silviculture", "Little Smokey Forestry" , "Moose Creek Reforestation", "Nata Reforestation", "Nechako Reforestation Services", "Next Generation Reforestation", "New Growth Forestry", "Outland Reforestation", "Prt Frontier", "Quastuco Silviculture", "Ragen Forestry", "Rhino Reforestation Services", "SBS Forestry", "Seneca Enterprises", "Spectrum Resource Group", "Summit Reforestation & Forest Management LTD", "ThunderHouse Forest Services", "TreeLine Reforestation", "USIB Silviculture", "Wilderness Reforestation", "Wildwood Reforestation", "Windfirm Resources", "Zanzibar Holdings"]
     
     fileprivate var titleLayout : UIView!
@@ -23,38 +21,17 @@ class GetCompanyVC: ProgramicVC {
     fileprivate var companyLayout : UIView!
     fileprivate var companyPickerView = UIPickerView()
 
-    
     fileprivate let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
     fileprivate let companyTitle = label_normal(title: "Company", fontSize: FontSize.extraLarge)
     fileprivate let companyInfoMessage = textView_multiLine(text: "Please select the company you work for", fontSize: FontSize.meduim)
     fileprivate let companyTextInput = textField_form(placeholder: "Click to choose", textType: .name)
     fileprivate let confirmButton = ph_button(title: "Confirm", fontSize: FontSize.large)
     
-    init(userRealm: Realm) {
-        guard let syncConfiguration = userRealm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?");
+    init() {
+        if let user = realmDatabase.getLocalUser(){
+            userData = user
         }
-        
-        self.userRealm = userRealm
-
         super.init(nibName: nil, bundle: nil)
-
-        let usersInRealm = userRealm.objects(User.self)
-        userData = usersInRealm.first
-        
-        print(usersInRealm)
-        
-        notificationToken = usersInRealm.observe({ [weak self](changes) in
-            switch changes {
-            case .initial:
-                print("started")
-            case .update(_, _, _, let modifications):
-                print("there was a modification")
-                print(self!.userData)
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        })
     }
     
     required init?(coder: NSCoder) {
@@ -146,10 +123,8 @@ class GetCompanyVC: ProgramicVC {
 
     @objc func confirmAction(){
         if companyTextInput.text != "" && "Success" == companyValidator(companyName: companyTextInput.text!){
-            try! userRealm.write{
-                userData?.company = companyTextInput.text!;
-            }
-            self.navigationController!.pushViewController(HomeTBC(realm: userRealm), animated: true)
+            realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: company, seasons: nil)
+            self.navigationController!.pushViewController(HomeTBC(), animated: true)
         }
         else{
             let alert = JDropDownAlert()

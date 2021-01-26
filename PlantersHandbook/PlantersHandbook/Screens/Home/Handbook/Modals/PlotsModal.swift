@@ -11,20 +11,12 @@ import RealmSwift
 class PlotsModal: ProgramicVC {
     
     let plots: List<PlotInput>
-    let realm: Realm
-    let partitionValue: String
     
-    required init(realm: Realm, title: String, plots: List<PlotInput>) {
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?")
-        }
-        
-        self.realm = realm
-        self.partitionValue = syncConfiguration.partitionValue!.stringValue!
+    required init(title: String, plots: List<PlotInput>) {
         self.plots = plots
        
         super.init(nibName: nil, bundle: nil)
-        
+
         self.title = title
     }
     

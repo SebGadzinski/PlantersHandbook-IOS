@@ -7,6 +7,8 @@
 
 import UIKit
 import RealmSwift
+import CoreLocation
+import GoogleMaps
 
 class TallySheetVC: ProgramicVC {
     
@@ -15,9 +17,7 @@ class TallySheetVC: ProgramicVC {
     fileprivate var bagUpsLayout : UIView!
     fileprivate var totalsLayout : UIView!
     
-    let cache: Cache
-    let realm: Realm
-    let partitionValue: String
+    fileprivate let cache: Cache
     
     fileprivate let dateLb = label_normal(title: "", fontSize: FontSize.meduim)
     fileprivate let gpsButton = ph_button_tally(title: "GPS", fontSize: FontSize.extraSmall, borderColor: UIColor.green.cgColor)
@@ -37,23 +37,38 @@ class TallySheetVC: ProgramicVC {
     fileprivate var widthOfCollectionCell: CGFloat!
     fileprivate var heightOfCollectionCell: CGFloat!
     fileprivate var widthOfCollectionLabel: CGFloat!
+    fileprivate var gpsButtonClicked = false
     
-    required init(realm: Realm, cache: Cache) {
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?")
-        }
+    var locationManagerNotificationToken: NotificationToken?
+    
+    var locationManager: CLLocationManager!
         
-        self.realm = realm
-        self.partitionValue = syncConfiguration.partitionValue!.stringValue!
+    required init(cache: Cache) {
         self.cache = cache
        
         super.init(nibName: nil, bundle: nil)
         
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 1
+        locationManager.delegate = self
+        
+        
+        realmDatabase.updateCacheIsPlanting(cache: cache, bool: false)
+                
         self.title = "Cache: " + cache.title
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if(cache.isPlanting){
+            realmDatabase.updateCacheIsPlanting(cache: cache, bool: false)
+            stopTrackingLocation()
+        }
     }
 
     override func generateLayout() {
@@ -150,7 +165,6 @@ class TallySheetVC: ProgramicVC {
         infoScrollView.anchor(top: infoLayout.topAnchor, leading: treeTypesImg.trailingAnchor, bottom: infoLayout.bottomAnchor, trailing: infoLayout.trailingAnchor)
         
         widthOfCollectionCell = infoScrollView.safeAreaFrame.width * 0.20
-        
         
         [treeTypesCv, centPerTreeTypeCv, bundlePerTreeTypeCv].forEach{infoScrollView.addSubview($0)}
 
@@ -263,18 +277,57 @@ class TallySheetVC: ProgramicVC {
     }
     
     func findHandbookDate(){
-        let subBlocks = realm.objects(SubBlock.self).filter(NSPredicate(format: "_id = %@", cache.subBlockId))
-        dateLb.text = getDate(from: subBlocks[0].date)
+        if let subBlock = realmDatabase.getSubBlockById(subBlockId: cache.subBlockId){
+            dateLb.text = getDate(from: subBlock.date)
+        }
     }
     
     @objc func gpsButtonAction(){
-        let gpsModal = GPSTreeTrackingModal(realm: realm, title: self.title! + " GPS Tree Tracking", cacheCoordinates: cache.coordinatesCovered)
+        gpsButtonClicked = true
+        locationManager.requestAlwaysAuthorization()
+        if locationManager.authorizationStatus == CLAuthorizationStatus.authorizedAlways{
+            gpsButtonClicked = false
+            goToGPSModal()
+        }
+        else{
+            let alertController = UIAlertController(title: "Turn On Location", message: "Please go to Settings and turn on the location permissions", preferredStyle: .alert)
+
+            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+                 }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+
+            alertController.addAction(cancelAction)
+            alertController.addAction(settingsAction)
+
+            // check the permission status
+            switch(CLLocationManager.authorizationStatus()) {
+                case .authorizedAlways, .authorizedWhenInUse:
+                    print("Authorized.")
+                    gpsButtonClicked = false
+                    goToGPSModal()
+                    // get the user location
+                case .notDetermined, .restricted, .denied:
+                    // redirect the users to settings
+                    self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func goToGPSModal(){
+        let gpsModal = GPSTreeTrackingModal(title: self.title! + " GPS Tree Tracking", cacheCoordinates: cache.coordinatesCovered, treesPerPlot: cache.treePerPlot, locationManager: locationManager)
+        gpsModal.delegate = self
         gpsModal.modalPresentationStyle = .popover
         present(gpsModal, animated: true)
     }
     
     @objc func plotsButtonAction(){
-        let plotsModal = PlotsModal(realm: realm, title: self.title! + " Plots", plots: cache.plots)
+        let plotsModal = PlotsModal(title: self.title! + " Plots", plots: cache.plots)
         plotsModal.modalPresentationStyle = .popover
         present(plotsModal, animated: true)
     }
@@ -284,9 +337,7 @@ class TallySheetVC: ProgramicVC {
     }
     
     @objc func treeTypesInputAction(sender: UITextField){
-        try! self.realm.write{
-            cache.treeTypes[sender.tag] = sender.text!
-        }
+        realmDatabase.updateList(list: cache.treeTypes, index: sender.tag, item: sender.text!)
     }
     
     @objc func centPerTreeInputAction(sender: UITextField){
@@ -299,9 +350,7 @@ class TallySheetVC: ProgramicVC {
             sender.text = ""
         }
         else{
-            try! self.realm.write{
-                cache.centPerTreeTypes[sender.tag] = sender.text!.doubleValue
-            }
+            realmDatabase.updateList(list: cache.centPerTreeTypes, index: sender.tag, item: sender.text!.doubleValue)
             calculateTotalInLane(lane: sender.tag)
         }
     }
@@ -316,9 +365,7 @@ class TallySheetVC: ProgramicVC {
             sender.text = ""
         }
         else{
-            try! self.realm.write{
-                cache.bundlesPerTreeTypes[sender.tag] = integer(from: sender)
-            }
+            realmDatabase.updateList(list: cache.bundlesPerTreeTypes, index: sender.tag, item: integer(from: sender))
             if(cache.bundlesPerTreeTypes[sender.tag] == 0){
                 sender.text = ""
             }
@@ -355,9 +402,7 @@ class TallySheetVC: ProgramicVC {
                 sender.text = ""
             }
             else{
-                try! self.realm.write{
-                    cache.bagUpsPerTreeTypes[cvTag].input[tfTag] = value
-                }
+                realmDatabase.updateList(list: cache.bagUpsPerTreeTypes[cvTag].input, index: tfTag, item: value)
                 calculateTotalInLane(lane: tfTag)
                 if(cache.bagUpsPerTreeTypes[cvTag].input[tfTag] == 0){
                     sender.text = ""
@@ -368,23 +413,18 @@ class TallySheetVC: ProgramicVC {
     
     @objc func clearFieldsBtn(sender: UIButton){
         clearingData = true
-        try! self.realm.write{
-            emptyTallyStringList(list: cache.treeTypes)
-            emptyTallyDoubleList(list: cache.centPerTreeTypes)
-            emptyTallyIntList(list: cache.bundlesPerTreeTypes)
-            emptyTallyDoubleList(list: cache.totalCashPerTreeTypes)
-            emptyTallyIntList(list: cache.totalTreesPerTreeTypes)
-            emptyTallyBagUps(list: cache.bagUpsPerTreeTypes)
-            emptyTallyPlots(list: cache.plots)
+        realmDatabase.clearCacheTally(cache: cache){result in
+            if(result){
+                print("Tally Cleared")
+            }
+            treeTypesCv.reloadData()
+            centPerTreeTypeCv.reloadData()
+            bundlePerTreeTypeCv.reloadData()
+            bagUpCVs.forEach{$0.reloadData()}
+            totalCashPerTreeTypesCv.reloadData()
+            totalTreesPerTreeTypesCv.reloadData()
+            clearingData = false
         }
-
-        treeTypesCv.reloadData()
-        centPerTreeTypeCv.reloadData()
-        bundlePerTreeTypeCv.reloadData()
-        bagUpCVs.forEach{$0.reloadData()}
-        totalCashPerTreeTypesCv.reloadData()
-        totalTreesPerTreeTypesCv.reloadData()
-        clearingData = false
     }
     
     func calculateTotalInLane(lane: Int){
@@ -392,12 +432,17 @@ class TallySheetVC: ProgramicVC {
         for x in 0...19{
             totalTreesInBagUps += cache.bagUpsPerTreeTypes[x].input[lane]
         }
-        try! self.realm.write{
-            cache.totalTreesPerTreeTypes[lane] = totalTreesInBagUps
-            cache.totalCashPerTreeTypes[lane] = (Double(totalTreesInBagUps)*cache.centPerTreeTypes[lane])
-        }
+        realmDatabase.updateList(list: cache.totalTreesPerTreeTypes, index: lane, item: totalTreesInBagUps)
+        realmDatabase.updateList(list: cache.totalCashPerTreeTypes, index: lane, item: (Double(totalTreesInBagUps)*cache.centPerTreeTypes[lane]))
         totalTreesPerTreeTypesCv.reloadData()
         totalCashPerTreeTypesCv.reloadData()
+    }
+    
+    func stopTrackingLocation(){
+        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
+        locationManager.pausesLocationUpdatesAutomatically = true
+        locationManager.allowsBackgroundLocationUpdates = false
     }
 }
 
@@ -429,28 +474,24 @@ extension TallySheetVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         }
         else if(collectionView == self.treeTypesCv){
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .default)
-//            cell.input.addTarget(self, action: #selector(scrollAction), for: .allEvents)
             cell.input.addTarget(self, action: #selector(treeTypesInputAction), for: .editingDidEnd)
             cell.input.text = cache.treeTypes[indexPath.row]
             return cell
         }
         else if(collectionView == self.centPerTreeTypeCv){
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .decimalPad)
-//            cell.entry.addTarget(self, action: #selector(scrollAction), for: .allEvents)
             cell.input.addTarget(self, action: #selector(centPerTreeInputAction), for: .editingDidEnd)
             cell.input.text = (cache.centPerTreeTypes[indexPath.row] == 0 ? "" : String(cache.centPerTreeTypes[indexPath.row]))
             return cell
         }
         else if(collectionView == self.bundlePerTreeTypeCv){
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .numberPad)
-//            cell.entry.addTarget(self, action: #selector(scrollAction), for: .allEvents)
             cell.input.addTarget(self, action: #selector(bundleAmountInputAction), for: .editingDidEnd)
             cell.input.text = (cache.bundlesPerTreeTypes[indexPath.row] == 0 ? "" : String(cache.bundlesPerTreeTypes[indexPath.row]))
             return cell
         }
         else{
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .numberPad)
-//            cell.entry.addTarget(self, action: #selector(scrollAction), for: .allEvents)
             cell.input.addTarget(self, action: #selector(bagUpInputAction), for: .editingDidEnd)
             cell.input.text = (cache.bagUpsPerTreeTypes[collectionView.tag].input[indexPath.row] == 0 ? "" : String(cache.bagUpsPerTreeTypes[collectionView.tag].input[indexPath.row]))
             return cell
@@ -458,3 +499,80 @@ extension TallySheetVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
 }
 
+extension TallySheetVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if cache.isPlanting{
+            if !locations.isEmpty{
+                for i in 0..<locations.count{
+                    let newCoordinate = Coordinate(longitude: locations[i].coordinate.longitude, latitude: locations[i].coordinate.latitude)
+                    realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: newCoordinate)
+                }
+            }
+        }
+    }
+    
+  // Handle authorization for the location manager.
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    // Check accuracy authorization
+    let accuracy = manager.accuracyAuthorization
+    switch accuracy {
+    case .fullAccuracy:
+        print("Location accuracy is precise.")
+    case .reducedAccuracy:
+        print("Location accuracy is not precise.")
+    @unknown default:
+        fatalError()
+    }
+    // Handle authorization status
+    switch status {
+    case .restricted:
+        print("Location access was restricted.")
+    case .denied:
+        print("User denied access to location.")
+      // Display the map using the default location.
+    case .notDetermined:
+        print("Location status not determined.")
+    case .authorizedAlways:
+        print("Location status is OK.")
+    case .authorizedWhenInUse:
+        print("Location status is Only When In Use.")
+    @unknown default:
+        fatalError()
+    }
+  }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if (locationManager.authorizationStatus == CLAuthorizationStatus.authorizedAlways) && gpsButtonClicked {
+            goToGPSModal()
+        }
+    }
+
+  // Handle location manager errors.
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        stopTrackingLocation()
+        print("Error: \(error)")
+  }
+}
+
+extension TallySheetVC: GPSTreeTracking_Delegate{
+    func flipBooleanIsPlanting() {
+        realmDatabase.updateCacheIsPlanting(cache: cache, bool: !cache.isPlanting)
+    }
+    
+    func isPlanting() -> Bool{
+        return cache.isPlanting
+    }
+    
+    func closedModal() {
+        //If person not planting ensure no tracking is being done.
+        if !cache.isPlanting{
+            print("Stopped Tracking")
+            stopTrackingLocation()
+        }
+    }
+    
+    func saveTreesPerPlot(treePerPlot: Int) {
+        print("Saving Trees per Plot: \(treePerPlot)")
+        realmDatabase.updateCacheTreePerPlot(cache: cache, treesPerPlot: treePerPlot)
+    }
+}

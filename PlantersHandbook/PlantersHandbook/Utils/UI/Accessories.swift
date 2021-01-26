@@ -20,6 +20,11 @@ struct FontSize{
     static let extraLarge = Float(30)
 }
 
+struct TallyNumbers{
+    static let bagUpRows = 20
+    static let columns = 8
+}
+
 struct PHColors{
     static let green = UIColor.systemGreen
     static let gray = UIColor.systemGray
