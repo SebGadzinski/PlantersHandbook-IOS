@@ -332,10 +332,6 @@ class TallySheetVC: ProgramicVC {
         present(plotsModal, animated: true)
     }
     
-    @objc func plotsActionButton(){
-        
-    }
-    
     @objc func treeTypesInputAction(sender: UITextField){
         realmDatabase.updateList(list: cache.treeTypes, index: sender.tag, item: sender.text!)
     }

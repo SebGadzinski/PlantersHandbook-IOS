@@ -43,6 +43,9 @@
 		860BED6D25A9573300B3D699 /* PlotsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED6C25A9573300B3D699 /* PlotsModal.swift */; };
 		860BED7225A9577300B3D699 /* GPSTreeTrackingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED7125A9577200B3D699 /* GPSTreeTrackingModal.swift */; };
 		860BED7A25AA296A00B3D699 /* PasswordResetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BED7925AA296A00B3D699 /* PasswordResetVC.swift */; };
+		8637690F25C5B37200580108 /* PlotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637690E25C5B37200580108 /* PlotCell.swift */; };
+		8637691425C5B3E700580108 /* UnderlineTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637691325C5B3E700580108 /* UnderlineTextCell.swift */; };
+		8637691925C5B96100580108 /* FloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637691825C5B96100580108 /* FloatExtensions.swift */; };
 		86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854B9E25BA5A620089CF2D /* DoubleExtension.swift */; };
 		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
 		86C741AE25AB5D71000547F9 /* UIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* UIViews.swift */; };
@@ -136,6 +139,9 @@
 		860BED6C25A9573300B3D699 /* PlotsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotsModal.swift; sourceTree = "<group>"; };
 		860BED7125A9577200B3D699 /* GPSTreeTrackingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTreeTrackingModal.swift; sourceTree = "<group>"; };
 		860BED7925AA296A00B3D699 /* PasswordResetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetVC.swift; sourceTree = "<group>"; };
+		8637690E25C5B37200580108 /* PlotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotCell.swift; sourceTree = "<group>"; };
+		8637691325C5B3E700580108 /* UnderlineTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextCell.swift; sourceTree = "<group>"; };
+		8637691825C5B96100580108 /* FloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatExtensions.swift; sourceTree = "<group>"; };
 		86854B9E25BA5A620089CF2D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* UIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViews.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 				86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */,
 				86854B9E25BA5A620089CF2D /* DoubleExtension.swift */,
 				86854BA625BA60680089CF2D /* StringExtension.swift */,
+				8637691825C5B96100580108 /* FloatExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -382,6 +389,8 @@
 			isa = PBXGroup;
 			children = (
 				86C7427925B673A7000547F9 /* TallyCell.swift */,
+				8637690E25C5B37200580108 /* PlotCell.swift */,
+				8637691325C5B3E700580108 /* UnderlineTextCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -680,11 +689,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				860BECF525A94BCE00B3D699 /* LoginVC.swift in Sources */,
+				8637690F25C5B37200580108 /* PlotCell.swift in Sources */,
 				860BECD425A94B1A00B3D699 /* UIButtons.swift in Sources */,
 				86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */,
 				860BED5925A9568400B3D699 /* BlockManagerVC.swift in Sources */,
+				8637691925C5B96100580108 /* FloatExtensions.swift in Sources */,
 				86C7420B25ABBC1F000547F9 /* GeneralFunctions.swift in Sources */,
 				86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */,
+				8637691425C5B3E700580108 /* UnderlineTextCell.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
 				86D2221525BFD45F003D7394 /* RealmFunctions.swift in Sources */,
 				860BECC725A94B0400B3D699 /* UIScrollVIews.swift in Sources */,
