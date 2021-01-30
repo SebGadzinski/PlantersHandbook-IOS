@@ -69,6 +69,3 @@ extension ProgramicVC : UITextFieldDelegate{
         view.endEditing(true)
     }
 }
-
-
-
