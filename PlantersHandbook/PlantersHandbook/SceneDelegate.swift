@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, CoordinateInput.self, Coordinate.self]
             
             Realm.asyncOpen(configuration: configuration) { [weak self](result) in
+                print(result)
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):

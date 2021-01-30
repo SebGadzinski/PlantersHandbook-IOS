@@ -26,3 +26,14 @@ func label_date(fontSize: Float?) -> UILabel {
     lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize!))
     return lb
 }
+
+func label_number(title: String?) -> UILabel {
+    let lb = UILabel()
+    lb.translatesAutoresizingMaskIntoConstraints = false
+    lb.adjustsFontSizeToFitWidth = true
+    lb.text = (title != nil ? title :"")
+    lb.textAlignment = .center
+    lb.textColor = .label
+    lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.large))
+    return lb
+}

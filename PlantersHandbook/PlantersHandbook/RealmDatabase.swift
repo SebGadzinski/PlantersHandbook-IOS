@@ -312,6 +312,17 @@ struct RealmDatabase{
             cache.treePerPlot = treesPerPlot
         }
     }
+    
+    public func updateCachePlotInputs(plotArray: List<PlotInput>, row: Int, plotInputOne: Int?, plotInputTwo: Int?){
+        try! realm!.write{
+            if let inputOne = plotInputOne{
+                plotArray[row].inputOne = inputOne
+            }
+            if let inputTwo = plotInputTwo{
+                plotArray[row].inputTwo = inputTwo
+            }
+        }
+    }
 
     //===============LIST================
     
@@ -357,16 +368,14 @@ struct RealmDatabase{
     //===============RANDOM================
     
     public func clearCacheTally(cache: Cache, completionHandler: CompletionHandler){
-        try! realm!.write{
-            emptyTallyPrimitiveList(list: cache.treeTypes, appending: "")
-            emptyTallyPrimitiveList(list: cache.centPerTreeTypes, appending: 0.0)
-            emptyTallyPrimitiveList(list: cache.bundlesPerTreeTypes, appending: 0)
-            emptyTallyPrimitiveList(list: cache.totalCashPerTreeTypes, appending: 0.0)
-            emptyTallyPrimitiveList(list: cache.totalTreesPerTreeTypes, appending: 0)
-            emptyTallyBagUps(list: cache.bagUpsPerTreeTypes)
-            emptyTallyPlots(list: cache.plots)
-            completionHandler(true)
-        }
+        emptyTallyPrimitiveList(list: cache.treeTypes, appending: "")
+        emptyTallyPrimitiveList(list: cache.centPerTreeTypes, appending: 0.0)
+        emptyTallyPrimitiveList(list: cache.bundlesPerTreeTypes, appending: 0)
+        emptyTallyPrimitiveList(list: cache.totalCashPerTreeTypes, appending: 0.0)
+        emptyTallyPrimitiveList(list: cache.totalTreesPerTreeTypes, appending: 0)
+        emptyTallyBagUps(list: cache.bagUpsPerTreeTypes)
+        emptyTallyPlots(list: cache.plots)
+        completionHandler(true)
     }
     
     //Meant for primitive types like : Double, Int, String

@@ -17,12 +17,8 @@ class StatisticsVC: ProgramicVC {
     required init() {
         seasons = realmDatabase.getSeasonRealm(predicate: nil).sorted(byKeyPath: "_id")
         
-        if let season = seasons.first{
-            handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", season._id))
-        }
-        else{
-            handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", "Empty"))
-        }
+        handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: nil)
+
 
         super.init(nibName: nil, bundle: nil)
     }

@@ -1,15 +1,15 @@
 //
-//  TallyCell.swift
+//  UnderlineTextCell.swift
 //  PlantersHandbook
 //
-//  Created by Sebastian Gadzinski on 2021-01-18.
+//  Created by Sebastian Gadzinski on 2021-01-30.
 //
 
 import UIKit
 
-class TallyCell: UICollectionViewCell {
+class UnderlineTextCell: UICollectionViewCell {
     var input = textField_bagUp()
-    let bottomBar = underLineBar(color: .systemGreen)
+    let bottomBar = underLineBar(color: .black)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -31,4 +31,3 @@ class TallyCell: UICollectionViewCell {
        fatalError("init(coder:) has not been implemented")
    }
 }
-

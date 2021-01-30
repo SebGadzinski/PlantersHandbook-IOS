@@ -8,6 +8,7 @@
 import Foundation
 import EmailValidator
 import Navajo_Swift
+import RealmSwift
 
 func emailValidator(email : String) -> String{
     return (EmailValidator.validate(email: email) ? "Success" : "Unacceptable email")
@@ -105,5 +106,17 @@ func containsLetters(input: String) -> Bool {
       }
    }
    return false
+}
+
+func totalDensityFromArray(plotArray: List<PlotInput>) -> Float{
+    var totalPlots = Float()
+    var totalPlotsDensity = Float()
+    for i in 0..<plotArray.count{
+        totalPlots += (plotArray[i].inputOne > 0 ? 1 : 0)
+        totalPlots += (plotArray[i].inputTwo > 0 ? 1 : 0)
+        totalPlotsDensity += Float(plotArray[i].inputOne)
+        totalPlotsDensity += Float(plotArray[i].inputTwo)
+    }
+    return (totalPlotsDensity != 0 ? (totalPlotsDensity/totalPlots) * 200 : 0)
 }
 

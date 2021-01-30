@@ -52,8 +52,8 @@ class BagUpInput: EmbeddedObject{
 }
 
 class PlotInput: EmbeddedObject{
-    var inputOne = List<Int>()
-    var inputTwo = List<Int>()
+    @objc dynamic var inputOne : Int = 0
+    @objc dynamic var inputTwo : Int = 0
 }
 
 class CoordinateInput: EmbeddedObject{
@@ -63,7 +63,6 @@ class CoordinateInput: EmbeddedObject{
 class Coordinate: EmbeddedObject{
     @objc dynamic var longitude : Double = 0.0
     @objc dynamic var latitude : Double = 0.0
-    
     
     convenience init(longitude: Double, latitude: Double) {
         self.init()
