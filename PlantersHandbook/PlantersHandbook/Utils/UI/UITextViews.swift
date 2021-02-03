@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func textView_multiLine(text: String, fontSize: Float) -> UITextView{
+func SUI_TextView_MultiLine(text: String, fontSize: Float) -> UITextView{
     let textField = UITextView()
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.text = text;

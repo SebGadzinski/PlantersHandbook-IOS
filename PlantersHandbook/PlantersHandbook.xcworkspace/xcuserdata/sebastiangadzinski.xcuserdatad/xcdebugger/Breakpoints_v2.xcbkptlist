@@ -206,10 +206,10 @@
             filePath = "PlantersHandbook/RealmDatabase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "378"
+            endingLineNumber = "378"
+            landmarkName = "emptyTallyPrimitiveList(list:appending:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -449,6 +449,86 @@
             endingLineNumber = "35"
             landmarkName = "scene(_:willConnectTo:options:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54CD6C41-8268-4F7F-869A-993A329ECAFB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/Utils/UI/Cells/TableViewCells/CardCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "generateLayout()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C435E70C-CAF0-454B-ABFD-F95618162B0D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/Utils/UI/Cells/TableViewCells/CardCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "init(style:reuseIdentifier:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E21F32A-41B1-4937-A56F-74C91F58A009"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/Utils/UI/Cells/TableViewCells/CardCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "generateLayout()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1E21F32A-41B1-4937-A56F-74C91F58A009 - ffc0c3f588c5aaa3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlantersHandbook.CardCell.generateLayout() -&gt; ()"
+                  moduleName = "PlantersHandbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/Utils/UI/Cells/TableViewCells/CardCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "3180">
+               </Location>
+               <Location
+                  uuid = "1E21F32A-41B1-4937-A56F-74C91F58A009 - 9235595a2f3c8221"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIView) -&gt; () in PlantersHandbook.CardCell.generateLayout() -&gt; ()"
+                  moduleName = "PlantersHandbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/Utils/UI/Cells/TableViewCells/CardCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

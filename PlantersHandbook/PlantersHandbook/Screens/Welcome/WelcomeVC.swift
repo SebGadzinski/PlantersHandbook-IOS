@@ -12,8 +12,8 @@ import RealmSwift
 class WelcomeVC: ProgramicVC{
     
     fileprivate let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
-    fileprivate let signUpButton = ph_button(title: "SignUp", fontSize: FontSize.large)
-    fileprivate let loginButton = ph_button(title: "Login", fontSize: FontSize.large)
+    fileprivate let signUpButton = PH_Button(title: "SignUp", fontSize: FontSize.large)
+    fileprivate let loginButton = PH_Button(title: "Login", fontSize: FontSize.large)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

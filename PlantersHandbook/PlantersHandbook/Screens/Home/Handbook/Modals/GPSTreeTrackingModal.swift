@@ -22,10 +22,10 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     
     var locationNotificationToken: NotificationToken?
     
-    fileprivate let engageTrackingButton = ph_button(title: "Start Planting", fontSize: FontSize.large)
-    fileprivate let distanceTravelledTF = label_normal(title: "0 m", fontSize: FontSize.extraLarge)
-    fileprivate let treesPlantedTheoreticallyTF = label_normal(title: "0 trees", fontSize: FontSize.extraLarge)
-    fileprivate let treesPerPlotInput = textField_form(placeholder: "Trees Per Plot", textType: .none)
+    fileprivate let engageTrackingButton = PH_Button(title: "Start Planting", fontSize: FontSize.large)
+    fileprivate let distanceTravelledTextField = SUI_Label(title: "0 m", fontSize: FontSize.extraLarge)
+    fileprivate let treesPlantedTheoreticallyTextField = SUI_Label(title: "0 trees", fontSize: FontSize.extraLarge)
+    fileprivate let treesPerPlotTextField = SUI_TextField_Form(placeholder: "Trees Per Plot", textType: .none)
     fileprivate let undoImage = UIImageView(image: UIImage(named: "undo.png"))
     
     fileprivate var mapView = GMSMapView()
@@ -69,8 +69,8 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     }
     
     override func generateLayout() {
-        googleMapsLayout = generalLayout(backgoundColor: .systemBackground)
-        actionLayout = generalLayout(backgoundColor: .systemBackground)
+        googleMapsLayout = SUI_View(backgoundColor: .systemBackground)
+        actionLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -85,7 +85,7 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     
     override func setActions() {
         engageTrackingButton.addTarget(self, action: #selector(engageTrackingButtonAction), for: .touchUpInside)
-        treesPerPlotInput.addTarget(self, action: #selector(treesPerPlotInputAction), for: .editingDidEnd)
+        treesPerPlotTextField.addTarget(self, action: #selector(treesPerPlotInputAction), for: .editingDidEnd)
         undoImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(undoTap)))
     }
     
@@ -116,7 +116,7 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
         mapView.settings.zoomGestures = true
         
         //Bar for people to grab and close the modal
-        let topBar = generalLayout(backgoundColor: .clear)
+        let topBar = SUI_View(backgoundColor: .clear)
         
         [mapView, topBar].forEach{googleMapsLayout.addSubview($0)}
     
@@ -131,7 +131,7 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     }
     
     func setUpActionLayout(){
-        [engageTrackingButton, treesPerPlotInput, distanceTravelledTF, treesPlantedTheoreticallyTF].forEach{actionLayout.addSubview($0)}
+        [engageTrackingButton, treesPerPlotTextField, distanceTravelledTextField, treesPlantedTheoreticallyTextField].forEach{actionLayout.addSubview($0)}
 
         engageTrackingButton.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 10, left: 10, bottom: 0, right: 10), size: .init(width: actionLayout.safeAreaFrame.width/2, height: actionLayout.safeAreaFrame.height*0.45))
         
@@ -142,19 +142,19 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
             }
         }
         
-        treesPerPlotInput.anchor(top: engageTrackingButton.bottomAnchor, leading: engageTrackingButton.leadingAnchor, bottom: nil, trailing: engageTrackingButton.trailingAnchor, padding: .init(top: 10, left: 30, bottom: 0, right: 30))
-        treesPerPlotInput.textAlignment = .center
-        treesPerPlotInput.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.meduim))
-        treesPerPlotInput.text = String(treesPerPlot)
-        treesPerPlotInput.keyboardType = .numberPad
+        treesPerPlotTextField.anchor(top: engageTrackingButton.bottomAnchor, leading: engageTrackingButton.leadingAnchor, bottom: nil, trailing: engageTrackingButton.trailingAnchor, padding: .init(top: 10, left: 30, bottom: 0, right: 30))
+        treesPerPlotTextField.textAlignment = .center
+        treesPerPlotTextField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.meduim))
+        treesPerPlotTextField.text = String(treesPerPlot)
+        treesPerPlotTextField.keyboardType = .numberPad
 
-        distanceTravelledTF.anchor(top: nil, leading: engageTrackingButton.trailingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, size: .init(width: 0, height: actionLayout.safeAreaFrame.height*0.45))
-        distanceTravelledTF.anchorCenterY(to: engageTrackingButton)
+        distanceTravelledTextField.anchor(top: nil, leading: engageTrackingButton.trailingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, size: .init(width: 0, height: actionLayout.safeAreaFrame.height*0.45))
+        distanceTravelledTextField.anchorCenterY(to: engageTrackingButton)
 
-        treesPlantedTheoreticallyTF.anchor(top: nil, leading: treesPerPlotInput.trailingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, size: .init(width: 0, height: actionLayout.safeAreaFrame.height*0.45))
-        treesPlantedTheoreticallyTF.anchorCenterY(to: treesPerPlotInput)
-        treesPlantedTheoreticallyTF.anchorCenterX(to: distanceTravelledTF)
-        treesPlantedTheoreticallyTF.textColor = .systemGreen
+        treesPlantedTheoreticallyTextField.anchor(top: nil, leading: treesPerPlotTextField.trailingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, size: .init(width: 0, height: actionLayout.safeAreaFrame.height*0.45))
+        treesPlantedTheoreticallyTextField.anchorCenterY(to: treesPerPlotTextField)
+        treesPlantedTheoreticallyTextField.anchorCenterX(to: distanceTravelledTextField)
+        treesPlantedTheoreticallyTextField.textColor = .systemGreen
     }
     
     @objc func engageTrackingButtonAction(){
@@ -177,9 +177,9 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     }
     
     @objc func treesPerPlotInputAction(){
-        if(treesPerPlotInput.text != "0" && treesPerPlotInput.text != ""){
+        if(treesPerPlotTextField.text != "0" && treesPerPlotTextField.text != ""){
             if let delegate = delegate{
-                treesPerPlot = Int(treesPerPlotInput.text!)!
+                treesPerPlot = Int(treesPerPlotTextField.text!)!
                 delegate.saveTreesPerPlot(treePerPlot: treesPerPlot)
             }
         }
@@ -288,13 +288,13 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     }
     
     func setDistanceTextField(){
-        distanceTravelledTF.text = String(Double(totalDistance/1000.0).round(to: 2)) + "Km"
+        distanceTravelledTextField.text = String(Double(totalDistance/1000.0).round(to: 2)) + "Km"
     }
     
     func calculateTrees(){
         if treesPerPlot > 0{
             //Caclulation: total distanc/target inter-tree distance
-            treesPlantedTheoreticallyTF.text = String(Int(totalDistance/Double(11547.0/Double(treesPerPlot*200)).squareRoot())) + " Trees"
+            treesPlantedTheoreticallyTextField.text = String(Int(totalDistance/Double(11547.0/Double(treesPerPlot*200)).squareRoot())) + " Trees"
         }
     }
     

@@ -17,11 +17,11 @@ class LoginVC: ProgramicVC {
     fileprivate var infoLayout : UIView!
     
     fileprivate let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
-    fileprivate let signUpTitle = label_normal(title: "Login", fontSize: FontSize.extraLarge)
-    fileprivate let emailTextInput = textField_form(placeholder: "email", textType: .emailAddress)
-    fileprivate let passwordTextInput = textField_form(placeholder: "password", textType: .newPassword)
-    fileprivate let forgotPassword = label_normal(title: "Forgot Password?", fontSize: FontSize.small)
-    fileprivate let loginButton = ph_button(title: "Login!", fontSize: FontSize.large)
+    fileprivate let signUpTitleLabel = SUI_Label(title: "Login", fontSize: FontSize.extraLarge)
+    fileprivate let emailTextField = SUI_TextField_Form(placeholder: "email", textType: .emailAddress)
+    fileprivate let passwordTextField = SUI_TextField_Form(placeholder: "password", textType: .newPassword)
+    fileprivate let forgotPasswordLabel = SUI_Label(title: "Forgot Password?", fontSize: FontSize.small)
+    fileprivate let loginButton = PH_Button(title: "Login!", fontSize: FontSize.large)
     fileprivate var credientialsGiven = false
     fileprivate let emailGivenFromSignUp : String
     fileprivate let passwordGivenFromSignUp : String
@@ -47,13 +47,13 @@ class LoginVC: ProgramicVC {
     
     var email: String? {
         get {
-            return emailTextInput.text
+            return emailTextField.text
         }
     }
 
     var password: String? {
         get {
-            return passwordTextInput.text
+            return passwordTextField.text
         }
     }
     
@@ -61,8 +61,8 @@ class LoginVC: ProgramicVC {
         super.viewWillAppear(animated)
         if(credientialsGiven){
             
-            emailTextInput.text = emailGivenFromSignUp
-            passwordTextInput.text = passwordGivenFromSignUp
+            emailTextField.text = emailGivenFromSignUp
+            passwordTextField.text = passwordGivenFromSignUp
             
             //If there is no password it came from password reset or welcome page, if there is it came from sign up and user needs to confirm email
             if(passwordGivenFromSignUp != ""){
@@ -72,14 +72,14 @@ class LoginVC: ProgramicVC {
             }
         }
         else{
-            emailTextInput.text = "seb.gadzinski@gmail.com"
-            passwordTextInput.text = "Skittles2!"
+            emailTextField.text = "seb.gadzinski@gmail.com"
+            passwordTextField.text = "Skittles2!"
         }
     }
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        infoLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        infoLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -91,7 +91,7 @@ class LoginVC: ProgramicVC {
     override func setActions() {
         loginButton.addTarget(self, action: #selector(signIn), for: .touchUpInside)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToPasswordResetVC(tapGestureRecognizer:)))
-        forgotPassword.addGestureRecognizer(tapGesture)
+        forgotPasswordLabel.addGestureRecognizer(tapGesture)
     }
     
     func setUpOverlay() {
@@ -106,30 +106,30 @@ class LoginVC: ProgramicVC {
     func setUpTitleLayout() {
         let titleLayoutFrame = titleLayout.safeAreaFrame
         
-        [icon, signUpTitle].forEach{titleLayout.addSubview($0)}
+        [icon, signUpTitleLabel].forEach{titleLayout.addSubview($0)}
         icon.anchor(top: titleLayout.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayoutFrame.height*0.4, height: titleLayoutFrame.height*0.4))
         icon.anchorCenterX(to: titleLayout)
         
-        signUpTitle.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
-        signUpTitle.anchorCenterX(to: titleLayout)
+        signUpTitleLabel.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
+        signUpTitleLabel.anchorCenterX(to: titleLayout)
     }
     
     func setUpInfoLayout() {
         let infoLayoutFrame = infoLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(20)
         
-        [emailTextInput, passwordTextInput, forgotPassword, loginButton].forEach{infoLayout.addSubview($0)}
+        [emailTextField, passwordTextField, forgotPasswordLabel, loginButton].forEach{infoLayout.addSubview($0)}
         
-        emailTextInput.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        emailTextInput.tag = 0
-        emailTextInput.delegate = self
+        emailTextField.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        emailTextField.tag = 0
+        emailTextField.delegate = self
         
-        passwordTextInput.anchor(top: emailTextInput.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        passwordTextInput.tag = 1
-        passwordTextInput.delegate = self
+        passwordTextField.anchor(top: emailTextField.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        passwordTextField.tag = 1
+        passwordTextField.delegate = self
         
-        forgotPassword.anchor(top: passwordTextInput.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: infoLayoutFrame.width*0.6, height: infoLayoutFrame.height*0.1))
-        forgotPassword.isUserInteractionEnabled = true
+        forgotPasswordLabel.anchor(top: passwordTextField.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: infoLayoutFrame.width*0.6, height: infoLayoutFrame.height*0.1))
+        forgotPasswordLabel.isUserInteractionEnabled = true
 
         
         loginButton.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: infoLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: infoLayoutFrame.width*0.3, bottom: infoLayoutFrame.height*0.4, right: infoLayoutFrame.width*0.3),size: .init(width: 0, height: 0))
@@ -140,13 +140,13 @@ class LoginVC: ProgramicVC {
     func setLoading(_ loading: Bool, message: String?) {
         if loading {
             SwiftSpinner.show(message!)
-            emailTextInput.errorLabel.text = "";
-            passwordTextInput.errorLabel.text = "";
+            emailTextField.errorLabel.text = "";
+            passwordTextField.errorLabel.text = "";
         } else {
             SwiftSpinner.hide()
         }
-        emailTextInput.isEnabled = !loading
-        passwordTextInput.isEnabled = !loading
+        emailTextField.isEnabled = !loading
+        passwordTextField.isEnabled = !loading
         loginButton.isEnabled = !loading
     }
     
@@ -211,7 +211,7 @@ class LoginVC: ProgramicVC {
 
 extension LoginVC: UnderLineTextFieldDelegate{
     func textFieldValidate(underLineTextField: UnderLineTextField) throws {
-        let result : String = emailValidator(email: emailTextInput.text!)
+        let result : String = emailValidator(email: emailTextField.text!)
         if result != "Success"{
             throw UnderLineTextFieldErrors
                 .error(message: result)

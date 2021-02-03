@@ -120,3 +120,18 @@ func totalDensityFromArray(plotArray: List<PlotInput>) -> Float{
     return (totalPlotsDensity != 0 ? (totalPlotsDensity/totalPlots) * 200 : 0)
 }
 
+func longPressGestureHandlerMethod(imageView: UIImageView, recognizer:UIPinchGestureRecognizer){
+    switch recognizer.state {
+    case .began:
+        UIView.animate(withDuration: 0.05,
+                       animations: {
+                        imageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        },
+                       completion: nil)
+    case .ended:
+        UIView.animate(withDuration: 0.05) {
+            imageView.transform = CGAffineTransform.identity
+        }
+    default: break
+    }
+}

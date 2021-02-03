@@ -13,10 +13,6 @@ struct RealmDatabase{
     private var realm : Realm?
     private var partitionValue: String?
     
-    init() {
-        //This allows me to have no realm when user is at welcome navigaiton
-    }
-    
     public mutating func connectToRealm(realm: Realm){
         self.realm = realm
         guard let syncConfiguration = realm.configuration.syncConfiguration else {

@@ -14,7 +14,6 @@
 		860BEC5F25A9442900B3D699 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 860BEC5D25A9442900B3D699 /* LaunchScreen.storyboard */; };
 		860BEC6A25A9442A00B3D699 /* PlantersHandbookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BEC6925A9442A00B3D699 /* PlantersHandbookTests.swift */; };
 		860BEC7525A9442A00B3D699 /* PlantersHandbookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BEC7425A9442A00B3D699 /* PlantersHandbookUITests.swift */; };
-		860BECB125A94A2400B3D699 /* Accessories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BECB025A94A2400B3D699 /* Accessories.swift */; };
 		860BECC725A94B0400B3D699 /* UIScrollVIews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BECC625A94B0400B3D699 /* UIScrollVIews.swift */; };
 		860BECCF25A94B0F00B3D699 /* UITextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BECCE25A94B0F00B3D699 /* UITextFields.swift */; };
 		860BECD425A94B1A00B3D699 /* UIButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BECD325A94B1A00B3D699 /* UIButtons.swift */; };
@@ -46,6 +45,15 @@
 		8637690F25C5B37200580108 /* PlotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637690E25C5B37200580108 /* PlotCell.swift */; };
 		8637691425C5B3E700580108 /* UnderlineTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637691325C5B3E700580108 /* UnderlineTextCell.swift */; };
 		8637691925C5B96100580108 /* FloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637691825C5B96100580108 /* FloatExtensions.swift */; };
+		8637692725C7420C00580108 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637692625C7420C00580108 /* CardCell.swift */; };
+		8637693425C7758300580108 /* hamburger_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8637693325C7758300580108 /* hamburger_menu.png */; };
+		8637693F25C7824500580108 /* GraphCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637693E25C7824500580108 /* GraphCardCell.swift */; };
+		8637694425C784EC00580108 /* TotalCashCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637694325C784EC00580108 /* TotalCashCell.swift */; };
+		8637695125C7852100580108 /* LineGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637695025C7852100580108 /* LineGraphCell.swift */; };
+		8637695625C7853200580108 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637695525C7853200580108 /* PieChartCell.swift */; };
+		8637695B25C7854700580108 /* OverallStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637695A25C7854700580108 /* OverallStatsCell.swift */; };
+		8637696025C7856200580108 /* HorizontalBarGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637695F25C7856200580108 /* HorizontalBarGraphCell.swift */; };
+		86672B7625CAFB7200D0C34C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672B7525CAFB7200D0C34C /* Config.swift */; };
 		86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854B9E25BA5A620089CF2D /* DoubleExtension.swift */; };
 		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
 		86C741AE25AB5D71000547F9 /* UIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* UIViews.swift */; };
@@ -74,7 +82,6 @@
 		86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7427925B673A7000547F9 /* TallyCell.swift */; };
 		86D2220325BDEC9D003D7394 /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D2220225BDEC9D003D7394 /* undo.png */; };
 		86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */; };
-		86D2221525BFD45F003D7394 /* RealmFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D2221425BFD45F003D7394 /* RealmFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +117,6 @@
 		860BEC7025A9442A00B3D699 /* PlantersHandbookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantersHandbookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		860BEC7425A9442A00B3D699 /* PlantersHandbookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantersHandbookUITests.swift; sourceTree = "<group>"; };
 		860BEC7625A9442A00B3D699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		860BECB025A94A2400B3D699 /* Accessories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessories.swift; sourceTree = "<group>"; };
 		860BECC625A94B0400B3D699 /* UIScrollVIews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollVIews.swift; sourceTree = "<group>"; };
 		860BECCE25A94B0F00B3D699 /* UITextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFields.swift; sourceTree = "<group>"; };
 		860BECD325A94B1A00B3D699 /* UIButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtons.swift; sourceTree = "<group>"; };
@@ -142,6 +148,15 @@
 		8637690E25C5B37200580108 /* PlotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotCell.swift; sourceTree = "<group>"; };
 		8637691325C5B3E700580108 /* UnderlineTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextCell.swift; sourceTree = "<group>"; };
 		8637691825C5B96100580108 /* FloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatExtensions.swift; sourceTree = "<group>"; };
+		8637692625C7420C00580108 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		8637693325C7758300580108 /* hamburger_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger_menu.png; sourceTree = "<group>"; };
+		8637693E25C7824500580108 /* GraphCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphCardCell.swift; sourceTree = "<group>"; };
+		8637694325C784EC00580108 /* TotalCashCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCashCell.swift; sourceTree = "<group>"; };
+		8637695025C7852100580108 /* LineGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraphCell.swift; sourceTree = "<group>"; };
+		8637695525C7853200580108 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
+		8637695A25C7854700580108 /* OverallStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallStatsCell.swift; sourceTree = "<group>"; };
+		8637695F25C7856200580108 /* HorizontalBarGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalBarGraphCell.swift; sourceTree = "<group>"; };
+		86672B7525CAFB7200D0C34C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		86854B9E25BA5A620089CF2D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* UIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViews.swift; sourceTree = "<group>"; };
@@ -170,7 +185,6 @@
 		86C7427925B673A7000547F9 /* TallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallyCell.swift; sourceTree = "<group>"; };
 		86D2220225BDEC9D003D7394 /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
 		86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
-		86D2221425BFD45F003D7394 /* RealmFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,7 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				860BECA525A948EC00B3D699 /* Cells */,
-				860BECB025A94A2400B3D699 /* Accessories.swift */,
 				860BECC625A94B0400B3D699 /* UIScrollVIews.swift */,
 				860BECCE25A94B0F00B3D699 /* UITextFields.swift */,
 				860BECD325A94B1A00B3D699 /* UIButtons.swift */,
@@ -345,7 +358,6 @@
 			isa = PBXGroup;
 			children = (
 				86C7420A25ABBC1F000547F9 /* GeneralFunctions.swift */,
-				86D2221425BFD45F003D7394 /* RealmFunctions.swift */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -381,6 +393,7 @@
 		860BECA725A9491900B3D699 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
+				86672B7525CAFB7200D0C34C /* Config.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -388,6 +401,13 @@
 		860BECC425A94AA400B3D699 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				8637692625C7420C00580108 /* CardCell.swift */,
+				8637693E25C7824500580108 /* GraphCardCell.swift */,
+				8637694325C784EC00580108 /* TotalCashCell.swift */,
+				8637695025C7852100580108 /* LineGraphCell.swift */,
+				8637695525C7853200580108 /* PieChartCell.swift */,
+				8637695A25C7854700580108 /* OverallStatsCell.swift */,
+				8637695F25C7856200580108 /* HorizontalBarGraphCell.swift */,
 				86C7427925B673A7000547F9 /* TallyCell.swift */,
 				8637690E25C5B37200580108 /* PlotCell.swift */,
 				8637691325C5B3E700580108 /* UnderlineTextCell.swift */,
@@ -427,6 +447,7 @@
 		860BED4225A9528600B3D699 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8637693325C7758300580108 /* hamburger_menu.png */,
 				86D2220225BDEC9D003D7394 /* undo.png */,
 				86C7424325ACF057000547F9 /* sep_icon.png */,
 				86C741D625AB8DD5000547F9 /* icons8-cash-app-50-white.png */,
@@ -587,6 +608,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8637693425C7758300580108 /* hamburger_menu.png in Resources */,
 				86C741EC25AB8DD6000547F9 /* icons8-oak-tree-64.png in Resources */,
 				86C741EB25AB8DD6000547F9 /* icons8-cent-50-white.png in Resources */,
 				86C741E725AB8DD6000547F9 /* icons8-forest-ranger-50.png in Resources */,
@@ -697,30 +719,35 @@
 				86C7420B25ABBC1F000547F9 /* GeneralFunctions.swift in Sources */,
 				86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */,
 				8637691425C5B3E700580108 /* UnderlineTextCell.swift in Sources */,
+				8637693F25C7824500580108 /* GraphCardCell.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
-				86D2221525BFD45F003D7394 /* RealmFunctions.swift in Sources */,
 				860BECC725A94B0400B3D699 /* UIScrollVIews.swift in Sources */,
 				86C7424925B090ED000547F9 /* UITextViews.swift in Sources */,
 				86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */,
 				860BECED25A94BB200B3D699 /* WelcomeVC.swift in Sources */,
 				860BED2025A94DB900B3D699 /* HandbookEntry.swift in Sources */,
+				8637695125C7852100580108 /* LineGraphCell.swift in Sources */,
 				860BED1625A94D3700B3D699 /* User.swift in Sources */,
 				86854BA725BA60680089CF2D /* StringExtension.swift in Sources */,
 				860BED2F25A94E2A00B3D699 /* Cache.swift in Sources */,
 				860BED3425A9512E00B3D699 /* HandbookNC.swift in Sources */,
+				8637694425C784EC00580108 /* TotalCashCell.swift in Sources */,
 				86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */,
 				860BECD925A94B2400B3D699 /* UILabels.swift in Sources */,
 				86C7422125ABE8CF000547F9 /* GetCompanyVC.swift in Sources */,
 				860BED4425A9531900B3D699 /* ProgramicVCInterface.swift in Sources */,
 				860BED3E25A9526F00B3D699 /* HomeTBC.swift in Sources */,
 				86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */,
-				860BECB125A94A2400B3D699 /* Accessories.swift in Sources */,
+				86672B7625CAFB7200D0C34C /* Config.swift in Sources */,
 				860BECE425A94B4900B3D699 /* UICollectionViews.swift in Sources */,
 				860BED2A25A94E1C00B3D699 /* SubBlock.swift in Sources */,
 				860BED6D25A9573300B3D699 /* PlotsModal.swift in Sources */,
+				8637695B25C7854700580108 /* OverallStatsCell.swift in Sources */,
+				8637695625C7853200580108 /* PieChartCell.swift in Sources */,
 				860BED1125A94CBD00B3D699 /* HandbookVC.swift in Sources */,
 				86C7425E25B20E87000547F9 /* SeasonModal.swift in Sources */,
 				86C7425225B0B843000547F9 /* Enumerations.swift in Sources */,
+				8637692725C7420C00580108 /* CardCell.swift in Sources */,
 				860BED3925A9514600B3D699 /* StatisticsNC.swift in Sources */,
 				860BEC5325A9442700B3D699 /* AppDelegate.swift in Sources */,
 				86C741AE25AB5D71000547F9 /* UIViews.swift in Sources */,
@@ -728,6 +755,7 @@
 				860BEC5525A9442700B3D699 /* SceneDelegate.swift in Sources */,
 				860BECDE25A94B2E00B3D699 /* UITableViews.swift in Sources */,
 				860BED7225A9577300B3D699 /* GPSTreeTrackingModal.swift in Sources */,
+				8637696025C7856200580108 /* HorizontalBarGraphCell.swift in Sources */,
 				860BECFA25A94BE600B3D699 /* SignUpVC.swift in Sources */,
 				860BECCF25A94B0F00B3D699 /* UITextFields.swift in Sources */,
 				860BED7A25AA296A00B3D699 /* PasswordResetVC.swift in Sources */,

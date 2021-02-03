@@ -15,9 +15,9 @@ class PlotsModal: ProgramicVC {
     fileprivate var titleLayout : UIView!
     fileprivate var plotsLayout : UIView!
     
-    fileprivate let titleLb = label_normal(title: "Plots", fontSize: FontSize.extraLarge)
-    fileprivate let densityLb = label_normal(title: "Density: ", fontSize: FontSize.large)
-    fileprivate var plotsCv : UICollectionView!
+    fileprivate let titleLabel = SUI_Label(title: "Plots", fontSize: FontSize.extraLarge)
+    fileprivate let densityLabel = SUI_Label(title: "Density: ", fontSize: FontSize.large)
+    fileprivate var plotsCollectionView : UICollectionView!
     
     required init(title: String, plots: List<PlotInput>) {
         self.plots = plots
@@ -37,9 +37,9 @@ class PlotsModal: ProgramicVC {
     }
     
     override func generateLayout(){
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        plotsLayout = generalLayout(backgoundColor: .systemBackground)
-        plotsCv = plotsCV()
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        plotsLayout = SUI_View(backgoundColor: .systemBackground)
+        plotsCollectionView = PH_CollectionView_Plots()
         keyboardSetUp()
     }
     
@@ -58,23 +58,23 @@ class PlotsModal: ProgramicVC {
     }
     
     func setUpTitleLayout(){
-        titleLayout.addSubview(titleLb)
-        titleLayout.addSubview(densityLb)
-        titleLb.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
-        titleLb.centerXAnchor.constraint(equalTo: titleLayout.centerXAnchor).isActive = true
-        titleLb.centerYAnchor.constraint(equalTo: titleLayout.centerYAnchor).isActive = true
-        densityLb.anchor(top: titleLb.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: titleLayout.safeAreaFrame.width, height: titleLayout.safeAreaFrame.height/4))
-        densityLb.anchorCenterX(to: titleLayout)
-        densityLb.font = UIFont(name: Fonts.avenirNextMeduim, size: 16)
+        titleLayout.addSubview(titleLabel)
+        titleLayout.addSubview(densityLabel)
+        titleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
+        titleLabel.centerXAnchor.constraint(equalTo: titleLayout.centerXAnchor).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: titleLayout.centerYAnchor).isActive = true
+        densityLabel.anchor(top: titleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: titleLayout.safeAreaFrame.width, height: titleLayout.safeAreaFrame.height/4))
+        densityLabel.anchorCenterX(to: titleLayout)
+        densityLabel.font = UIFont(name: Fonts.avenirNextMeduim, size: 16)
     }
     
     func setUpPlotsLayout(){
         let plotFrame = plotsLayout.safeAreaFrame.size
-        plotsCv.delegate = self
-        plotsCv.dataSource = self
-        plotsLayout.addSubview(plotsCv)
-        plotsCv.anchor(top: plotsLayout.topAnchor, leading: nil, bottom: plotsLayout.bottomAnchor, trailing: nil,size: .init(width: plotFrame.width*0.7, height: plotFrame.height))
-        plotsCv.centerXAnchor.constraint(equalTo: plotsLayout.centerXAnchor).isActive = true
+        plotsCollectionView.delegate = self
+        plotsCollectionView.dataSource = self
+        plotsLayout.addSubview(plotsCollectionView)
+        plotsCollectionView.anchor(top: plotsLayout.topAnchor, leading: nil, bottom: plotsLayout.bottomAnchor, trailing: nil,size: .init(width: plotFrame.width*0.7, height: plotFrame.height))
+        plotsCollectionView.centerXAnchor.constraint(equalTo: plotsLayout.centerXAnchor).isActive = true
     }
 
     @objc func plotOneAction(_ sender: UITextField) {
@@ -97,7 +97,7 @@ class PlotsModal: ProgramicVC {
     }
     
     func calculateDensity(){
-        densityLb.text = "Density: " + totalDensityFromArray(plotArray: plots).round(to: 2)
+        densityLabel.text = "Density: " + totalDensityFromArray(plotArray: plots).round(to: 2)
     }
 }
 
@@ -111,7 +111,7 @@ extension PlotsModal: UICollectionViewDelegate, UICollectionViewDataSource, UICo
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = plotsCv.dequeueReusableCell(withReuseIdentifier: "PlotCell", for: indexPath) as! PlotCell
+        let cell = plotsCollectionView.dequeueReusableCell(withReuseIdentifier: "PlotCell", for: indexPath) as! PlotCell
         cell.number.text = String(indexPath.row+1)
         cell.plotOne.inputAccessoryView = kb
         cell.plotTwo.inputAccessoryView = kb

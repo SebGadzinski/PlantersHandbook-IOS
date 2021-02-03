@@ -14,16 +14,16 @@ class HandbookVC: ProgramicVC {
     fileprivate var actionLayout : UIView!
     fileprivate var tableViewLayout : UIView!
     
-    var seasonNotificationToken: NotificationToken?
-    var handbookEntryNotificationToken: NotificationToken?
-    let seasons: Results<Season>
-    var handbookEntries: Results<HandbookEntry>
-    fileprivate let dateLb = label_date(fontSize: FontSize.extraLarge)
-    fileprivate let addEntryButton = ph_button(title: "Add Entry", fontSize: FontSize.extraLarge)
-    fileprivate let addSeasonButton = ph_button(title: "Add Season", fontSize: FontSize.meduim)
-    fileprivate var seasonTableView = tableView_normal()
-    fileprivate var handbookEntrysTableView = tableView_normal()
-    fileprivate var logoutButton = ph_button(title: "Logout", fontSize: FontSize.small)
+    fileprivate var seasonNotificationToken: NotificationToken?
+    fileprivate var handbookEntryNotificationToken: NotificationToken?
+    fileprivate let seasons: Results<Season>
+    fileprivate var handbookEntries: Results<HandbookEntry>
+    fileprivate let dateLabel = SUI_Label_Date(fontSize: FontSize.extraLarge)
+    fileprivate let addEntryButton = PH_Button(title: "Add Entry", fontSize: FontSize.extraLarge)
+    fileprivate let addSeasonButton = PH_Button(title: "Add Season", fontSize: FontSize.meduim)
+    fileprivate var seasonTableView = SUI_TableView()
+    fileprivate var handbookEntrysTableView = SUI_TableView()
+    fileprivate var logoutButton = PH_Button(title: "Logout", fontSize: FontSize.small)
     fileprivate var seasonSelected = -1;
     
     required init() {
@@ -83,9 +83,9 @@ class HandbookVC: ProgramicVC {
     }
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        actionLayout = generalLayout(backgoundColor: .systemBackground)
-        tableViewLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        actionLayout = SUI_View(backgoundColor: .systemBackground)
+        tableViewLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -115,14 +115,14 @@ class HandbookVC: ProgramicVC {
     }
     
     func setUpTitleLayout(){
-        [dateLb, logoutButton].forEach{titleLayout.addSubview($0)}
+        [dateLabel, logoutButton].forEach{titleLayout.addSubview($0)}
 
         logoutButton.anchor(top: nil, leading: titleLayout.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 5, bottom: 0, right: 0), size: .init(width: titleLayout.safeAreaFrame.width*0.2, height: titleLayout.safeAreaFrame.height*0.4))
-        logoutButton.anchorCenterY(to: dateLb)
+        logoutButton.anchorCenterY(to: dateLabel)
         logoutButton.setTitleColor(.secondaryLabel, for: .normal)
         
-        dateLb.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
-        dateLb.anchorCenter(to: titleLayout)
+        dateLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
+        dateLabel.anchorCenter(to: titleLayout)
     }
     
     func setUpActionLayout(){

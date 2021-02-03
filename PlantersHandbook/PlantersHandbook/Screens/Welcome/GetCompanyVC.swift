@@ -22,10 +22,10 @@ class GetCompanyVC: ProgramicVC {
     fileprivate var companyPickerView = UIPickerView()
 
     fileprivate let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
-    fileprivate let companyTitle = label_normal(title: "Company", fontSize: FontSize.extraLarge)
-    fileprivate let companyInfoMessage = textView_multiLine(text: "Please select the company you work for", fontSize: FontSize.meduim)
-    fileprivate let companyTextInput = textField_form(placeholder: "Click to choose", textType: .name)
-    fileprivate let confirmButton = ph_button(title: "Confirm", fontSize: FontSize.large)
+    fileprivate let companyTitleLabel = SUI_Label(title: "Company", fontSize: FontSize.extraLarge)
+    fileprivate let companyInfoMessage = SUI_TextView_MultiLine(text: "Please select the company you work for", fontSize: FontSize.meduim)
+    fileprivate let companyTextField = SUI_TextField_Form(placeholder: "Click to choose", textType: .name)
+    fileprivate let confirmButton = PH_Button(title: "Confirm", fontSize: FontSize.large)
     
     init() {
         if let user = realmDatabase.getLocalUser(){
@@ -54,14 +54,14 @@ class GetCompanyVC: ProgramicVC {
     
     var company: String? {
         get {
-            return companyTextInput.text
+            return companyTextField.text
         }
     }
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        infoLayout = generalLayout(backgoundColor: .systemBackground)
-        companyLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        infoLayout = SUI_View(backgoundColor: .systemBackground)
+        companyLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -86,14 +86,14 @@ class GetCompanyVC: ProgramicVC {
     func setUpTitleLayout() {
         let titleLayoutFrame = titleLayout.safeAreaFrame
         
-        [icon, companyTitle, companyInfoMessage].forEach{titleLayout.addSubview($0)}
+        [icon, companyTitleLabel, companyInfoMessage].forEach{titleLayout.addSubview($0)}
         icon.anchor(top: titleLayout.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayoutFrame.height*0.4, height: titleLayoutFrame.height*0.4))
         icon.anchorCenterX(to: titleLayout)
         
-        companyTitle.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
-        companyTitle.anchorCenterX(to: titleLayout)
+        companyTitleLabel.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
+        companyTitleLabel.anchorCenterX(to: titleLayout)
         
-        companyInfoMessage.anchor(top: companyTitle.bottomAnchor, leading: titleLayout.leadingAnchor, bottom: titleLayout.bottomAnchor, trailing: titleLayout.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 0, right: 5), size: .init(width: 0, height: titleLayoutFrame.height*0.2))
+        companyInfoMessage.anchor(top: companyTitleLabel.bottomAnchor, leading: titleLayout.leadingAnchor, bottom: titleLayout.bottomAnchor, trailing: titleLayout.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 0, right: 5), size: .init(width: 0, height: titleLayoutFrame.height*0.2))
         companyInfoMessage.anchorCenterX(to: titleLayout)
         companyInfoMessage.textAlignment = .center
         
@@ -107,11 +107,11 @@ class GetCompanyVC: ProgramicVC {
         
         companyLayout.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: confirmButton.topAnchor, trailing: infoLayout.trailingAnchor)
         
-        [companyTextInput, companyPickerView].forEach{companyLayout.addSubview($0)}
+        [companyTextField, companyPickerView].forEach{companyLayout.addSubview($0)}
         
-        companyTextInput.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        companyTextInput.delegate = self
-        companyTextInput.anchorCenterY(to: companyLayout)
+        companyTextField.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        companyTextField.delegate = self
+        companyTextField.anchorCenterY(to: companyLayout)
         
         companyPickerView.delegate = self
         companyPickerView.dataSource = self
@@ -122,7 +122,7 @@ class GetCompanyVC: ProgramicVC {
     }
 
     @objc func confirmAction(){
-        if companyTextInput.text != "" && "Success" == companyValidator(companyName: companyTextInput.text!){
+        if companyTextField.text != "" && "Success" == companyValidator(companyName: companyTextField.text!){
             realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: company, seasons: nil)
             self.navigationController!.pushViewController(HomeTBC(), animated: true)
         }
@@ -148,11 +148,11 @@ extension GetCompanyVC: UIPickerViewDelegate, UIPickerViewDataSource, UnderLineT
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         companyPickerView.isHidden = true;
-        companyTextInput.text = companies[row];
+        companyTextField.text = companies[row];
     }
     
     func textFieldValidate(underLineTextField: UnderLineTextField) throws {
-        let result : String = companyValidator(companyName: companyTextInput.text!)
+        let result : String = companyValidator(companyName: companyTextField.text!)
         if result != "Success"{
             throw UnderLineTextFieldErrors
                 .error(message: result)
@@ -160,10 +160,10 @@ extension GetCompanyVC: UIPickerViewDelegate, UIPickerViewDataSource, UnderLineT
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if(textField == self.companyTextInput){
-            companyTextInput.status = .normal
-            companyTextInput.text = ""
-            companyTextInput.placeholder = ""
+        if(textField == self.companyTextField){
+            companyTextField.status = .normal
+            companyTextField.text = ""
+            companyTextField.placeholder = ""
             companyPickerView.isHidden = false
             self.view.endEditing(true)
             return false

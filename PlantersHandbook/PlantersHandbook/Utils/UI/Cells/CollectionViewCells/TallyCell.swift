@@ -8,8 +8,8 @@
 import UIKit
 
 class TallyCell: UICollectionViewCell {
-    var input = textField_bagUp()
-    let bottomBar = underLineBar(color: .systemGreen)
+    var input = PH_TextField_BagUp()
+    let bottomBar = SUI_View_UnderlineBar(color: .systemGreen)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

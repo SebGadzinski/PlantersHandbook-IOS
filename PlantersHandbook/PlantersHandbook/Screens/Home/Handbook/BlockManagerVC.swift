@@ -14,18 +14,18 @@ class BlockManagerVC: ProgramicVC {
     fileprivate var actionLayout : UIView!
     fileprivate var tableViewLayout : UIView!
     
-    let handbookId: String
-    var blockNotificationToken: NotificationToken?
-    let blocks: Results<Block>
-    fileprivate let titleLb : UILabel
-    fileprivate let blockNameInput = textField_form(placeholder: "", textType: .name)
-    fileprivate let addBlockButton = ph_button(title: "Add Block", fontSize: FontSize.large)
-    fileprivate var blockTableView = tableView_normal()
+    fileprivate let handbookId: String
+    fileprivate var blockNotificationToken: NotificationToken?
+    fileprivate let blocks: Results<Block>
+    fileprivate let titleLabel : UILabel
+    fileprivate let blockNameTextField = SUI_TextField_Form(placeholder: "", textType: .name)
+    fileprivate let addBlockButton = PH_Button(title: "Add Block", fontSize: FontSize.large)
+    fileprivate var blockTableView = SUI_TableView()
     
     required init(title: String, handbookId: String) {
         self.blocks = realmDatabase.getBlockRealm(predicate: NSPredicate(format: "entryId = %@", handbookId)).sorted(byKeyPath: "_id")
         self.handbookId = handbookId
-        self.titleLb = label_normal(title: title, fontSize: FontSize.extraLarge)
+        self.titleLabel = SUI_Label(title: title, fontSize: FontSize.extraLarge)
         
         super.init(nibName: nil, bundle: nil)
         
@@ -66,9 +66,9 @@ class BlockManagerVC: ProgramicVC {
     }
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        actionLayout = generalLayout(backgoundColor: .systemBackground)
-        tableViewLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        actionLayout = SUI_View(backgoundColor: .systemBackground)
+        tableViewLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -96,24 +96,24 @@ class BlockManagerVC: ProgramicVC {
     }
     
     func setUpTitleLayout(){
-        [titleLb].forEach{titleLayout.addSubview($0)}
+        [titleLabel].forEach{titleLayout.addSubview($0)}
         
-        titleLb.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
-        titleLb.anchorCenter(to: titleLayout)
+        titleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
+        titleLabel.anchorCenter(to: titleLayout)
     }
     
     func setUpActionLayout(){
         let actionFrame = actionLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(50)
         
-        [blockNameInput, addBlockButton].forEach{actionLayout.addSubview($0)}
+        [blockNameTextField, addBlockButton].forEach{actionLayout.addSubview($0)}
 
-        blockNameInput.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        blockNameInput.anchorCenterX(to: actionLayout)
-        self.blockNameInput.delegate = self
-        blockNameInput.textAlignment = .center
+        blockNameTextField.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        blockNameTextField.anchorCenterX(to: actionLayout)
+        self.blockNameTextField.delegate = self
+        blockNameTextField.textAlignment = .center
         
-        addBlockButton.anchor(top: blockNameInput.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
+        addBlockButton.anchor(top: blockNameTextField.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
         addBlockButton.anchorCenterX(to: actionLayout)
     }
     
@@ -139,19 +139,19 @@ class BlockManagerVC: ProgramicVC {
     }
     
     @objc func addBlockAction(){
-        if (blocks.contains{$0.title == blockNameInput.text!}) {
+        if (blocks.contains{$0.title == blockNameTextField.text!}) {
                 let alert = UIAlertController(title: "Duplicate Block", message: "You already have a block with that name in this entry, use a different name", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 return
         }
         else{
-            if(blockNameInput.text! != ""){
-                let block = Block(partition: realmDatabase.getParitionValue()!, title: blockNameInput.text!, entryId: handbookId)
+            if(blockNameTextField.text! != ""){
+                let block = Block(partition: realmDatabase.getParitionValue()!, title: blockNameTextField.text!, entryId: handbookId)
                 realmDatabase.add(item: block)
             }
         }
-        blockNameInput.text = ""
+        blockNameTextField.text = ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import UnderLineTextField
 
-func textField_form(placeholder: String?, textType: UITextContentType!) -> UnderLineTextField{
+func SUI_TextField_Form(placeholder: String?, textType: UITextContentType!) -> UnderLineTextField{
     let textField = UnderLineTextField()
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.activeLineColor = PHColors.green
@@ -23,7 +23,7 @@ func textField_form(placeholder: String?, textType: UITextContentType!) -> Under
     return textField
 }
 
-func textField_bagUp() -> UITextField {
+func PH_TextField_BagUp() -> UITextField {
     let textField = UITextField()
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.backgroundColor = .systemBackground

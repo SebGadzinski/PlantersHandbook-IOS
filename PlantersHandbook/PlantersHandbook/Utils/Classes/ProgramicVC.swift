@@ -8,7 +8,7 @@
 import UIKit
 
 class ProgramicVC: UIViewController, ProgramicVCInterface {
-    internal let bgView = generalLayout(backgoundColor: .systemBackground)
+    internal let bgView = SUI_View(backgoundColor: .systemBackground)
     internal var frame : CGRect = CGRect()
     internal let kb = UIToolbar()
     internal let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneClick))

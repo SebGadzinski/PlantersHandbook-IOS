@@ -1,9 +1,11 @@
 //
-//  Accessories.swift
+//  Config.swift
 //  PlantersHandbook
 //
-//  Created by Sebastian Gadzinski on 2021-01-08.
+//  Created by Sebastian Gadzinski on 2021-02-03.
 //
+
+// This is where general configuration variables are, within there relative structs
 
 import Foundation
 import UIKit
@@ -46,3 +48,4 @@ struct BorderWidth{
     static let thick = CGFloat(10)
     static let extraThick = CGFloat(20)
 }
+

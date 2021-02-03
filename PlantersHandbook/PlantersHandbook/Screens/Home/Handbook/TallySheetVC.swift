@@ -19,19 +19,19 @@ class TallySheetVC: ProgramicVC {
     
     fileprivate let cache: Cache
     
-    fileprivate let dateLb = label_normal(title: "", fontSize: FontSize.meduim)
-    fileprivate let gpsButton = ph_button_tally(title: "GPS", fontSize: FontSize.extraSmall, borderColor: UIColor.green.cgColor)
-    fileprivate let plotsButton = ph_button_tally(title: "Plots", fontSize: FontSize.extraSmall, borderColor: UIColor.orange.cgColor)
-    fileprivate let clearButton = ph_button_tally(title: "Clear", fontSize: FontSize.extraSmall, borderColor: UIColor.red.cgColor)
-    fileprivate let treeTypesCv = tallyCV()
-    fileprivate let centPerTreeTypeCv = tallyCV()
-    fileprivate let bundlePerTreeTypeCv = tallyCV()
-    fileprivate var infoScrollView = scrollViewNormal()
-    fileprivate var bagUpCVs : [UICollectionView] = []
-    fileprivate var bagUpsScrollView = scrollViewNormal()
-    fileprivate let totalCashPerTreeTypesCv = tallyCV()
-    fileprivate let totalTreesPerTreeTypesCv = tallyCV()
-    fileprivate var totalsScrollView = scrollViewNormal()
+    fileprivate let dateLabel = SUI_Label(title: "", fontSize: FontSize.meduim)
+    fileprivate let gpsButton = PH_Button_Tally(title: "GPS", fontSize: FontSize.extraSmall, borderColor: UIColor.green.cgColor)
+    fileprivate let plotsButton = PH_Button_Tally(title: "Plots", fontSize: FontSize.extraSmall, borderColor: UIColor.orange.cgColor)
+    fileprivate let clearButton = PH_Button_Tally(title: "Clear", fontSize: FontSize.extraSmall, borderColor: UIColor.red.cgColor)
+    fileprivate let treeTypesCollectionView = PH_CollectionView_Tally()
+    fileprivate let centPerTreeTypeCollectionView = PH_CollectionView_Tally()
+    fileprivate let bundlePerTreeTypeCollectionView = PH_CollectionView_Tally()
+    fileprivate var infoScrollView = SUI_ScrollView()
+    fileprivate var bagUpCollectionViews : [UICollectionView] = []
+    fileprivate var bagUpsScrollView = SUI_ScrollView()
+    fileprivate let totalCashPerTreeTypesCollectionView = PH_CollectionView_Tally()
+    fileprivate let totalTreesPerTreeTypesCollectionView = PH_CollectionView_Tally()
+    fileprivate var totalsScrollView = SUI_ScrollView()
     
     fileprivate var clearingData : Bool = false
     fileprivate var widthOfCollectionCell: CGFloat!
@@ -72,10 +72,10 @@ class TallySheetVC: ProgramicVC {
     }
 
     override func generateLayout() {
-        topLayout = generalLayout(backgoundColor: .systemBackground)
-        infoLayout = generalLayout(backgoundColor: .systemBackground)
-        bagUpsLayout = generalLayout(backgoundColor: .systemBackground)
-        totalsLayout = generalLayout(backgoundColor: .systemBackground)
+        topLayout = SUI_View(backgoundColor: .systemBackground)
+        infoLayout = SUI_View(backgoundColor: .systemBackground)
+        bagUpsLayout = SUI_View(backgoundColor: .systemBackground)
+        totalsLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -121,9 +121,9 @@ class TallySheetVC: ProgramicVC {
         
         let topFrame = topLayout.safeAreaFrame
 
-        [dateLb, gpsButton, plotsButton, clearButton].forEach{topLayout.addSubview($0)}
+        [dateLabel, gpsButton, plotsButton, clearButton].forEach{topLayout.addSubview($0)}
 
-        dateLb.anchor(top: topLayout.topAnchor, leading: topLayout.leadingAnchor, bottom: topLayout.bottomAnchor, trailing: nil, padding: .init(top: topLayout.center.y, left: 5, bottom: 0, right: 0), size: .init(width: topFrame.width*0.4, height: 0))
+        dateLabel.anchor(top: topLayout.topAnchor, leading: topLayout.leadingAnchor, bottom: topLayout.bottomAnchor, trailing: nil, padding: .init(top: topLayout.center.y, left: 5, bottom: 0, right: 0), size: .init(width: topFrame.width*0.4, height: 0))
         findHandbookDate()
 
         clearButton.anchor(top: topLayout.topAnchor, leading: nil, bottom: topLayout.bottomAnchor, trailing: topLayout.trailingAnchor, padding: .init(top: topFrame.height/6, left: 0, bottom: topFrame.height/6, right: 10), size: .init(width: topFrame.width*0.15, height: 0))
@@ -166,15 +166,15 @@ class TallySheetVC: ProgramicVC {
         
         widthOfCollectionCell = infoScrollView.safeAreaFrame.width * 0.20
         
-        [treeTypesCv, centPerTreeTypeCv, bundlePerTreeTypeCv].forEach{infoScrollView.addSubview($0)}
+        [treeTypesCollectionView, centPerTreeTypeCollectionView, bundlePerTreeTypeCollectionView].forEach{infoScrollView.addSubview($0)}
 
-        treeTypesCv.anchor(top: infoScrollView.topAnchor, leading: infoScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0), size: .init(width: widthOfCollectionCell*9, height: heightOfCollectionCell))
+        treeTypesCollectionView.anchor(top: infoScrollView.topAnchor, leading: infoScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0), size: .init(width: widthOfCollectionCell*9, height: heightOfCollectionCell))
 
-        centPerTreeTypeCv.anchor(top: treeTypesCv.bottomAnchor, leading: infoScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0))
-        centPerTreeTypeCv.anchorSize(to: treeTypesCv)
+        centPerTreeTypeCollectionView.anchor(top: treeTypesCollectionView.bottomAnchor, leading: infoScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0))
+        centPerTreeTypeCollectionView.anchorSize(to: treeTypesCollectionView)
 
-        bundlePerTreeTypeCv.anchor(top: centPerTreeTypeCv.bottomAnchor, leading: infoScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0))
-        bundlePerTreeTypeCv.anchorSize(to: treeTypesCv)
+        bundlePerTreeTypeCollectionView.anchor(top: centPerTreeTypeCollectionView.bottomAnchor, leading: infoScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0))
+        bundlePerTreeTypeCollectionView.anchorSize(to: treeTypesCollectionView)
 
         infoScrollView.contentSize = .init(width: widthOfCollectionCell*9, height: infoLayout.safeAreaFrame.height)
     }
@@ -199,26 +199,26 @@ class TallySheetVC: ProgramicVC {
             label.textAlignment = .center
             label.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.large))
             labels.append(label)
-            bagUpCVs.append(tallyCV())
-            bagUpCVs[i].tag = i
+            bagUpCollectionViews.append(PH_CollectionView_Tally())
+            bagUpCollectionViews[i].tag = i
         }
         
         labels.forEach{bagUpsScrollView.addSubview($0)}
-        bagUpCVs.forEach{bagUpsScrollView.addSubview($0)}
+        bagUpCollectionViews.forEach{bagUpsScrollView.addSubview($0)}
         
         labels[0].anchor(top: bagUpsScrollView.topAnchor, leading: bagUpsScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: widthOfCollectionLabel+5, height: heightOfCollectionCell*0.90)) // + 5 for margins on  a imageview
         
-        bagUpCVs[0].anchor(top: bagUpsScrollView.topAnchor, leading: labels[0].trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0), size: .init(width: widthOfCollectionCell*9.5, height: heightOfCollectionCell*0.90))
+        bagUpCollectionViews[0].anchor(top: bagUpsScrollView.topAnchor, leading: labels[0].trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0), size: .init(width: widthOfCollectionCell*9.5, height: heightOfCollectionCell*0.90))
         
-        labels[0].anchorCenterY(to: bagUpCVs[0])
+        labels[0].anchorCenterY(to: bagUpCollectionViews[0])
         
         for i in 1..<labels.count {
-            bagUpCVs[i].anchor(top: bagUpCVs[i-1].bottomAnchor, leading: bagUpCVs[i-1].leadingAnchor, bottom: nil, trailing: nil)
-            bagUpCVs[i].anchorSize(to: bagUpCVs[i-1])
+            bagUpCollectionViews[i].anchor(top: bagUpCollectionViews[i-1].bottomAnchor, leading: bagUpCollectionViews[i-1].leadingAnchor, bottom: nil, trailing: nil)
+            bagUpCollectionViews[i].anchorSize(to: bagUpCollectionViews[i-1])
     
             labels[i].anchor(top: nil, leading: bagUpsScrollView.leadingAnchor, bottom: nil, trailing: nil)
             labels[i].anchorSize(to: labels[i-1])
-            labels[i].anchorCenterY(to: bagUpCVs[i])
+            labels[i].anchorCenterY(to: bagUpCollectionViews[i])
         }
         
         bagUpsScrollView.contentSize = .init(width: widthOfCollectionCell*9.6, height: heightOfCollectionCell*27) //Seems as margins increased the height
@@ -249,36 +249,36 @@ class TallySheetVC: ProgramicVC {
         totalsScrollView.backgroundColor = .systemBackground
         totalsScrollView.anchor(top: totalsLayout.topAnchor, leading: totalTreeImg.trailingAnchor, bottom: totalsLayout.bottomAnchor, trailing: totalsLayout.trailingAnchor)
         
-        [totalCashPerTreeTypesCv, totalTreesPerTreeTypesCv,].forEach{totalsScrollView.addSubview($0)}
+        [totalCashPerTreeTypesCollectionView, totalTreesPerTreeTypesCollectionView,].forEach{totalsScrollView.addSubview($0)}
 
-        totalTreesPerTreeTypesCv.anchor(top: totalsScrollView.topAnchor, leading: totalsScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0), size: .init(width: widthOfCollectionCell*9, height: heightOfCollectionCell))
+        totalTreesPerTreeTypesCollectionView.anchor(top: totalsScrollView.topAnchor, leading: totalsScrollView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 3, bottom: 0, right: 0), size: .init(width: widthOfCollectionCell*9, height: heightOfCollectionCell))
 
-        totalCashPerTreeTypesCv.anchor(top: totalTreesPerTreeTypesCv.bottomAnchor, leading: totalTreesPerTreeTypesCv.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0))
-        totalCashPerTreeTypesCv.anchorSize(to: totalTreesPerTreeTypesCv)
+        totalCashPerTreeTypesCollectionView.anchor(top: totalTreesPerTreeTypesCollectionView.bottomAnchor, leading: totalTreesPerTreeTypesCollectionView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0))
+        totalCashPerTreeTypesCollectionView.anchorSize(to: totalTreesPerTreeTypesCollectionView)
 
-        totalsScrollView.contentSize = .init(width: widthOfCollectionCell*9, height: totalTreesPerTreeTypesCv.frame.height + totalCashPerTreeTypesCv.frame.height)
+        totalsScrollView.contentSize = .init(width: widthOfCollectionCell*9, height: totalTreesPerTreeTypesCollectionView.frame.height + totalCashPerTreeTypesCollectionView.frame.height)
     }
     
     func setUpTableDelegates(){
-        treeTypesCv.delegate = self
-        treeTypesCv.dataSource = self
-        centPerTreeTypeCv.delegate = self
-        centPerTreeTypeCv.dataSource = self
-        bundlePerTreeTypeCv.delegate = self
-        bundlePerTreeTypeCv.dataSource = self
+        treeTypesCollectionView.delegate = self
+        treeTypesCollectionView.dataSource = self
+        centPerTreeTypeCollectionView.delegate = self
+        centPerTreeTypeCollectionView.dataSource = self
+        bundlePerTreeTypeCollectionView.delegate = self
+        bundlePerTreeTypeCollectionView.dataSource = self
         for i in 0..<20{
-            bagUpCVs[i].delegate = self
-            bagUpCVs[i].dataSource = self
+            bagUpCollectionViews[i].delegate = self
+            bagUpCollectionViews[i].dataSource = self
         }
-        totalTreesPerTreeTypesCv.delegate = self
-        totalTreesPerTreeTypesCv.dataSource = self
-        totalCashPerTreeTypesCv.delegate = self
-        totalCashPerTreeTypesCv.dataSource = self
+        totalTreesPerTreeTypesCollectionView.delegate = self
+        totalTreesPerTreeTypesCollectionView.dataSource = self
+        totalCashPerTreeTypesCollectionView.delegate = self
+        totalCashPerTreeTypesCollectionView.dataSource = self
     }
     
     func findHandbookDate(){
         if let subBlock = realmDatabase.getSubBlockById(subBlockId: cache.subBlockId){
-            dateLb.text = getDate(from: subBlock.date)
+            dateLabel.text = getDate(from: subBlock.date)
         }
     }
     
@@ -413,12 +413,12 @@ class TallySheetVC: ProgramicVC {
             if(result){
                 print("Tally Cleared")
             }
-            treeTypesCv.reloadData()
-            centPerTreeTypeCv.reloadData()
-            bundlePerTreeTypeCv.reloadData()
-            bagUpCVs.forEach{$0.reloadData()}
-            totalCashPerTreeTypesCv.reloadData()
-            totalTreesPerTreeTypesCv.reloadData()
+            treeTypesCollectionView.reloadData()
+            centPerTreeTypeCollectionView.reloadData()
+            bundlePerTreeTypeCollectionView.reloadData()
+            bagUpCollectionViews.forEach{$0.reloadData()}
+            totalCashPerTreeTypesCollectionView.reloadData()
+            totalTreesPerTreeTypesCollectionView.reloadData()
             clearingData = false
         }
     }
@@ -430,8 +430,8 @@ class TallySheetVC: ProgramicVC {
         }
         realmDatabase.updateList(list: cache.totalTreesPerTreeTypes, index: lane, item: totalTreesInBagUps)
         realmDatabase.updateList(list: cache.totalCashPerTreeTypes, index: lane, item: (Double(totalTreesInBagUps)*cache.centPerTreeTypes[lane]))
-        totalTreesPerTreeTypesCv.reloadData()
-        totalCashPerTreeTypesCv.reloadData()
+        totalTreesPerTreeTypesCollectionView.reloadData()
+        totalCashPerTreeTypesCollectionView.reloadData()
     }
     
     func stopTrackingLocation(){
@@ -456,31 +456,31 @@ extension TallySheetVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TallyCell", for: indexPath) as! TallyCell
         
-        if(collectionView == self.totalTreesPerTreeTypesCv){
+        if(collectionView == self.totalTreesPerTreeTypesCollectionView){
             cell.input.tag = indexPath.row
             cell.input.isUserInteractionEnabled = false
             cell.input.text = (cache.totalTreesPerTreeTypes[indexPath.row] == 0 ? "" : String(cache.totalTreesPerTreeTypes[indexPath.row]))
             return cell
         }
-        else if(collectionView == self.totalCashPerTreeTypesCv){
+        else if(collectionView == self.totalCashPerTreeTypesCollectionView){
             cell.input.tag = indexPath.row
             cell.input.isUserInteractionEnabled = false
             cell.input.text = (cache.totalCashPerTreeTypes[indexPath.row] == 0 ? "" : cache.totalCashPerTreeTypes[indexPath.row].toCurrency())
             return cell
         }
-        else if(collectionView == self.treeTypesCv){
+        else if(collectionView == self.treeTypesCollectionView){
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .default)
             cell.input.addTarget(self, action: #selector(treeTypesInputAction), for: .editingDidEnd)
             cell.input.text = cache.treeTypes[indexPath.row]
             return cell
         }
-        else if(collectionView == self.centPerTreeTypeCv){
+        else if(collectionView == self.centPerTreeTypeCollectionView){
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .decimalPad)
             cell.input.addTarget(self, action: #selector(centPerTreeInputAction), for: .editingDidEnd)
             cell.input.text = (cache.centPerTreeTypes[indexPath.row] == 0 ? "" : String(cache.centPerTreeTypes[indexPath.row]))
             return cell
         }
-        else if(collectionView == self.bundlePerTreeTypeCv){
+        else if(collectionView == self.bundlePerTreeTypeCollectionView){
             createAdvancedTallyCell(cell: cell, toolBar: kb, tag: indexPath.row, keyboardType: .numberPad)
             cell.input.addTarget(self, action: #selector(bundleAmountInputAction), for: .editingDidEnd)
             cell.input.text = (cache.bundlesPerTreeTypes[indexPath.row] == 0 ? "" : String(cache.bundlesPerTreeTypes[indexPath.row]))

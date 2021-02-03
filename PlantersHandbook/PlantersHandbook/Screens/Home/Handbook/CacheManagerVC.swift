@@ -17,15 +17,15 @@ class CacheManagerVC: ProgramicVC {
     let subBlockId: String
     var cacheNotificationToken: NotificationToken?
     let caches: Results<Cache>
-    fileprivate let titleLb : UILabel
-    fileprivate let cacheNameInput = textField_form(placeholder: "", textType: .name)
-    fileprivate let addCacheButton = ph_button(title: "Add Cache", fontSize: FontSize.large)
-    fileprivate var cacheTableView = tableView_normal()
+    fileprivate let titleLabel : UILabel
+    fileprivate let cacheNameTextField = SUI_TextField_Form(placeholder: "", textType: .name)
+    fileprivate let addCacheButton = PH_Button(title: "Add Cache", fontSize: FontSize.large)
+    fileprivate var cacheTableView = SUI_TableView()
     
     required init(title: String, subBlockId: String) {
         self.caches = realmDatabase.getCacheRealm(predicate: NSPredicate(format: "subBlockId = %@", subBlockId)).sorted(byKeyPath: "_id")
         self.subBlockId = subBlockId
-        self.titleLb = label_normal(title: "SubBlock: " + title, fontSize: FontSize.extraLarge)
+        self.titleLabel = SUI_Label(title: "SubBlock: " + title, fontSize: FontSize.extraLarge)
        
         super.init(nibName: nil, bundle: nil)
         
@@ -67,9 +67,9 @@ class CacheManagerVC: ProgramicVC {
 
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        actionLayout = generalLayout(backgoundColor: .systemBackground)
-        tableViewLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        actionLayout = SUI_View(backgoundColor: .systemBackground)
+        tableViewLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -98,24 +98,24 @@ class CacheManagerVC: ProgramicVC {
     }
     
     func setUpTitleLayout(){
-        [titleLb].forEach{titleLayout.addSubview($0)}
+        [titleLabel].forEach{titleLayout.addSubview($0)}
         
-        titleLb.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
-        titleLb.anchorCenter(to: titleLayout)
+        titleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
+        titleLabel.anchorCenter(to: titleLayout)
     }
     
     func setUpActionLayout(){
         let actionFrame = actionLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(50)
         
-        [cacheNameInput, addCacheButton].forEach{actionLayout.addSubview($0)}
+        [cacheNameTextField, addCacheButton].forEach{actionLayout.addSubview($0)}
 
-        cacheNameInput.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        cacheNameInput.anchorCenterX(to: actionLayout)
-        self.cacheNameInput.delegate = self
-        cacheNameInput.textAlignment = .center
+        cacheNameTextField.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        cacheNameTextField.anchorCenterX(to: actionLayout)
+        self.cacheNameTextField.delegate = self
+        cacheNameTextField.textAlignment = .center
         
-        addCacheButton.anchor(top: cacheNameInput.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
+        addCacheButton.anchor(top: cacheNameTextField.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
         addCacheButton.anchorCenterX(to: actionLayout)
     }
     
@@ -141,19 +141,19 @@ class CacheManagerVC: ProgramicVC {
     }
     
     @objc func addCacheAction(){
-        if (caches.contains{$0.title == cacheNameInput.text!}) {
+        if (caches.contains{$0.title == cacheNameTextField.text!}) {
                 let alert = UIAlertController(title: "Duplicate Cache", message: "You already have a cache with that name in this entry, use a different name", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 return
         }
         else{
-            if(cacheNameInput.text! != ""){
-                let cache = Cache(partition: realmDatabase.getParitionValue()!, title: cacheNameInput.text!, subBlockId: subBlockId)
+            if(cacheNameTextField.text! != ""){
+                let cache = Cache(partition: realmDatabase.getParitionValue()!, title: cacheNameTextField.text!, subBlockId: subBlockId)
                 realmDatabase.add(item: cache)
             }
         }
-        cacheNameInput.text = ""
+        cacheNameTextField.text = ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

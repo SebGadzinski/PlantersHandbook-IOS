@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func tableView_normal() -> UITableView{
+func SUI_TableView() -> UITableView{
     let tv = UITableView(frame: .zero)
     tv.backgroundColor = .systemBackground
     tv.translatesAutoresizingMaskIntoConstraints = false

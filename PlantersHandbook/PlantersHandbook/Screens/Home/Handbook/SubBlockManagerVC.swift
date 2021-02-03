@@ -17,15 +17,15 @@ class SubBlockManagerVC: ProgramicVC {
     let blockId: String
     var subBlockNotificationToken: NotificationToken?
     let subBlocks: Results<SubBlock>
-    fileprivate let titleLb : UILabel
-    fileprivate let subBlockNameInput = textField_form(placeholder: "", textType: .name)
-    fileprivate let addSubBlockButton = ph_button(title: "Add SubBlock", fontSize: FontSize.large)
-    fileprivate var subBlockTableView = tableView_normal()
+    fileprivate let titleLabel : UILabel
+    fileprivate let subBlockNameTextField = SUI_TextField_Form(placeholder: "", textType: .name)
+    fileprivate let addSubBlockButton = PH_Button(title: "Add SubBlock", fontSize: FontSize.large)
+    fileprivate var subBlockTableView = SUI_TableView()
     
     required init(title: String, blockId: String) {
         self.subBlocks = realmDatabase.getSubBlockRealm(predicate: NSPredicate(format: "blockId = %@", blockId)).sorted(byKeyPath: "_id")
         self.blockId = blockId
-        self.titleLb = label_normal(title: "Block: " + title, fontSize: FontSize.extraLarge)
+        self.titleLabel = SUI_Label(title: "Block: " + title, fontSize: FontSize.extraLarge)
        
         super.init(nibName: nil, bundle: nil)
         
@@ -66,9 +66,9 @@ class SubBlockManagerVC: ProgramicVC {
     }
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        actionLayout = generalLayout(backgoundColor: .systemBackground)
-        tableViewLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        actionLayout = SUI_View(backgoundColor: .systemBackground)
+        tableViewLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -97,24 +97,24 @@ class SubBlockManagerVC: ProgramicVC {
     }
     
     func setUpTitleLayout(){
-        [titleLb].forEach{titleLayout.addSubview($0)}
+        [titleLabel].forEach{titleLayout.addSubview($0)}
         
-        titleLb.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
-        titleLb.anchorCenter(to: titleLayout)
+        titleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
+        titleLabel.anchorCenter(to: titleLayout)
     }
     
     func setUpActionLayout(){
         let actionFrame = actionLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(50)
         
-        [subBlockNameInput, addSubBlockButton].forEach{actionLayout.addSubview($0)}
+        [subBlockNameTextField, addSubBlockButton].forEach{actionLayout.addSubview($0)}
 
-        subBlockNameInput.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        subBlockNameInput.anchorCenterX(to: actionLayout)
-        self.subBlockNameInput.delegate = self
-        subBlockNameInput.textAlignment = .center
+        subBlockNameTextField.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: actionLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        subBlockNameTextField.anchorCenterX(to: actionLayout)
+        self.subBlockNameTextField.delegate = self
+        subBlockNameTextField.textAlignment = .center
         
-        addSubBlockButton.anchor(top: subBlockNameInput.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
+        addSubBlockButton.anchor(top: subBlockNameTextField.bottomAnchor, leading: nil, bottom: actionLayout.bottomAnchor, trailing: nil, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: .init(width: actionFrame.width*0.6, height: 0))
         addSubBlockButton.anchorCenterX(to: actionLayout)
     }
     
@@ -140,19 +140,19 @@ class SubBlockManagerVC: ProgramicVC {
     }
     
     @objc func addSubBlockAction(){
-        if (subBlocks.contains{$0.title == subBlockNameInput.text!}) {
+        if (subBlocks.contains{$0.title == subBlockNameTextField.text!}) {
                 let alert = UIAlertController(title: "Duplicate SubBlock", message: "You already have a subBlock with that name in this entry, use a different name", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true)
                 return
         }
         else{
-            if(subBlockNameInput.text! != ""){
-                let subBlock = SubBlock(partition: realmDatabase.getParitionValue()!, title: subBlockNameInput.text!, blockId: blockId)
+            if(subBlockNameTextField.text! != ""){
+                let subBlock = SubBlock(partition: realmDatabase.getParitionValue()!, title: subBlockNameTextField.text!, blockId: blockId)
                 realmDatabase.add(item: subBlock)
             }
         }
-        subBlockNameInput.text = ""
+        subBlockNameTextField.text = ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

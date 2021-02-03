@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func scrollViewNormal() -> UIScrollView {
+func SUI_ScrollView() -> UIScrollView {
     let scrollView = UIScrollView()
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.backgroundColor = .systemBackground

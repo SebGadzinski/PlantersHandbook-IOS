@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func button_normal(title: String?, textColor: UIColor?, backgroundColor: UIColor?, fontSize: Float?, borderColor: CGColor?) -> UIButton {
+func SUI_Button_Normal(title: String?, textColor: UIColor?, backgroundColor: UIColor?, fontSize: Float?, borderColor: CGColor?) -> UIButton {
     let btn = UIButton()
     btn.setTitle((title != nil ? title! :""), for: .normal)
     btn.setTitleColor((textColor != nil ? textColor! : .black), for: .normal)
@@ -23,20 +23,20 @@ func button_normal(title: String?, textColor: UIColor?, backgroundColor: UIColor
     return btn
 }
 
-func button_rounded(title: String?, textColor: UIColor?, backgroundColor: UIColor?, fontSize: Float?, borderColor: CGColor?, radius: CGFloat, borderWidth: CGFloat) -> UIButton {
-    let btn = button_normal(title: title, textColor: textColor, backgroundColor: backgroundColor, fontSize: fontSize, borderColor: borderColor)
+func SUI_Button_Rounded(title: String?, textColor: UIColor?, backgroundColor: UIColor?, fontSize: Float?, borderColor: CGColor?, radius: CGFloat, borderWidth: CGFloat) -> UIButton {
+    let btn = SUI_Button_Normal(title: title, textColor: textColor, backgroundColor: backgroundColor, fontSize: fontSize, borderColor: borderColor)
     btn.layer.cornerRadius = radius
     btn.layer.borderWidth = borderWidth
     btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     return btn
 }
 
-func ph_button(title: String, fontSize: Float) -> UIButton{
-    return button_rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: PHColors.green.cgColor, radius: CornerRaduis.small, borderWidth: BorderWidth.extraThin)
+func PH_Button(title: String, fontSize: Float) -> UIButton{
+    return SUI_Button_Rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: PHColors.green.cgColor, radius: CornerRaduis.small, borderWidth: BorderWidth.extraThin)
 }
 
-func ph_button_tally(title: String, fontSize: Float, borderColor: CGColor) -> UIButton{
-    let button = button_rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: borderColor, radius: CornerRaduis.meduim, borderWidth: BorderWidth.extraThin)
+func PH_Button_Tally(title: String, fontSize: Float, borderColor: CGColor) -> UIButton{
+    let button = SUI_Button_Rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: borderColor, radius: CornerRaduis.meduim, borderWidth: BorderWidth.extraThin)
     button.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
     return button
 }

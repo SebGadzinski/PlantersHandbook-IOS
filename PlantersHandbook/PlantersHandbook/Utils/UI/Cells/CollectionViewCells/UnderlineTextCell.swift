@@ -8,8 +8,8 @@
 import UIKit
 
 class UnderlineTextCell: UICollectionViewCell {
-    var input = textField_bagUp()
-    let bottomBar = underLineBar(color: .black)
+    var input = PH_TextField_BagUp()
+    let bottomBar = SUI_View_UnderlineBar(color: .black)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

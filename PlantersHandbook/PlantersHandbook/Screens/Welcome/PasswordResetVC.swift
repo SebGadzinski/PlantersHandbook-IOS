@@ -14,10 +14,10 @@ class PasswordResetVC: ProgramicVC {
     fileprivate var infoLayout : UIView!
     
     fileprivate let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
-    fileprivate let passwordRecoveryTitle = label_normal(title: "Password Recovery", fontSize: FontSize.extraLarge)
-    fileprivate let passwordRecoveryInfoMessage = textView_multiLine(text: "A email will be sent with a link to renew your password", fontSize: FontSize.meduim)
-    fileprivate let emailTextInput = textField_form(placeholder: "email", textType: .emailAddress)
-    fileprivate let sendButton = ph_button(title: "Send", fontSize: FontSize.large)
+    fileprivate let passwordRecoveryTitleLabel = SUI_Label(title: "Password Recovery", fontSize: FontSize.extraLarge)
+    fileprivate let passwordRecoveryInfoMessage = SUI_TextView_MultiLine(text: "A email will be sent with a link to renew your password", fontSize: FontSize.meduim)
+    fileprivate let emailTextField = SUI_TextField_Form(placeholder: "email", textType: .emailAddress)
+    fileprivate let sendButton = PH_Button(title: "Send", fontSize: FontSize.large)
     fileprivate let emailGivenFromLogin : String
     fileprivate var credientialsGiven = false
 
@@ -41,7 +41,7 @@ class PasswordResetVC: ProgramicVC {
     
     var email: String? {
         get {
-            return emailTextInput.text
+            return emailTextField.text
         }
     }
     
@@ -49,17 +49,17 @@ class PasswordResetVC: ProgramicVC {
         super.viewWillAppear(animated)
         if(credientialsGiven){
             
-            emailTextInput.text = emailGivenFromLogin
+            emailTextField.text = emailGivenFromLogin
             
         }
         else{
-            emailTextInput.text = "seb.gadzinski@gmail.com"
+            emailTextField.text = "seb.gadzinski@gmail.com"
         }
     }
     
     override func generateLayout() {
-        titleLayout = generalLayout(backgoundColor: .systemBackground)
-        infoLayout = generalLayout(backgoundColor: .systemBackground)
+        titleLayout = SUI_View(backgoundColor: .systemBackground)
+        infoLayout = SUI_View(backgoundColor: .systemBackground)
     }
     
     override func configureViews() {
@@ -84,24 +84,24 @@ class PasswordResetVC: ProgramicVC {
     func setUpTitleLayout() {
         let titleLayoutFrame = titleLayout.safeAreaFrame
         
-        [icon, passwordRecoveryTitle].forEach{titleLayout.addSubview($0)}
+        [icon, passwordRecoveryTitleLabel].forEach{titleLayout.addSubview($0)}
         icon.anchor(top: titleLayout.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayoutFrame.height*0.4, height: titleLayoutFrame.height*0.4))
         icon.anchorCenterX(to: titleLayout)
         
-        passwordRecoveryTitle.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
-        passwordRecoveryTitle.anchorCenterX(to: titleLayout)
+        passwordRecoveryTitleLabel.anchor(top: icon.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0),size: .init(width: titleLayoutFrame.width, height: titleLayoutFrame.height*0.4))
+        passwordRecoveryTitleLabel.anchorCenterX(to: titleLayout)
     }
     
     func setUpInfoLayout() {
         let infoLayoutFrame = infoLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(20)
         
-        [passwordRecoveryInfoMessage, emailTextInput, sendButton].forEach{infoLayout.addSubview($0)}
+        [passwordRecoveryInfoMessage, emailTextField, sendButton].forEach{infoLayout.addSubview($0)}
         
         passwordRecoveryInfoMessage.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
         
-        emailTextInput.anchor(top: passwordRecoveryInfoMessage.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        emailTextInput.delegate = self
+        emailTextField.anchor(top: passwordRecoveryInfoMessage.bottomAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        emailTextField.delegate = self
         
         sendButton.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: infoLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: infoLayoutFrame.width*0.3, bottom: infoLayoutFrame.height*0.4, right: infoLayoutFrame.width*0.3),size: .init(width: 0, height: 0))
     }
@@ -131,7 +131,7 @@ class PasswordResetVC: ProgramicVC {
 
 extension PasswordResetVC: UnderLineTextFieldDelegate{
     func textFieldValidate(underLineTextField: UnderLineTextField) throws {
-        let result : String = emailValidator(email: emailTextInput.text!)
+        let result : String = emailValidator(email: emailTextField.text!)
         if result != "Success"{
             throw UnderLineTextFieldErrors
                 .error(message: result)

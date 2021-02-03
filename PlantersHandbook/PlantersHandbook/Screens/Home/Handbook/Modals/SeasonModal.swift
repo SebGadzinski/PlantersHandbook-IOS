@@ -12,13 +12,13 @@ class SeasonModal: ProgramicVC {
     fileprivate var titleLayout : UIView!
     fileprivate var infoLayout : UIView!
     fileprivate var submitLayout : UIView!
-    fileprivate let titleLb = label_normal(title: "Add Season", fontSize: FontSize.large)
-    fileprivate let seasonNameInput = textField_form(placeholder: "", textType: .name)
-    fileprivate let addButton = ph_button(title: "Add", fontSize: FontSize.large)
+    fileprivate let titleLabel = SUI_Label(title: "Add Season", fontSize: FontSize.large)
+    fileprivate let seasonNameTextField = SUI_TextField_Form(placeholder: "", textType: .name)
+    fileprivate let addButton = PH_Button(title: "Add", fontSize: FontSize.large)
     
     override func generateLayout(){
-        titleLayout = generalLayout(backgoundColor: .secondarySystemBackground)
-        infoLayout = generalLayout(backgoundColor: .secondarySystemBackground)
+        titleLayout = SUI_View(backgoundColor: .secondarySystemBackground)
+        infoLayout = SUI_View(backgoundColor: .secondarySystemBackground)
     }
     
     override func configureViews(){
@@ -44,32 +44,32 @@ class SeasonModal: ProgramicVC {
     }
     
     func setUpTitleLayout(){
-        titleLayout.addSubview(titleLb)
+        titleLayout.addSubview(titleLabel)
         
-        titleLb.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
-        titleLb.anchorCenter(to: titleLayout)
+        titleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: titleLayout.safeAreaFrame.width/2, height: titleLayout.safeAreaFrame.height/2))
+        titleLabel.anchorCenter(to: titleLayout)
     }
     
     func setUpInfoLayout(){
         let infoFrame = infoLayout.safeAreaFrame
         let textFieldBoundarySpace = CGFloat(50)
         
-        [seasonNameInput, addButton].forEach{infoLayout.addSubview($0)}
+        [seasonNameTextField, addButton].forEach{infoLayout.addSubview($0)}
         
-        seasonNameInput.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
-        seasonNameInput.anchorCenterX(to: infoLayout)
-        self.seasonNameInput.delegate = self
-        seasonNameInput.textAlignment = .center
+        seasonNameTextField.anchor(top: infoLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 5, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
+        seasonNameTextField.anchorCenterX(to: infoLayout)
+        self.seasonNameTextField.delegate = self
+        seasonNameTextField.textAlignment = .center
         
-        addButton.anchor(top: seasonNameInput.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 30, left: 0, bottom: 0, right: 0),size: .init(width: infoFrame.width*0.4, height: infoFrame.height*0.2))
+        addButton.anchor(top: seasonNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 30, left: 0, bottom: 0, right: 0),size: .init(width: infoFrame.width*0.4, height: infoFrame.height*0.2))
         addButton.anchorCenterX(to: infoLayout)
     }
     
    
     
     @objc func addButtonAction(_ sender: Any) {
-        if(seasonNameInput.text != ""){
-            let newSeason = Season(partition: realmDatabase.getParitionValue()!, title: seasonNameInput.text!)
+        if(seasonNameTextField.text != ""){
+            let newSeason = Season(partition: realmDatabase.getParitionValue()!, title: seasonNameTextField.text!)
 
             if let delegate = delegate{
                 delegate.createSeason(season: newSeason)

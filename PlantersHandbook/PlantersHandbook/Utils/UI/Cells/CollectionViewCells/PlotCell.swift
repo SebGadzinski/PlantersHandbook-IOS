@@ -10,11 +10,11 @@ import UnderLineTextField
 
 class PlotCell: UICollectionViewCell {
     
-    var number = label_number(title: nil)
-    var plotOne = textField_bagUp()
-    var plotTwo = textField_bagUp()
-    let bottomBarOne = underLineBar(color: .systemOrange)
-    let bottomBarTwo = underLineBar(color: .systemOrange)
+    var number = PH_Label_Number(title: nil)
+    var plotOne = PH_TextField_BagUp()
+    var plotTwo = PH_TextField_BagUp()
+    let bottomBarOne = SUI_View_UnderlineBar(color: .systemOrange)
+    let bottomBarTwo = SUI_View_UnderlineBar(color: .systemOrange)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

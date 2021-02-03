@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func generalLayout(backgoundColor: UIColor?) -> UIView{
+func SUI_View(backgoundColor: UIColor?) -> UIView{
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
     if let goodBackgroundColor = backgoundColor{
@@ -17,14 +17,14 @@ func generalLayout(backgoundColor: UIColor?) -> UIView{
     return view
 }
 
-func scrollContentViewNormal() -> UIView {
+func SUI_View_ScrollViewContent() -> UIView {
     let scrollCV = UIView()
     scrollCV.translatesAutoresizingMaskIntoConstraints = false
     scrollCV.backgroundColor = .systemBackground
     return scrollCV
 }
 
-func underLineBar(color: UIColor?) -> UIView {
+func SUI_View_UnderlineBar(color: UIColor?) -> UIView {
     let bb = UIView()
     bb.translatesAutoresizingMaskIntoConstraints = false
     bb.backgroundColor = (color != nil ? color :.label)

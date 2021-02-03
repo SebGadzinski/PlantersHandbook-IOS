@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func label_normal(title: String?, fontSize: Float?) -> UILabel {
+func SUI_Label(title: String?, fontSize: Float?) -> UILabel {
     let lb = UILabel()
     lb.text = (title != nil ? title :"")
     lb.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,7 @@ func label_normal(title: String?, fontSize: Float?) -> UILabel {
     return lb
 }
 
-func label_date(fontSize: Float?) -> UILabel {
+func SUI_Label_Date(fontSize: Float?) -> UILabel {
     let lb = UILabel()
     lb.text = getDate(from: Date())
     lb.textAlignment = .center
@@ -27,7 +27,7 @@ func label_date(fontSize: Float?) -> UILabel {
     return lb
 }
 
-func label_number(title: String?) -> UILabel {
+func PH_Label_Number(title: String?) -> UILabel {
     let lb = UILabel()
     lb.translatesAutoresizingMaskIntoConstraints = false
     lb.adjustsFontSizeToFitWidth = true
