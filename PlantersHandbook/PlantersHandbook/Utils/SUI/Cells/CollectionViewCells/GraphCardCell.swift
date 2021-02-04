@@ -11,11 +11,7 @@ class GraphCardCell: CardCell {
     let graphView = SUI_View(backgoundColor: .clear)
     let graphTitle = SUI_Label(title: "Title", fontSize: FontSize.large)
     let graphSubTitle = SUI_Label(title: "Sub Title", fontSize: FontSize.meduim)
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    let seasonTitle = SUI_Label(title: "Season", fontSize: FontSize.meduim)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,9 +24,14 @@ class GraphCardCell: CardCell {
     override func generateLayout(){
         super.generateLayout()
         
-        [graphTitle, graphSubTitle, graphView].forEach{containerView.addSubview($0)}
+        [graphTitle, seasonTitle, graphSubTitle, graphView].forEach{containerView.addSubview($0)}
         
-        graphTitle.anchor(top: nil, leading: containerView.leadingAnchor, bottom: nil, trailing: hambugarMenu.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        seasonTitle.anchor(top: nil, leading: nil, bottom: nil, trailing: hambugarMenu.leadingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 5), size: .init(width: 0, height: 0))
+        seasonTitle.anchorCenterY(to: hambugarMenu)
+        seasonTitle.textAlignment = .right
+        seasonTitle.textColor = .systemGreen
+        
+        graphTitle.anchor(top: nil, leading: containerView.leadingAnchor, bottom: nil, trailing: seasonTitle.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
         graphTitle.anchorCenterY(to: hambugarMenu)
         graphTitle.textAlignment = .left
         

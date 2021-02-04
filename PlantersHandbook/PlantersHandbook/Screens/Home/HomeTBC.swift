@@ -12,7 +12,7 @@ class HomeTBC: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let handbookNav = HandbookNC(rootViewController: HandbookVC())
         let statsNav = StatisticsNC(rootViewController: StatisticsVC())
         
@@ -34,11 +34,11 @@ class HomeTBC: UITabBarController {
         }
         self.selectedIndex = 0
         // Do any additional setup after loading the view.
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
     }
 

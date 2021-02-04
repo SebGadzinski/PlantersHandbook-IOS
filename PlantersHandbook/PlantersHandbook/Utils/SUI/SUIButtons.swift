@@ -31,6 +31,8 @@ func SUI_Button_Rounded(title: String?, textColor: UIColor?, backgroundColor: UI
     return btn
 }
 
+// Custom Developed For Planters Handbook
+
 func PH_Button(title: String, fontSize: Float) -> UIButton{
     return SUI_Button_Rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: PHColors.green.cgColor, radius: CornerRaduis.small, borderWidth: BorderWidth.extraThin)
 }

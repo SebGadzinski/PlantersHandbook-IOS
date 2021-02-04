@@ -15,14 +15,15 @@ class StatisticsVC: ProgramicVC {
     let handbookEntries: Results<HandbookEntry>
     let cardsCollectionView: UICollectionView = PH_CollectionView_Statistics()
     var longPressGesture = UILongPressGestureRecognizer()
-    
-    var items : [String] = ["1","2","3","4","5","6","7","8"]
+    let userDefaults = UserDefaults.standard
+
+    var items : [Int] = [0,1,2,3,4,5,6,7]
     
     required init() {
         seasons = realmDatabase.getSeasonRealm(predicate: nil).sorted(byKeyPath: "_id")
-        
         handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: nil)
         super.init(nibName: nil, bundle: nil)
+        items = getOrderOfCards()
     }
     
     required init?(coder: NSCoder) {
@@ -50,28 +51,40 @@ class StatisticsVC: ProgramicVC {
         if let item = coordinator.items.first, let sourceIndexPath = item.sourceIndexPath{
             collectionView.performBatchUpdates({
                 self.items.remove(at: sourceIndexPath.item)
-                self.items.insert(item.dragItem.localObject as! String, at: destinationIndexPath.item)
+                self.items.insert(item.dragItem.localObject as! Int, at: destinationIndexPath.item)
                 
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
             })
             coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
         }
+        saveOrderOfCards()
     }
     
+    func saveOrderOfCards(){
+        userDefaults.set(items, forKey:"cardsOrderArray")
+    }
+    
+    func getOrderOfCards() -> [Int]{
+        if let tempItems = userDefaults.object(forKey: "cardsOrderArray"){
+            let items = tempItems as! NSArray
+            return items as! [Int]
+        }
+        return [0,1,2,3,4,5,6,7]
+    }
 }
 
 extension StatisticsVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == 0{
-            return .init(width: bgView.safeAreaFrame.width, height: view.frame.height*0.15)
+        if items[indexPath.row] == 0{
+            return .init(width: bgView.safeAreaFrame.width*0.9, height: view.frame.height*0.15)
         }
-        else if indexPath.row == 3 || indexPath.row == 4{
-            return .init(width: bgView.safeAreaFrame.width, height: view.frame.height*0.25)
+        else if items[indexPath.row] == 3 || items[indexPath.row] == 5{
+            return .init(width: bgView.safeAreaFrame.width*0.9, height: view.frame.height*0.25)
         }
         else{
-            return  .init(width: bgView.safeAreaFrame.width, height: view.frame.height*0.4)
+            return  .init(width: bgView.safeAreaFrame.width*0.9, height: view.frame.height*0.4)
         }
     }
     
@@ -80,31 +93,31 @@ extension StatisticsVC: UICollectionViewDelegateFlowLayout, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0{
+        if items[indexPath.row] == 0{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TotalCashCell", for: indexPath) as! TotalCashCell
            return cell
         }
-        else if indexPath.row == 1{
+        else if items[indexPath.row] == 1{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for:  indexPath) as! LineGraphCell
             return cell
         }
-        else if indexPath.row == 2{
+        else if items[indexPath.row] == 2{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for:  indexPath) as! LineGraphCell
             return cell
         }
-        else if indexPath.row == 3{
+        else if items[indexPath.row] == 3{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OverallStatsCell", for: indexPath) as! OverallStatsCell
             return cell
         }
-        else if indexPath.row == 4{
+        else if items[indexPath.row] == 4{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PieChartCell", for: indexPath) as! PieChartCell
             return cell
         }
-        else if indexPath.row == 5{
+        else if items[indexPath.row] == 5{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OverallStatsCell", for: indexPath) as! OverallStatsCell
             return cell
         }
-        else if indexPath.row == 6{
+        else if items[indexPath.row] == 6{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for: indexPath) as! LineGraphCell
             return cell
         }
@@ -118,7 +131,7 @@ extension StatisticsVC: UICollectionViewDelegateFlowLayout, UICollectionViewData
 extension StatisticsVC: UICollectionViewDragDelegate{
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let item = self.items[indexPath.row]
-        let itemProvider = NSItemProvider(object: item as NSString)
+        let itemProvider = NSItemProvider(object: String(item) as NSString)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = item
         return [dragItem]

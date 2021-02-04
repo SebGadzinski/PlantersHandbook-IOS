@@ -12,7 +12,7 @@ import CoreLocation
 import GoogleMaps
 
 class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
-    weak var delegate : GPSTreeTracking_Delegate?
+    weak var delegate : GPSTreeTrackingModal_Delegate?
     fileprivate var googleMapsLayout : UIView!
     fileprivate var actionLayout : UIView!
     
@@ -332,7 +332,7 @@ class GPSTreeTrackingModal: ProgramicVC, GMSMapViewDelegate {
     }
 }
 
-protocol GPSTreeTracking_Delegate:NSObjectProtocol {
+protocol GPSTreeTrackingModal_Delegate:NSObjectProtocol {
     func flipBooleanIsPlanting()
     func isPlanting() -> Bool
     func closedModal()

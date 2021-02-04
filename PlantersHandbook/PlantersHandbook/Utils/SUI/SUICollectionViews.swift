@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// Custom Developed For Planters Handbook
+
 func PH_CollectionView_Tally() -> UICollectionView{
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal

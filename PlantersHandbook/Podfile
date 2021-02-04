@@ -12,5 +12,6 @@ target 'PlantersHandbook' do
   pod 'Navajo-Swift'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'Charts'
 
 end

@@ -12,6 +12,7 @@ import UIKit
 
 struct Fonts{
     static let avenirNextMeduim = "AvenirNext-Medium"
+    static let avenirNextMeduimBold = "AvenirNext-Medium-Bold"
 }
 
 struct FontSize{
@@ -47,5 +48,10 @@ struct BorderWidth{
     static let thin = CGFloat(5)
     static let thick = CGFloat(10)
     static let extraThick = CGFloat(20)
+}
+
+struct ChartNumbers{
+    static let visibleRandMaximum : Double = 12.0
+    static let requiredInputValuesAmount : Int = 12
 }
 

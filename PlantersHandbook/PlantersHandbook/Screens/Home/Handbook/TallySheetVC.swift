@@ -550,7 +550,7 @@ extension TallySheetVC: CLLocationManagerDelegate {
   }
 }
 
-extension TallySheetVC: GPSTreeTracking_Delegate{
+extension TallySheetVC: GPSTreeTrackingModal_Delegate{
     func flipBooleanIsPlanting() {
         realmDatabase.updateCacheIsPlanting(cache: cache, bool: !cache.isPlanting)
     }

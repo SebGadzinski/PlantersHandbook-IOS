@@ -27,6 +27,8 @@ func SUI_Label_Date(fontSize: Float?) -> UILabel {
     return lb
 }
 
+// Custom Developed For Planters Handbook
+
 func PH_Label_Number(title: String?) -> UILabel {
     let lb = UILabel()
     lb.translatesAutoresizingMaskIntoConstraints = false
@@ -35,5 +37,16 @@ func PH_Label_Number(title: String?) -> UILabel {
     lb.textAlignment = .center
     lb.textColor = .label
     lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.large))
+    return lb
+}
+
+func PH_Label_Stat(title: String?) -> UILabel{
+    let lb = SUI_Label(title: title, fontSize: FontSize.meduim)
+    lb.font = UIFont(name: Fonts.avenirNextMeduimBold, size: CGFloat(FontSize.meduim))
+    if let newTitle = title{
+        let lbString = NSAttributedString(string: newTitle,
+                                                  attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        lb.attributedText = lbString
+    }
     return lb
 }
