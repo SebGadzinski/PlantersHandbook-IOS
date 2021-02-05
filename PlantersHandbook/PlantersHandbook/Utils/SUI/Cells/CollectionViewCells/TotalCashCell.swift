@@ -10,8 +10,8 @@ import UIKit
 class TotalCashCell: CardCell {
 
     let titleLabel = SUI_Label(title: "Totals", fontSize: FontSize.large)
-    let totalCashAmountLabel = SUI_Label(title: "$ 0", fontSize: FontSize.large)
-    let totalTreesAmountLabel = SUI_Label(title: "0", fontSize: FontSize.large)
+    let totalCashAmountLabel = SUI_Label(title: "$ 0", fontSize: FontSize.extraLarge)
+    let totalTreesAmountLabel = SUI_Label(title: "0", fontSize: FontSize.extraLarge)
     
     
     override init(frame: CGRect) {
@@ -43,15 +43,16 @@ class TotalCashCell: CardCell {
         
         [totalCashTitleLabel, totalTreesTitleLabel, totalCashAmountLabel, totalTreesAmountLabel].forEach{leftView.addSubview($0)}
         
-        totalCashTitleLabel.anchor(top: leftView.topAnchor, leading: leftView.leadingAnchor, bottom: nil, trailing: leftView.trailingAnchor, size: .init(width: 0, height: leftView.frame.height*0.3))
-        totalCashAmountLabel.anchor(top: totalCashTitleLabel.topAnchor, leading: leftView.leadingAnchor, bottom: leftView.bottomAnchor, trailing: leftView.trailingAnchor, size: .init(width: 0, height: leftView.frame.height*0.65))
+        totalCashTitleLabel.anchor(top: leftView.topAnchor, leading: leftView.leadingAnchor, bottom: nil, trailing: leftView.trailingAnchor,size: .init(width: 0, height: leftView.frame.height*0.3))
+        totalCashAmountLabel.anchor(top: totalCashTitleLabel.topAnchor, leading: leftView.leadingAnchor, bottom: leftView.bottomAnchor, trailing: leftView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0),size: .init(width: 0, height: leftView.frame.height*0.65))
         totalCashTitleLabel.textAlignment = .center
         totalCashAmountLabel.textAlignment = .center
         
-        totalTreesTitleLabel.anchor(top: rightView.topAnchor, leading: rightView.leadingAnchor, bottom: nil, trailing: rightView.trailingAnchor, size: .init(width: 0, height: leftView.frame.height*0.3))
-        totalTreesAmountLabel.anchor(top: totalTreesTitleLabel.topAnchor, leading: rightView.leadingAnchor, bottom: rightView.bottomAnchor, trailing: rightView.trailingAnchor, size: .init(width: 0, height: rightView.frame.height*0.65))
+        totalTreesTitleLabel.anchor(top: rightView.topAnchor, leading: rightView.leadingAnchor, bottom: nil, trailing: rightView.trailingAnchor,size: .init(width: 0, height: leftView.frame.height*0.3))
+        totalTreesAmountLabel.anchor(top: totalTreesTitleLabel.topAnchor, leading: rightView.leadingAnchor, bottom: rightView.bottomAnchor, trailing: rightView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0),size: .init(width: 0, height: rightView.frame.height*0.65))
         totalTreesTitleLabel.textAlignment = .center
         totalTreesAmountLabel.textAlignment = .center
+        totalTreesAmountLabel.textColor = .systemGreen
         
     }
     

@@ -16,11 +16,17 @@ struct Fonts{
 }
 
 struct FontSize{
-    static let extraSmall = Float(12)
-    static let small = Float(16)
-    static let meduim = Float(20)
-    static let large = Float(24)
-    static let extraLarge = Float(30)
+//    static let extraSmall = Float(12)
+//    static let small = Float(16)
+//    static let meduim = Float(20)
+//    static let large = Float(24)
+//    static let extraLarge = Float(30)
+    static let extraSmall = Float(UIScreen.main.bounds.height*0.018)
+    static let small = Float(UIScreen.main.bounds.height*0.021)
+    static let meduim = Float(UIScreen.main.bounds.height*0.026)
+    static let large = Float(UIScreen.main.bounds.height*0.031)
+    static let extraLarge = Float(UIScreen.main.bounds.height*0.035)
+    static let largeTitle = Float(UIScreen.main.bounds.height*0.04)
 }
 
 struct TallyNumbers{

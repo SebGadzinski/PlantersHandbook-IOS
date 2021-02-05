@@ -25,7 +25,7 @@ class BlockManagerVC: ProgramicVC {
     required init(title: String, handbookId: String) {
         self.blocks = realmDatabase.getBlockRealm(predicate: NSPredicate(format: "entryId = %@", handbookId)).sorted(byKeyPath: "_id")
         self.handbookId = handbookId
-        self.titleLabel = SUI_Label(title: title, fontSize: FontSize.extraLarge)
+        self.titleLabel = SUI_Label(title: title, fontSize: FontSize.largeTitle)
         
         super.init(nibName: nil, bundle: nil)
         
@@ -170,7 +170,7 @@ extension BlockManagerVC: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = blocks[indexPath.row].title
         cell.textLabel?.textAlignment = .center
-        cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.large))
+        cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraLarge))
         cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }

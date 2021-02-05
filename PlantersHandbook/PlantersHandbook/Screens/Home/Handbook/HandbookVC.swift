@@ -18,15 +18,17 @@ class HandbookVC: ProgramicVC {
     fileprivate var handbookEntryNotificationToken: NotificationToken?
     fileprivate let seasons: Results<Season>
     fileprivate var handbookEntries: Results<HandbookEntry>
-    fileprivate let dateLabel = SUI_Label_Date(fontSize: FontSize.extraLarge)
-    fileprivate let addEntryButton = PH_Button(title: "Add Entry", fontSize: FontSize.extraLarge)
+    fileprivate let dateLabel = SUI_Label_Date(fontSize: FontSize.largeTitle)
+    fileprivate let addEntryButton = PH_Button(title: "Add Entry", fontSize: FontSize.large)
     fileprivate let addSeasonButton = PH_Button(title: "Add Season", fontSize: FontSize.meduim)
     fileprivate var seasonTableView = SUI_TableView()
     fileprivate var handbookEntrysTableView = SUI_TableView()
-    fileprivate var logoutButton = PH_Button(title: "Logout", fontSize: FontSize.small)
+    fileprivate var logoutButton = PH_Button(title: "Logout", fontSize: FontSize.meduim)
     fileprivate var seasonSelected = -1;
     
     required init() {
+        print("Initializing HandbookVC")
+        
         seasons = realmDatabase.getSeasonRealm(predicate: nil).sorted(byKeyPath: "_id")
         
         if let season = seasons.first{
@@ -238,7 +240,7 @@ extension HandbookVC: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         if(tableView == self.seasonTableView){
             cell.textLabel?.text = seasons[indexPath.row].title
-            cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraLarge))
+            cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.largeTitle))
         }
         else{
             cell.textLabel?.text = getDate(from: handbookEntries[indexPath.row].date)

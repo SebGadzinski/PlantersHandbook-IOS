@@ -41,11 +41,16 @@ func PH_Label_Number(title: String?) -> UILabel {
 }
 
 func PH_Label_Stat(title: String?) -> UILabel{
-    let lb = SUI_Label(title: title, fontSize: FontSize.meduim)
-    lb.font = UIFont(name: Fonts.avenirNextMeduimBold, size: CGFloat(FontSize.meduim))
+    let lb = SUI_Label(title: title, fontSize: FontSize.small)
+    let font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.small))
+    let attributes: [NSAttributedString.Key: Any] = [
+        .font: font,
+        .foregroundColor: UIColor.label,
+        .underlineStyle: NSUnderlineStyle.single.rawValue,
+    ]
     if let newTitle = title{
         let lbString = NSAttributedString(string: newTitle,
-                                                  attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                                                  attributes: attributes)
         lb.attributedText = lbString
     }
     return lb

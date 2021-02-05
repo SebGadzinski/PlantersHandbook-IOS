@@ -13,5 +13,6 @@ target 'PlantersHandbook' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'Charts'
+  pod 'M13Checkbox'
 
 end

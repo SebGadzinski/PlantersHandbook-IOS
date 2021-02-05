@@ -171,7 +171,7 @@ extension SubBlockManagerVC: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = subBlocks[indexPath.row].title
         cell.textLabel?.textAlignment = .center
-        cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.large))
+        cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraLarge))
         cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }

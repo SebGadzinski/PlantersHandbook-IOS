@@ -55,6 +55,10 @@
 		8637696025C7856200580108 /* HorizontalBarGraphCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637695F25C7856200580108 /* HorizontalBarGraphCell.swift */; };
 		86672B7625CAFB7200D0C34C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672B7525CAFB7200D0C34C /* Config.swift */; };
 		86672BA425CC4BC200D0C34C /* SUICharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BA325CC4BC200D0C34C /* SUICharts.swift */; };
+		86672BA925CC9EBB00D0C34C /* SeasonsPickerViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModal.swift */; };
+		86672BBD25CDB54900D0C34C /* SeasonStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BBC25CDB54900D0C34C /* SeasonStatistics.swift */; };
+		86672BC225CDB60300D0C34C /* AverageSeasonStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BC125CDB60300D0C34C /* AverageSeasonStatistics.swift */; };
+		86672BC725CDC2E500D0C34C /* HandbookEntryStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BC625CDC2E500D0C34C /* HandbookEntryStatistics.swift */; };
 		86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854B9E25BA5A620089CF2D /* DoubleExtension.swift */; };
 		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
 		86C741AE25AB5D71000547F9 /* SUIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* SUIViews.swift */; };
@@ -159,6 +163,10 @@
 		8637695F25C7856200580108 /* HorizontalBarGraphCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalBarGraphCell.swift; sourceTree = "<group>"; };
 		86672B7525CAFB7200D0C34C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		86672BA325CC4BC200D0C34C /* SUICharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUICharts.swift; sourceTree = "<group>"; };
+		86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsPickerViewModal.swift; sourceTree = "<group>"; };
+		86672BBC25CDB54900D0C34C /* SeasonStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonStatistics.swift; sourceTree = "<group>"; };
+		86672BC125CDB60300D0C34C /* AverageSeasonStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AverageSeasonStatistics.swift; sourceTree = "<group>"; };
+		86672BC625CDC2E500D0C34C /* HandbookEntryStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandbookEntryStatistics.swift; sourceTree = "<group>"; };
 		86854B9E25BA5A620089CF2D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* SUIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUIViews.swift; sourceTree = "<group>"; };
@@ -397,6 +405,9 @@
 			isa = PBXGroup;
 			children = (
 				86672B7525CAFB7200D0C34C /* Config.swift */,
+				86672BBC25CDB54900D0C34C /* SeasonStatistics.swift */,
+				86672BC125CDB60300D0C34C /* AverageSeasonStatistics.swift */,
+				86672BC625CDC2E500D0C34C /* HandbookEntryStatistics.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -493,6 +504,7 @@
 				860BED6C25A9573300B3D699 /* PlotsModal.swift */,
 				86C7425D25B20E87000547F9 /* SeasonModal.swift */,
 				860BED7125A9577200B3D699 /* GPSTreeTrackingModal.swift */,
+				86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModal.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -716,12 +728,14 @@
 				860BECF525A94BCE00B3D699 /* LoginVC.swift in Sources */,
 				8637690F25C5B37200580108 /* PlotCell.swift in Sources */,
 				860BECD425A94B1A00B3D699 /* SUIButtons.swift in Sources */,
+				86672BC725CDC2E500D0C34C /* HandbookEntryStatistics.swift in Sources */,
 				86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */,
 				860BED5925A9568400B3D699 /* BlockManagerVC.swift in Sources */,
 				8637691925C5B96100580108 /* FloatExtensions.swift in Sources */,
 				86C7420B25ABBC1F000547F9 /* GeneralFunctions.swift in Sources */,
 				86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */,
 				8637691425C5B3E700580108 /* UnderlineTextCell.swift in Sources */,
+				86672BC225CDB60300D0C34C /* AverageSeasonStatistics.swift in Sources */,
 				8637693F25C7824500580108 /* GraphCardCell.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
 				860BECC725A94B0400B3D699 /* SUIScrollVIews.swift in Sources */,
@@ -750,6 +764,7 @@
 				860BED1125A94CBD00B3D699 /* HandbookVC.swift in Sources */,
 				86C7425E25B20E87000547F9 /* SeasonModal.swift in Sources */,
 				86C7425225B0B843000547F9 /* Enumerations.swift in Sources */,
+				86672BBD25CDB54900D0C34C /* SeasonStatistics.swift in Sources */,
 				8637692725C7420C00580108 /* CardCell.swift in Sources */,
 				860BED3925A9514600B3D699 /* StatisticsNC.swift in Sources */,
 				860BEC5325A9442700B3D699 /* AppDelegate.swift in Sources */,
@@ -764,6 +779,7 @@
 				860BECCF25A94B0F00B3D699 /* SUITextFields.swift in Sources */,
 				860BED7A25AA296A00B3D699 /* PasswordResetVC.swift in Sources */,
 				860BECFF25A94C2400B3D699 /* StatisticsVC.swift in Sources */,
+				86672BA925CC9EBB00D0C34C /* SeasonsPickerViewModal.swift in Sources */,
 				860BED6325A956A400B3D699 /* CacheManagerVC.swift in Sources */,
 				860BED1B25A94DA500B3D699 /* Season.swift in Sources */,
 				860BED5E25A9569100B3D699 /* SubBlockManagerVC.swift in Sources */,

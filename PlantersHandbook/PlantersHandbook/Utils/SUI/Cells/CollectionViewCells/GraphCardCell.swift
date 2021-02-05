@@ -11,7 +11,8 @@ class GraphCardCell: CardCell {
     let graphView = SUI_View(backgoundColor: .clear)
     let graphTitle = SUI_Label(title: "Title", fontSize: FontSize.large)
     let graphSubTitle = SUI_Label(title: "Sub Title", fontSize: FontSize.meduim)
-    let seasonTitle = SUI_Label(title: "Season", fontSize: FontSize.meduim)
+    let seasonTitle = SUI_Label(title: "Season", fontSize: FontSize.large)
+    var seasonSelected = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
