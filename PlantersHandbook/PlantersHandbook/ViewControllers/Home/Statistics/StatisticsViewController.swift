@@ -394,7 +394,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                                 var dates = [String]()
                                 for i in 0..<seasonStats.handbookEntrysStatistics.count{
                                     dates.append(GeneralFunctions.getDate(from: seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].date))
-                                    distanceEntries.append(ChartDataEntry(x: Double(i), y: Double(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalDistanceTravelled).round(to: 0)))
+                                    distanceEntries.append(ChartDataEntry(x: Double(i), y: Double(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalDistanceTravelled/1000).round(to: 2)))
                                 }
                                 setUpLineChart(cell: cell, entries: distanceEntries, entryLabel: "Distance: KM", colors: [NSUIColor.init(cgColor: StatisticColors.distance.cgColor)], datesForXAxis: dates, lastIndex: Double(seasonStats.handbookEntrysStatistics.count))
                             }

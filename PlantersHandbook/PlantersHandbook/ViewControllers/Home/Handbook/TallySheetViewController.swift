@@ -298,9 +298,22 @@ extension TallySheetViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if cache.isPlanting{
             if !locations.isEmpty{
-                for i in 0..<locations.count{
-                    let newCoordinate = Coordinate(longitude: locations[i].coordinate.longitude, latitude: locations[i].coordinate.latitude)
-                    realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: newCoordinate)
+                var prevCoordinate = Coordinate(longitude: -1, latitude: -1)
+                var start = 0
+                if cache.coordinatesCovered.last!.input.isEmpty{
+                    prevCoordinate = Coordinate(longitude: locations[0].coordinate.longitude, latitude: locations[0].coordinate.latitude)
+                    realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: prevCoordinate)
+                    start = 1
+                }
+                else{
+                    prevCoordinate = cache.coordinatesCovered.last!.input.last!
+                }
+                for i in start..<locations.count{
+                    //Check if the coordinate is 5 meters from the last one
+                    if GMSGeometryDistance(CLLocationCoordinate2D(latitude: prevCoordinate.latitude, longitude: prevCoordinate.longitude), CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)) >= 5.0{
+                        let newCoordinate = Coordinate(longitude: locations[i].coordinate.longitude, latitude: locations[i].coordinate.latitude)
+                        realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: newCoordinate)
+                    }
                 }
             }
         }
