@@ -11,14 +11,14 @@ import CoreLocation
 import GoogleMaps
 import Charts
 
-class StatisticsViewController: StatisticsView {
+class StatisticsViewController: StatisticsView, IValueFormatter {
     
     fileprivate var seasons: Results<Season>
     fileprivate var longPressGesture = UILongPressGestureRecognizer()
     fileprivate let userDefaults = UserDefaults.standard
 
-    fileprivate var cardIndexs : [Int] = [0,1,2,3,4,5,6,7]
-    fileprivate var graphSeasonsIndexs : [Int] = [0,0,0,0,0,0,0,0]
+    fileprivate var cardIndexs : [Int] = [0,1,2,3,4,5,6,7,8,9]
+    fileprivate var graphSeasonsIndexs : [Int] = [0,0,0,0,0,0,0,0,0,0]
     fileprivate var lookingAtGraphWithIndex = 0
     fileprivate var seasonsStatistics : [SeasonStatistics] = []
     fileprivate var justInitalized = true
@@ -83,7 +83,6 @@ class StatisticsViewController: StatisticsView {
         seasonsStatistics.removeAll()
         for season in seasons{
             var seasonStats = SeasonStatistics(seasonName: String(season.title))
-            var bestTotalCashFromEntry : Double = 0
             
             let handbookEntries = realmDatabase.getHandbookEntryRealm(predicate: .init(format: "seasonId = %@", season._id)).sorted(byKeyPath: "date", ascending: false)
             for handbookEntry in handbookEntries{
@@ -102,6 +101,9 @@ class StatisticsViewController: StatisticsView {
         
                             }
                             cache.totalTreesPerTreeTypes.forEach{
+                                handbookEntryStats.totalTrees += $0
+                            }
+                            cache.secondsPlanted.forEach{
                                 handbookEntryStats.totalTrees += $0
                             }
                             
@@ -129,12 +131,14 @@ class StatisticsViewController: StatisticsView {
                 seasonStats.totalCash += handbookEntryStats.totalCash
                 seasonStats.totalTrees += handbookEntryStats.totalTrees
                 seasonStats.totalDistanceTravelled += handbookEntryStats.totalDistanceTravelled
+                seasonStats.totalTimeSecondsPlanting += handbookEntryStats.totalTimeSecondsPlanting
                 seasonStats.handbookEntrysStatistics.append(handbookEntryStats)
             }
             if handbookEntries.count > 0{
                 seasonStats.averages.averageCash = seasonStats.totalCash/Double(handbookEntries.count)
                 seasonStats.averages.averageTrees = seasonStats.totalTrees/handbookEntries.count
                 seasonStats.averages.averageDistanceTravelled = seasonStats.totalDistanceTravelled/Double(handbookEntries.count)
+                seasonStats.averages.averageTimeSecondsPlanting = seasonStats.totalTimeSecondsPlanting/handbookEntries.count
             }
             seasonsStatistics.append(seasonStats)
         }
@@ -166,7 +170,7 @@ class StatisticsViewController: StatisticsView {
             let items = tempItems as! NSArray
             return items as! [Int]
         }
-        return [0,1,2,3,4,5,6,7]
+        return [0,1,2,3,4,5,6,7,8,9]
     }
     
     fileprivate func getOrderOfGraphSeasons() -> [Int]{
@@ -174,7 +178,7 @@ class StatisticsViewController: StatisticsView {
             let seasons = tempSeasons as! NSArray
             return seasons as! [Int]
         }
-        return [0,0,0,0,0,0,0,0]
+        return [0,0,0,0,0,0,0,0,0,0]
     }
     
     @objc func hamdbugerMenuTapped(sender: UIButton) {
@@ -194,6 +198,12 @@ class StatisticsViewController: StatisticsView {
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        let (h, m, _) = GeneralFunctions.secondsToHoursMinutesSeconds(seconds: Int(value))
+        let timerString = String(h) + ":" + String(m)
+        return timerString
+    }
 
 }
 
@@ -206,19 +216,21 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
         else if cardIndexs[indexPath.row] == 3 || cardIndexs[indexPath.row] == 5{
             return .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.25)
         }
+        else if cardIndexs[indexPath.row] == 9{
+            return .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.18)
+        }
         else{
             return  .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.4)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return cardIndexs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if cardIndexs[indexPath.row] == 0{
-            print("Totals")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TotalCashCell", for: indexPath) as! TotalCashCell
             cell.hamburgerMenu.isHidden = true
             
@@ -394,7 +406,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                                 var dates = [String]()
                                 for i in 0..<seasonStats.handbookEntrysStatistics.count{
                                     dates.append(GeneralFunctions.getDate(from: seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].date))
-                                    distanceEntries.append(ChartDataEntry(x: Double(i), y: Double(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalDistanceTravelled/1000).round(to: 2)))
+                                    distanceEntries.append(ChartDataEntry(x: Double(i), y: Double(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalDistanceTravelled/1000).round(to: 3)))
                                 }
                                 setUpLineChart(cell: cell, entries: distanceEntries, entryLabel: "Distance: KM", colors: [NSUIColor.init(cgColor: StatisticColors.distance.cgColor)], datesForXAxis: dates, lastIndex: Double(seasonStats.handbookEntrysStatistics.count))
                             }
@@ -404,7 +416,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
             }
             return cell
         }
-        else{
+        else if cardIndexs[indexPath.row] == 7{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalBarGraphCell", for: indexPath) as! HorizontalBarGraphCell
             cell.hamburgerMenu.isHidden = true
             cell.graphTitle.text = "Seasons"
@@ -432,6 +444,51 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                 cell.barChart.data = data
             }
             
+            return cell
+        }
+        else if cardIndexs[indexPath.row] == 8 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for: indexPath) as! LineGraphCell
+            createGraphCell(cell: cell, indexPath: indexPath, graphTitle: "Entrys", graphSubTitle: "Time Spent Planting")
+            if seasons.count > 0{
+                reloadLineGraphCell(cell: cell, indexPath: indexPath)
+                for seasonStats in seasonsStatistics{
+                    if seasonStats.seasonName == cell.seasonTitle.text{
+                        if seasonStats.handbookEntrysStatistics.count <= 4{
+                            cell.lineChart.data = nil
+                        }
+                        else{
+                            if seasonStats.seasonName == cell.seasonTitle.text{
+                                var distanceEntries = [ChartDataEntry]()
+                                var dates = [String]()
+                                for i in 0..<seasonStats.handbookEntrysStatistics.count{
+                                    dates.append(GeneralFunctions.getDate(from: seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].date))
+                                    distanceEntries.append(ChartDataEntry(x: Double(i), y: Double(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalTimeSecondsPlanting)))
+                                }
+                                setUpLineChart(cell: cell, entries: distanceEntries, entryLabel: "Time: H:M", colors: [NSUIColor.init(cgColor: StatisticColors.time.cgColor)], datesForXAxis: dates, lastIndex: Double(seasonStats.handbookEntrysStatistics.count))
+                                cell.lineChart.lineData?.dataSets[0].valueFormatter = self
+                            }
+                        }
+                    }
+                }
+            }
+            return cell
+        }
+        else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneTotalCell", for: indexPath) as! OneTotalCell
+            cell.totalLabel.text = "Time Spent Planting"
+            cell.titleLabel.text = "Seasons"
+            cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
+            cell.hamburgerMenu.tag = indexPath.row
+            cell.seasonTitleLabel.text = seasons[graphSeasonsIndexs[indexPath.row]].title
+            if seasons.count > 0{
+                for seasonStats in seasonsStatistics{
+                    if seasonStats.seasonName == cell.seasonTitleLabel.text{
+                        let (h,m,s) = GeneralFunctions.secondsToHoursMinutesSeconds(seconds: seasonStats.totalTimeSecondsPlanting)
+                        cell.largeTotalLabel.text = String(h) + " : " + (m < 9 ? "0" : "") + String(m) + " : " + (s < 9 ? "0" : "") + String(s)
+                        cell.largeTotalLabel.textColor = .magenta
+                    }
+                }
+            }
             return cell
         }
     }

@@ -17,6 +17,7 @@ class GPSTreeTrackingModalView: ProgramicVC {
     internal let treesPlantedTheoreticallyTextField = SUI_Label(title: "0 trees", fontSize: FontSize.extraLarge)
     internal let treesPerPlotTextField = SUI_TextField_Form(placeholder: "Trees Per Plot", textType: .none)
     internal let undoImage = UIImageView(image: UIImage(named: "undoBtn.png"))
+    internal let timerView = SUI_TextView_RoundedBackground(text: "00:00:00", fontSize: FontSize.large)
     internal var mapView = GMSMapView()
     
     override func setUpOverlay() {
@@ -55,9 +56,10 @@ class GPSTreeTrackingModalView: ProgramicVC {
         
         mapView.anchor(top: googleMapsLayout.topAnchor, leading: googleMapsLayout.leadingAnchor, bottom: googleMapsLayout.bottomAnchor, trailing: googleMapsLayout.trailingAnchor)
         
-        topBar.addSubview(undoImage)
+        [undoImage, timerView].forEach{topBar.addSubview($0)}
         
         undoImage.anchor(top: topBar.topAnchor, leading: nil, bottom: nil, trailing: topBar.trailingAnchor,  padding: .init(top: 5, left: 0, bottom: 0, right: 5) ,size: .init(width: mapView.safeAreaFrame.width*0.13, height: mapView.safeAreaFrame.width*0.13))
+        timerView.anchor(top: topBar.topAnchor, leading: topBar.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 0, right: 0), size: .init(width: mapView.safeAreaFrame.width*0.35, height: mapView.safeAreaFrame.width*0.12))
         undoImage.isUserInteractionEnabled = true
     }
     
@@ -65,8 +67,6 @@ class GPSTreeTrackingModalView: ProgramicVC {
         [engageTrackingButton, treesPerPlotTextField, distanceTravelledTextField, treesPlantedTheoreticallyTextField].forEach{actionLayout.addSubview($0)}
 
         engageTrackingButton.anchor(top: actionLayout.topAnchor, leading: actionLayout.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 10, left: 10, bottom: 0, right: 10), size: .init(width: actionLayout.safeAreaFrame.width/2, height: actionLayout.safeAreaFrame.height*0.45))
-        
-
         
         treesPerPlotTextField.anchor(top: engageTrackingButton.bottomAnchor, leading: engageTrackingButton.leadingAnchor, bottom: nil, trailing: engageTrackingButton.trailingAnchor, padding: .init(top: 10, left: 30, bottom: 0, right: 30))
         treesPerPlotTextField.textAlignment = .center

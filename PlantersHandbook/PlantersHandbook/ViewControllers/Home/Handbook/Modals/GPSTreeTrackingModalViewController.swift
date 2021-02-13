@@ -18,31 +18,36 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
     fileprivate let cacheCoordinates: List<CoordinateInput>
     fileprivate var locationManager: CLLocationManager
     fileprivate var treesPerPlot: Int
+    fileprivate let secondsPlanted: List<Int>
     
     fileprivate var locationNotificationToken: NotificationToken?
 
     fileprivate let trackingPath = GMSMutablePath()
     fileprivate var pathHistory : [GMSMutablePath] = []
     
+    fileprivate var timer = Timer()
+    
     fileprivate var totalDistance : Double = 0.0
     fileprivate var prevTrackingCoordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
-    required init(title: String, cacheCoordinates: List<CoordinateInput>, treesPerPlot: Int, locationManager: CLLocationManager) {
+    required init(title: String, cacheCoordinates: List<CoordinateInput>, treesPerPlot: Int, locationManager: CLLocationManager, secondsPlanted: List<Int>) {
         self.cacheCoordinates = cacheCoordinates
         self.locationManager = locationManager
         self.treesPerPlot = treesPerPlot
-                        
-        super.init(nibName: nil, bundle: nil)
+        self.secondsPlanted = secondsPlanted
         
-        self.title = title
-    }
+        super.init(nibName: nil, bundle: nil)
     
-    deinit {
-        locationNotificationToken?.invalidate()
+        self.title = title
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        locationNotificationToken?.invalidate()
+        timer.invalidate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +75,9 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
             if delegate.isPlanting(){
                 setEngageButtonStop()
                 setNotificationForTrackingList()
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
             }
+            timerView.text = delegate.getTimerCount()
         }
         treesPerPlotTextField.text = String(treesPerPlot)
         keyboardMoveUpWhenTextFieldTouched = view.frame.height*0.33
@@ -91,9 +98,17 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
         mapView.delegate = self
     }
     
+    @objc func updateTimer() {
+        if let delegate = delegate{
+            timerView.text = delegate.getTimerCount()
+        }
+    }
+    
     @objc fileprivate func engageTrackingButtonAction(){
         if let delegate = delegate{
             if delegate.isPlanting(){
+                timer.invalidate()
+                delegate.stopTimer()
                 setEngageButtonStart()
                 addTrackingPathToMap()
                 trackingPath.removeAllCoordinates()
@@ -101,6 +116,9 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
                 prevTrackingCoordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
             }
             else{
+                realmDatabase.addToList(list: secondsPlanted, item: 0)
+                delegate.startTimer()
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
                 trackingPath.removeAllCoordinates()
                 setEngageButtonStop()
                 realmDatabase.addToList(list: cacheCoordinates, item: CoordinateInput())
@@ -123,6 +141,7 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
     @objc fileprivate func undoTap(gesture: UIGestureRecognizer) {
         if let coordinatesCovered = cacheCoordinates.last{
             if let delegate = delegate{
+                timer.invalidate()
                 realmDatabase.clearList(list: coordinatesCovered.input)
                 realmDatabase.removeLastInList(list: cacheCoordinates)
                 if delegate.isPlanting(){
@@ -131,6 +150,11 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
                 if !pathHistory.isEmpty{
                     pathHistory.removeLast()
                 }
+                if !secondsPlanted.isEmpty{
+                    realmDatabase.removeLastInList(list: secondsPlanted)
+                    delegate.reCalculateCounter()
+                }
+                updateTimer()
                 reloadAllPaths()
             }
         }
@@ -261,6 +285,10 @@ protocol GPSTreeTrackingModalDelegate:NSObjectProtocol {
     func isPlanting() -> Bool
     func closedModal()
     func saveTreesPerPlot(treePerPlot: Int)
+    func startTimer()
+    func stopTimer()
+    func getTimerCount() -> String
+    func reCalculateCounter()
 }
 
 

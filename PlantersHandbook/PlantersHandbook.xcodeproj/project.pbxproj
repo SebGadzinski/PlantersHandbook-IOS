@@ -63,6 +63,7 @@
 		8659629025D7576900663DFC /* AddEntryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659628F25D7576900663DFC /* AddEntryModalView.swift */; };
 		8659629725D7928E00663DFC /* hamburger_menu_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8659629525D7928E00663DFC /* hamburger_menu_white.png */; };
 		865962A225D794D200663DFC /* undoBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 865962A125D794D200663DFC /* undoBtn.png */; };
+		865962B225D86B0500663DFC /* OneTotalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865962B125D86B0500663DFC /* OneTotalCell.swift */; };
 		86672B7625CAFB7200D0C34C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672B7525CAFB7200D0C34C /* Config.swift */; };
 		86672BA425CC4BC200D0C34C /* SUICharts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BA325CC4BC200D0C34C /* SUICharts.swift */; };
 		86672BA925CC9EBB00D0C34C /* SeasonsPickerViewModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModalViewController.swift */; };
@@ -200,6 +201,7 @@
 		8659628F25D7576900663DFC /* AddEntryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryModalView.swift; sourceTree = "<group>"; };
 		8659629525D7928E00663DFC /* hamburger_menu_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hamburger_menu_white.png; sourceTree = "<group>"; };
 		865962A125D794D200663DFC /* undoBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undoBtn.png; sourceTree = "<group>"; };
+		865962B125D86B0500663DFC /* OneTotalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTotalCell.swift; sourceTree = "<group>"; };
 		86672B7525CAFB7200D0C34C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		86672BA325CC4BC200D0C34C /* SUICharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUICharts.swift; sourceTree = "<group>"; };
 		86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsPickerViewModalViewController.swift; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				8637695F25C7856200580108 /* HorizontalBarGraphCell.swift */,
 				86C7427925B673A7000547F9 /* TallyCell.swift */,
 				8637690E25C5B37200580108 /* PlotCell.swift */,
+				865962B125D86B0500663DFC /* OneTotalCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 				860BECCF25A94B0F00B3D699 /* SUITextFields.swift in Sources */,
 				860BED7A25AA296A00B3D699 /* PasswordResetViewController.swift in Sources */,
 				860BECFF25A94C2400B3D699 /* StatisticsViewController.swift in Sources */,
+				865962B225D86B0500663DFC /* OneTotalCell.swift in Sources */,
 				867BC9EE25D44ACC003EAC3E /* SplashViewController.swift in Sources */,
 				86672BA925CC9EBB00D0C34C /* SeasonsPickerViewModalViewController.swift in Sources */,
 				860BED6325A956A400B3D699 /* CacheManagerViewController.swift in Sources */,

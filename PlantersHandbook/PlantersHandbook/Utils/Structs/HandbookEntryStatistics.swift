@@ -12,12 +12,14 @@ struct HandbookEntryStatistics{
     var totalCash : Double
     var totalTrees : Int
     var totalDistanceTravelled : Double
+    var totalTimeSecondsPlanting : Int
     
-    init(date: Date, totalCash: Double, totalTrees: Int, totalDistanceTravelled: Double){
+    init(date: Date, totalCash: Double, totalTrees: Int, totalDistanceTravelled: Double, totalTimeSecondsPlanting: Int){
         self.date = date
         self.totalCash = totalCash
         self.totalTrees = totalTrees
         self.totalDistanceTravelled = totalDistanceTravelled
+        self.totalTimeSecondsPlanting = totalTimeSecondsPlanting
     }
     
     init(date: Date){
@@ -25,6 +27,7 @@ struct HandbookEntryStatistics{
         self.totalCash = 0
         self.totalTrees = 0
         self.totalDistanceTravelled = 0
+        self.totalTimeSecondsPlanting = 0
     }
     
 }

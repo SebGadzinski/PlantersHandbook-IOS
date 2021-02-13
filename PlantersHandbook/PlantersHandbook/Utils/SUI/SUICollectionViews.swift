@@ -47,5 +47,6 @@ func PH_CollectionView_Statistics() -> UICollectionView{
     cv.register(OverallStatsCell.self, forCellWithReuseIdentifier: "OverallStatsCell")
     cv.register(PieChartCell.self, forCellWithReuseIdentifier: "PieChartCell")
     cv.register(HorizontalBarGraphCell.self, forCellWithReuseIdentifier: "HorizontalBarGraphCell")
+    cv.register(OneTotalCell.self, forCellWithReuseIdentifier: "OneTotalCell")
     return cv
 }

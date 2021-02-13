@@ -15,6 +15,7 @@ class Cache: Object {
     @objc dynamic var title: String = "Cache"
     @objc dynamic var isPlanting: Bool = false
     @objc dynamic var treePerPlot: Int = 0
+    var secondsPlanted = List<Int>()
     var treeTypes = List<String>()
     var centPerTreeTypes = List<Double>()
     var bundlesPerTreeTypes = List<Int>()

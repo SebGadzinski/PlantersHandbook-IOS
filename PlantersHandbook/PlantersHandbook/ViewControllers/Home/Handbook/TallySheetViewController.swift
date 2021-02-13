@@ -16,6 +16,10 @@ class TallySheetViewController: TallySheetView {
     fileprivate var clearingData = false
     fileprivate var gpsButtonClicked = false
     fileprivate var locationManagerNotificationToken: NotificationToken?
+    fileprivate var counter : Int = 0
+    fileprivate var freshCounter = 0
+    fileprivate var timer = Timer()
+    fileprivate var isPlaying = false
     
     var locationManager: CLLocationManager!
         
@@ -28,14 +32,19 @@ class TallySheetViewController: TallySheetView {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 1
         locationManager.delegate = self
+        cache.secondsPlanted.forEach{counter += $0}
         
         realmDatabase.updateCacheIsPlanting(cache: cache, bool: false)
-                
+                        
         self.title = "Cache: " + cache.title
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        timer.invalidate()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -119,7 +128,7 @@ class TallySheetViewController: TallySheetView {
     }
     
     fileprivate func goToGPSModal(){
-        let gpsModal = GPSTreeTrackingModalViewController(title: self.title! + " GPS Tree Tracking", cacheCoordinates: cache.coordinatesCovered, treesPerPlot: cache.treePerPlot, locationManager: locationManager)
+        let gpsModal = GPSTreeTrackingModalViewController(title: self.title! + " GPS Tree Tracking", cacheCoordinates: cache.coordinatesCovered, treesPerPlot: cache.treePerPlot, locationManager: locationManager, secondsPlanted: cache.secondsPlanted)
         gpsModal.delegate = self
         gpsModal.modalPresentationStyle = .popover
         present(gpsModal, animated: true)
@@ -222,6 +231,12 @@ class TallySheetViewController: TallySheetView {
         }
     }
     
+    @objc func updateTimer() {
+        freshCounter += 1
+        counter += 1
+        realmDatabase.updateList(list: cache.secondsPlanted, index: cache.secondsPlanted.endIndex-1, item: freshCounter)
+    }
+    
     fileprivate func calculateTotalInLane(column: Int){
         var totalTreesInBagUps : Int = 0
         for x in 0...19{
@@ -239,6 +254,7 @@ class TallySheetViewController: TallySheetView {
         locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.allowsBackgroundLocationUpdates = false
     }
+    
 }
 
 
@@ -363,6 +379,7 @@ extension TallySheetViewController: CLLocationManagerDelegate {
 }
 
 extension TallySheetViewController: GPSTreeTrackingModalDelegate{
+    
     func flipBooleanIsPlanting() {
         realmDatabase.updateCacheIsPlanting(cache: cache, bool: !cache.isPlanting)
     }
@@ -383,4 +400,33 @@ extension TallySheetViewController: GPSTreeTrackingModalDelegate{
         print("Saving Trees per Plot: \(treePerPlot)")
         realmDatabase.updateCacheTreePerPlot(cache: cache, treesPerPlot: treePerPlot)
     }
+    
+    func startTimer() {
+        if(isPlaying) {
+            return
+        }
+            
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        isPlaying = true
+    }
+        
+    func stopTimer() {
+        timer.invalidate()
+        isPlaying = false
+        freshCounter = 0
+    }
+    
+    func getTimerCount() -> String{
+        let (h, m, s) = GeneralFunctions.secondsToHoursMinutesSeconds(seconds: counter)
+        let timerString =  String(h) + " : " + (m > 9 ? "0" : "") + String(m) + " : " + (s > 9 ? "0" : "") + String(s)
+        return timerString
+    }
+    
+    func reCalculateCounter(){
+        timer.invalidate()
+        freshCounter = 0
+        counter = 0
+        cache.secondsPlanted.forEach{counter += $0}
+    }
+    
 }

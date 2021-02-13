@@ -46,7 +46,6 @@ class OverallStatsCell: CardCell {
         bestCashLabel.textColor = StatisticColors.cash
         
         bestTreesLabel.anchor(top: bestLabel.bottomAnchor, leading: bestCashLabel.trailingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
-        bestTreesLabel.anchorSize(to: bestTreesLabel)
         bestTreesLabel.textColor = StatisticColors.trees
         
         averageLabel.anchor(top: bestTreesLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
