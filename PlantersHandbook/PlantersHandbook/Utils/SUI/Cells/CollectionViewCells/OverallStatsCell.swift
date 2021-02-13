@@ -26,35 +26,40 @@ class OverallStatsCell: CardCell {
     
     override func generateLayout(){
         super.generateLayout()
-        let BestLabel = PH_Label_Stat(title: "Best")
-        let AverageLabel = PH_Label_Stat(title: "Average")
+        let bestLabel = PH_Label_Stat(title: "Best")
+        let averageLabel = PH_Label_Stat(title: "Average")
         
-        [seasonTitleLabel, titleLabel, BestLabel, bestCashLabel, bestTreesLabel, AverageLabel, averageCashLabel, averageTreesLabel].forEach{containerView.addSubview($0)}
+        [seasonTitleLabel, titleLabel, bestLabel, bestCashLabel, bestTreesLabel, averageLabel, averageCashLabel, averageTreesLabel].forEach{containerView.addSubview($0)}
         
-        seasonTitleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: hambugarMenu.leadingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 5), size: .init(width: 0, height: 0))
-        seasonTitleLabel.anchorCenterY(to: hambugarMenu)
+        seasonTitleLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: hamburgerMenu.leadingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 5), size: .init(width: 0, height: 0))
+        seasonTitleLabel.anchorCenterY(to: hamburgerMenu)
         seasonTitleLabel.textAlignment = .right
-        seasonTitleLabel.textColor = .systemGreen
         
         titleLabel.anchor(top: nil, leading: containerView.leadingAnchor, bottom: nil, trailing: seasonTitleLabel.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
-        titleLabel.anchorCenterY(to: hambugarMenu)
+        titleLabel.anchorCenterY(to: hamburgerMenu)
         titleLabel.textAlignment = .left
         
-        BestLabel.anchor(top: titleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
-        BestLabel.anchorCenterX(to: containerView)
-        bestCashLabel.anchor(top: BestLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.centerXAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
-        bestTreesLabel.anchor(top: BestLabel.bottomAnchor, leading: bestCashLabel.trailingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
-        bestTreesLabel.anchorSize(to: bestTreesLabel)
-        bestTreesLabel.textColor = .systemGreen
+        bestLabel.anchor(top: titleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
+        bestLabel.anchorCenterX(to: containerView)
         
-        AverageLabel.anchor(top: bestTreesLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
-        AverageLabel.anchorSize(to: BestLabel)
-        AverageLabel.anchorCenterX(to: containerView)
-        averageCashLabel.anchor(top: AverageLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.centerXAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        bestCashLabel.anchor(top: bestLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.centerXAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        bestCashLabel.textColor = StatisticColors.cash
+        
+        bestTreesLabel.anchor(top: bestLabel.bottomAnchor, leading: bestCashLabel.trailingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        bestTreesLabel.anchorSize(to: bestTreesLabel)
+        bestTreesLabel.textColor = StatisticColors.trees
+        
+        averageLabel.anchor(top: bestTreesLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        averageLabel.anchorSize(to: bestLabel)
+        averageLabel.anchorCenterX(to: containerView)
+        
+        averageCashLabel.anchor(top: averageLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.centerXAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         averageCashLabel.anchorSize(to: bestTreesLabel)
-        averageTreesLabel.anchor(top: AverageLabel.bottomAnchor, leading: bestCashLabel.trailingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        averageCashLabel.textColor = StatisticColors.cash
+        
+        averageTreesLabel.anchor(top: averageLabel.bottomAnchor, leading: bestCashLabel.trailingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         averageTreesLabel.anchorSize(to: bestTreesLabel)
-        averageTreesLabel.textColor = .systemGreen
+        averageTreesLabel.textColor = StatisticColors.trees
         
     }
 

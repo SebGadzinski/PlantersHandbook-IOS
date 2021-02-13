@@ -13,7 +13,7 @@ func SUI_Button_Normal(title: String?, textColor: UIColor?, backgroundColor: UIC
     btn.setTitle((title != nil ? title! :""), for: .normal)
     btn.setTitleColor((textColor != nil ? textColor! : .black), for: .normal)
     btn.backgroundColor = (backgroundColor != nil ? backgroundColor! : .clear)
-    btn.titleLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat((fontSize != nil ? fontSize! : FontSize.meduim)))
+    btn.titleLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat((fontSize != nil ? fontSize! : FontSize.medium)))
     btn.layer.borderColor = (borderColor != nil ? borderColor! : UIColor.black.cgColor)
     btn.titleLabel?.adjustsFontSizeToFitWidth = true
     btn.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -34,11 +34,11 @@ func SUI_Button_Rounded(title: String?, textColor: UIColor?, backgroundColor: UI
 // Custom Developed For Planters Handbook
 
 func PH_Button(title: String, fontSize: Float) -> UIButton{
-    return SUI_Button_Rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: PHColors.green.cgColor, radius: CornerRaduis.small, borderWidth: BorderWidth.extraThin)
+    return SUI_Button_Rounded(title: title, textColor: UIColor.systemGray, backgroundColor: UIColor.clear, fontSize: fontSize, borderColor: UIColor.systemGreen.cgColor, radius: CornerRaduis.small, borderWidth: BorderWidth.extraThin)
 }
 
 func PH_Button_Tally(title: String, fontSize: Float, borderColor: CGColor) -> UIButton{
-    let button = SUI_Button_Rounded(title: title, textColor: PHColors.gray, backgroundColor: PHColors.clear, fontSize: fontSize, borderColor: borderColor, radius: CornerRaduis.meduim, borderWidth: BorderWidth.extraThin)
+    let button = SUI_Button_Rounded(title: title, textColor: UIColor.systemGray, backgroundColor: UIColor.clear, fontSize: fontSize, borderColor: borderColor, radius: CornerRaduis.medium, borderWidth: BorderWidth.extraThin)
     button.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
     return button
 }

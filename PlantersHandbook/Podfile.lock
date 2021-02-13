@@ -19,6 +19,7 @@ PODS:
   - RealmSwift (10.5.0):
     - Realm (= 10.5.0)
   - SwiftSpinner (2.1.0)
+  - SwiftyGif (5.4.0)
   - UnderLineTextField (2.1.0)
 
 DEPENDENCIES:
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - Navajo-Swift
   - RealmSwift
   - SwiftSpinner
+  - SwiftyGif
   - UnderLineTextField
 
 SPEC REPOS:
@@ -45,6 +47,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - SwiftSpinner
+    - SwiftyGif
     - UnderLineTextField
 
 SPEC CHECKSUMS:
@@ -58,8 +61,9 @@ SPEC CHECKSUMS:
   Realm: e1c22c3d83b229afb70ebc10e1771c91e9542d12
   RealmSwift: 6fc078d9d3fd7e58c71bfdbb694e252462f112a5
   SwiftSpinner: 0f15c006307f8d8bbac075638927ec1361b565d7
+  SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   UnderLineTextField: b3f5307b56962331e30a965e81b79aae2df1de83
 
-PODFILE CHECKSUM: 715d45a5f615de655aa7c47f3525b79014a6f847
+PODFILE CHECKSUM: 7bc6a26a90e535e4b0485a351e1f9438dae8c835
 
 COCOAPODS: 1.10.0

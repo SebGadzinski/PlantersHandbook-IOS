@@ -30,8 +30,8 @@ class TotalCashCell: CardCell {
         
         [titleLabel, leftView, rightView].forEach{containerView.addSubview($0)}
         
-        titleLabel.anchor(top: nil, leading: containerView.leadingAnchor, bottom: nil, trailing: hambugarMenu.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
-        titleLabel.anchorCenterY(to: hambugarMenu)
+        titleLabel.anchor(top: nil, leading: containerView.leadingAnchor, bottom: nil, trailing: hamburgerMenu.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0), size: .init(width: 0, height: 0))
+        titleLabel.anchorCenterY(to: hamburgerMenu)
         titleLabel.textAlignment = .left
         
         leftView.anchor(top: titleLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.centerXAnchor)
@@ -47,12 +47,13 @@ class TotalCashCell: CardCell {
         totalCashAmountLabel.anchor(top: totalCashTitleLabel.topAnchor, leading: leftView.leadingAnchor, bottom: leftView.bottomAnchor, trailing: leftView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0),size: .init(width: 0, height: leftView.frame.height*0.65))
         totalCashTitleLabel.textAlignment = .center
         totalCashAmountLabel.textAlignment = .center
+        totalCashAmountLabel.textColor = StatisticColors.cash
         
         totalTreesTitleLabel.anchor(top: rightView.topAnchor, leading: rightView.leadingAnchor, bottom: nil, trailing: rightView.trailingAnchor,size: .init(width: 0, height: leftView.frame.height*0.3))
         totalTreesAmountLabel.anchor(top: totalTreesTitleLabel.topAnchor, leading: rightView.leadingAnchor, bottom: rightView.bottomAnchor, trailing: rightView.trailingAnchor, padding: .init(top: 10, left: 10, bottom: 0, right: 0),size: .init(width: 0, height: rightView.frame.height*0.65))
         totalTreesTitleLabel.textAlignment = .center
         totalTreesAmountLabel.textAlignment = .center
-        totalTreesAmountLabel.textColor = .systemGreen
+        totalTreesAmountLabel.textColor = StatisticColors.trees
         
     }
     

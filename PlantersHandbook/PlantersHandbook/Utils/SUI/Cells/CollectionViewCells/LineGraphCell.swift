@@ -23,7 +23,7 @@ class LineGraphCell: GraphCardCell {
     override func generateLayout(){
         super.generateLayout()
         graphView.addSubview(lineChart)
-        
+        lineChart.noDataText = "You must have 5 Entries in a season to see this graph"
         lineChart.anchor(top: graphView.topAnchor, leading: graphView.leadingAnchor, bottom: graphView.bottomAnchor, trailing: graphView.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 5, right: 5))
     }
 }

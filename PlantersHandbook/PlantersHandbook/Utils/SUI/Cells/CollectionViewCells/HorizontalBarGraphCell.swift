@@ -22,7 +22,8 @@ class HorizontalBarGraphCell: GraphCardCell {
     override func generateLayout(){
         super.generateLayout()
         graphView.addSubview(barChart)
-        barChart.anchor(top: graphView.topAnchor, leading: graphView.leadingAnchor, bottom: graphView.bottomAnchor, trailing: graphView.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 5, right: 5))
+        barChart.noDataText = "You need to create a season and add a entry"
+        barChart.anchor(top: graphView.topAnchor, leading: graphView.leadingAnchor, bottom: graphView.bottomAnchor, trailing: graphView.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 20, right: 5))
     }
 
 }

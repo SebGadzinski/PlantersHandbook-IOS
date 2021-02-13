@@ -13,10 +13,10 @@ class TallyCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        generateConstraints()
+        generateLayout()
    }
     
-    func generateConstraints(){
+    func generateLayout(){
         contentView.addSubview(input)
         contentView.addSubview(bottomBar)
         backgroundColor = .systemBackground

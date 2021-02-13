@@ -12,11 +12,11 @@ import UnderLineTextField
 func SUI_TextField_Form(placeholder: String?, textType: UITextContentType!) -> UnderLineTextField{
     let textField = UnderLineTextField()
     textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.activeLineColor = PHColors.green
+    textField.activeLineColor = UIColor.systemGreen
     textField.textContentType = textType
     textField.isSecureTextEntry = (textType == UITextContentType.password || textType == UITextContentType.newPassword)
     textField.placeholderFont = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.large))
-    textField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.meduim))
+    textField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.medium))
     textField.placeholder = (placeholder != nil ? placeholder! : "")
     textField.errorFont = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraSmall))
     textField.errorTextColor = UIColor.red
@@ -32,7 +32,7 @@ func PH_TextField_BagUp() -> UITextField {
     textField.textColor = .label
     textField.borderStyle = .none
     textField.backgroundColor = .systemBackground
-    textField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.meduim))
+    textField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.medium))
     textField.layer.masksToBounds = true
     textField.textAlignment = .center
     textField.autocorrectionType = .no

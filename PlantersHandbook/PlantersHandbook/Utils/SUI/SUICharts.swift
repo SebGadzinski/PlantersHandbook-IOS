@@ -10,15 +10,10 @@ import Charts
 
 func SUI_LineGraph() -> LineChartView{
     let lineGraph = LineChartView()
-    lineGraph.setVisibleXRangeMaximum(ChartNumbers.visibleRandMaximum)
+    lineGraph.setVisibleXRangeMaximum(ChartNumbers.requiredInputValuesAmount)
     lineGraph.xAxis.granularity = 1
-    lineGraph.xAxis.axisMinimum = 0.0
     lineGraph.xAxis.labelPosition = .bottom
-//    dayLineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: dates)
-//    lineGraph.xAxis.labelCount = cashDataSet.count
-//    lineGraph.moveViewToX(Double(entryManager.count))
-//    dayLineChart.data = .none
-//    dayLineChart.noDataText = "No data"
+
     lineGraph.xAxis.labelRotationAngle = -90.0
     lineGraph.xAxis.drawGridLinesEnabled = false
     lineGraph.xAxis.drawAxisLineEnabled = true
@@ -27,10 +22,11 @@ func SUI_LineGraph() -> LineChartView{
     lineGraph.leftAxis.drawGridLinesEnabled = false
     lineGraph.leftAxis.drawAxisLineEnabled = false
     
-    lineGraph.rightAxis.axisMinimum = 0.0
+    lineGraph.rightAxis.axisMinimum = -1
     lineGraph.rightAxis.enabled = false
     lineGraph.rightAxis.drawAxisLineEnabled = false
     lineGraph.rightAxis.drawGridLinesEnabled = false
+    lineGraph.animate(xAxisDuration: 1, easingOption: .easeInElastic)
     
     lineGraph.setDragOffsetX(20)
     lineGraph.accessibilityScroll(.right)
@@ -40,27 +36,29 @@ func SUI_LineGraph() -> LineChartView{
 func SUI_PieChart() -> PieChartView{
     let pieChart = PieChartView()
     //makeStuffNice
+    pieChart.animate(yAxisDuration: 1.5, easingOption: .easeInQuart)
     return pieChart
 }
 
-func SUI_HortiontalBarGraph() -> BarChartView{
-    let barGraph = BarChartView()
-    barGraph.isUserInteractionEnabled = false
-                
-    barGraph.leftAxis.axisMinimum = 0.0
-    barGraph.xAxis.labelPosition = .bottom
-//    barGraph.xAxis.labelCount = cashDataSet.count
+func SUI_HortiontalBarGraph() -> HorizontalBarChartView{
+    let barChart = HorizontalBarChartView()
+    
+    barChart.chartDescription?.text = ""
+    barChart.pinchZoomEnabled = false
+    barChart.doubleTapToZoomEnabled = false
+    
+    barChart.leftAxis.axisMinimum = 0.0
+    barChart.xAxis.labelPosition = .bottom
+    barChart.xAxis.drawGridLinesEnabled = false
+    barChart.rightAxis.drawGridLinesEnabled = false
+    
+    barChart.leftAxis.enabled = false
+    barChart.leftAxis.drawAxisLineEnabled = false
+    barChart.leftAxis.drawLabelsEnabled = false
+    barChart.animate(yAxisDuration: 1.5, easingOption: .easeInOutQuart)
+    barChart.legend.enabled = false
 
-    barGraph.rightAxis.enabled = false
-
-    barGraph.xAxis.drawGridLinesEnabled = false
-    barGraph.xAxis.drawAxisLineEnabled = false
-
-    barGraph.rightAxis.drawAxisLineEnabled = true
-    barGraph.rightAxis.drawGridLinesEnabled = false
-
-    barGraph.leftAxis.drawGridLinesEnabled = false
-    barGraph.leftAxis.drawAxisLineEnabled = false
-    return barGraph
+    barChart.fitBars = true;
+    return barChart
 }
 

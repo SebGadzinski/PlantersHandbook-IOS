@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ProgramicVCInterface{
-    func generateLayout() -> Void
     func configureViews() -> Void
     func setActions() -> Void
+    func setUpOverlay() -> Void
 }

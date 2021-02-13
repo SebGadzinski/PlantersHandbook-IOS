@@ -18,16 +18,13 @@ class PlotCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        customizeViews()
-        generateConstraints()
+        generateLayout()
    }
     
-    func customizeViews(){
+    func generateLayout(){
         plotOne.keyboardType = .numberPad
         plotTwo.keyboardType = .numberPad
-    }
-    
-    func generateConstraints(){
+        
         [number, plotOne, bottomBarOne, plotTwo, bottomBarTwo].forEach{contentView.addSubview($0)}
         backgroundColor = .systemBackground
         

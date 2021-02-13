@@ -22,6 +22,7 @@ class PieChartCell: GraphCardCell {
     override func generateLayout(){
         super.generateLayout()
         graphView.addSubview(pieChart)
+        pieChart.noDataText = "You need to create a season and add a entry"
         pieChart.anchor(top: graphView.topAnchor, leading: graphView.leadingAnchor, bottom: graphView.bottomAnchor, trailing: graphView.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 5, right: 5))
     }
 

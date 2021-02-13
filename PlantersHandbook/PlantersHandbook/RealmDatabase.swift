@@ -15,17 +15,14 @@ struct RealmDatabase{
     
     public mutating func connectToRealm(realm: Realm){
         self.realm = realm
-        guard let syncConfiguration = realm.configuration.syncConfiguration else {
-            fatalError("Sync configuration not found! Realm not opened with sync?");
-        }
-        self.partitionValue = syncConfiguration.partitionValue!.stringValue!
-        
+        self.partitionValue = "user=\(app.currentUser!.id)"
     }
     
     //===============GET================
     
     func getLocalUser() -> User?{
         let users = realm!.objects(User.self).filter(NSPredicate(format: "_id = %@", app.currentUser!.id))
+        print(realm!.objects(User.self))
         return users.first
     }
     

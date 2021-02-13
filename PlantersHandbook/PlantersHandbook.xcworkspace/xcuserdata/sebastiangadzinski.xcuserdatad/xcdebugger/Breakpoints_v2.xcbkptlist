@@ -7,54 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D9656E61-0840-439A-8414-7579D0BB56BC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D9217B1A-7851-49D3-86BC-4A5531B97E18"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5511A9FD-CB74-4E0D-A6D2-DC252DBC2638"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E9C7FE7A-E380-43BC-924A-C6D02F467A8C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -206,248 +158,9 @@
             filePath = "PlantersHandbook/RealmDatabase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "emptyTallyPrimitiveList(list:appending:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1F953AB3-7267-4B63-9C36-616FBECD5E7A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8AE3F295-E421-4469-9E91-82D71F93CA52"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8AE3F295-E421-4469-9E91-82D71F93CA52 - 3330b495787d99f6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "2684">
-               </Location>
-               <Location
-                  uuid = "8AE3F295-E421-4469-9E91-82D71F93CA52 - 90db62289153d633"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "288">
-               </Location>
-               <Location
-                  uuid = "8AE3F295-E421-4469-9E91-82D71F93CA52 - 5fddc4795ecdc592"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "96">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3AE44F17-22F7-4B48-86FE-7A01079A00E3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3AE44F17-22F7-4B48-86FE-7A01079A00E3 - 5fddc4795ecdc5ff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "152">
-               </Location>
-               <Location
-                  uuid = "3AE44F17-22F7-4B48-86FE-7A01079A00E3 - 5fddc4795ecdc5ff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E0923A29-134C-4FAE-9A24-30946C8F6421"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E0923A29-134C-4FAE-9A24-30946C8F6421 - 90db62289153d610"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "316">
-               </Location>
-               <Location
-                  uuid = "E0923A29-134C-4FAE-9A24-30946C8F6421 - 5fddc4795ecdc592"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "96">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74DD548D-AE20-4037-832B-029DEB798E05"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "scene(_:willConnectTo:options:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "74DD548D-AE20-4037-832B-029DEB798E05 - 3330b495787d99f6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "2684">
-               </Location>
-               <Location
-                  uuid = "74DD548D-AE20-4037-832B-029DEB798E05 - 90db62289153d633"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in PlantersHandbook.SceneDelegate.scene(_: __C.UIScene, willConnectTo: __C.UISceneSession, options: __C.UISceneConnectionOptions) -&gt; ()"
-                  moduleName = "PlantersHandbook"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/SceneDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "288">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CCE87292-CD7A-490F-95A7-F8E3F3B72D4E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/SceneDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "scene(_:willConnectTo:options:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -529,6 +242,213 @@
                   offsetFromSymbolStart = "36">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C22FEB14-B384-4793-A673-48DA707CC51E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Home/Statistics/StatisticsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "collectInformation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "190F82D6-0124-44A2-8410-511A0DA83BAD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/RealmDatabase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "connectToRealm(realm:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB6DB8F9-34AF-4D46-BD8B-B2237463EE9D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/RealmDatabase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "connectToRealm(realm:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8EF1B9E8-F2AA-4593-B300-2871DC7F2758"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/SplashViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "checkingConfiguration()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A13D670-C458-4486-95A7-BD8F48401C6C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "signIn()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8A13D670-C458-4486-95A7-BD8F48401C6C - 6b4868c83af445f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;__C.RLMUser, Swift.Error&gt;) -&gt; () in PlantersHandbook.LoginViewController.(signIn in _03BD3C8A2F0ADCAF8AA0659B68DEEC6B)() -&gt; ()"
+                  moduleName = "PlantersHandbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "2956">
+               </Location>
+               <Location
+                  uuid = "8A13D670-C458-4486-95A7-BD8F48401C6C - 5c2a48a03a091253"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in closure #1 () -&gt; () in closure #1 (Swift.Result&lt;__C.RLMUser, Swift.Error&gt;) -&gt; () in PlantersHandbook.LoginViewController.(signIn in _03BD3C8A2F0ADCAF8AA0659B68DEEC6B)() -&gt; ()"
+                  moduleName = "PlantersHandbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "8A13D670-C458-4486-95A7-BD8F48401C6C - f462f4d377cc602d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;RealmSwift.Realm, Swift.Error&gt;) -&gt; () in closure #1 () -&gt; () in closure #1 (Swift.Result&lt;__C.RLMUser, Swift.Error&gt;) -&gt; () in PlantersHandbook.LoginViewController.(signIn in _03BD3C8A2F0ADCAF8AA0659B68DEEC6B)() -&gt; ()"
+                  moduleName = "PlantersHandbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastiangadzinski/Documents/GitHub/PlantersHandbook-IOS/PlantersHandbook/PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5B07A85-B70B-43CE-80B6-156E949EC07F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "signIn()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5D2B08F6-E76B-4E97-BCC1-7238B179D995"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "signIn()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6697BBE2-8D39-4505-BCA2-AFBC7C18D23C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "signIn()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F48025D-0BDE-401B-9CC6-5202CDEBEFFF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/Utils/SUI/Cells/CollectionViewCells/CardCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "generateLayout()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "340AA888-CA91-409E-B906-0D661C2BD12C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/Utils/SUI/Cells/CollectionViewCells/CardCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "generateLayout()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

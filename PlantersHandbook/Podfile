@@ -14,5 +14,6 @@ target 'PlantersHandbook' do
   pod 'GooglePlaces'
   pod 'Charts'
   pod 'M13Checkbox'
+  pod 'SwiftyGif'
 
 end

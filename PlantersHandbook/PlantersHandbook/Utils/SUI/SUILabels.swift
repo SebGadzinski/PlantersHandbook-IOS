@@ -12,7 +12,7 @@ func SUI_Label(title: String?, fontSize: Float?) -> UILabel {
     let lb = UILabel()
     lb.text = (title != nil ? title :"")
     lb.translatesAutoresizingMaskIntoConstraints = false
-    lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize != nil ? fontSize! : FontSize.meduim))
+    lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize != nil ? fontSize! : FontSize.medium))
     lb.adjustsFontSizeToFitWidth = true
     lb.textAlignment = .center
     return lb
@@ -20,7 +20,7 @@ func SUI_Label(title: String?, fontSize: Float?) -> UILabel {
 
 func SUI_Label_Date(fontSize: Float?) -> UILabel {
     let lb = UILabel()
-    lb.text = getDate(from: Date())
+    lb.text = GeneralFunctions.getDate(from: Date())
     lb.textAlignment = .center
     lb.adjustsFontSizeToFitWidth = true
     lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize!))
