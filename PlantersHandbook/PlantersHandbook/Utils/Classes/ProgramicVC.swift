@@ -8,12 +8,12 @@
 import UIKit
 
 class ProgramicVC: UIViewController, ProgramicVCInterface {
-    internal let bgView = generalLayout(backgoundColor: .systemBackground)
+    internal let backgroundView = SUI_View(backgoundColor: .systemBackground)
     internal var frame : CGRect = CGRect()
-    internal let kb = UIToolbar()
-    internal let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneClick))
-    internal let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    internal var keyboardMoveUpWhenTextFieldTouched : CGFloat = 150
+    internal let toolBar = UIToolbar()
+    internal let doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneClick))
+    internal let flexibleBarSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    internal var keyboardMoveUpWhenTextFieldTouched : CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,44 +22,44 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
         
         view.backgroundColor = .systemBackground
-        view.addSubview(bgView)
+        view.addSubview(backgroundView)
         
-        bgView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
+        backgroundView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
         
-        frame = bgView.safeAreaFrame
+        frame = backgroundView.safeAreaFrame
         
         keyboardSetUp()
-        generateLayout()
+        setUpOverlay()
         configureViews()
         setActions()
     }
 
-     @objc func keyboardWillShow(sender: NSNotification) {
+     @objc internal func keyboardWillShow(sender: NSNotification) {
           self.view.frame.origin.y = -keyboardMoveUpWhenTextFieldTouched // Move view 150 points upward
      }
 
-     @objc func keyboardWillHide(sender: NSNotification) {
+     @objc internal func keyboardWillHide(sender: NSNotification) {
           self.view.frame.origin.y = 0 // Move view to original position
      }
     
-    func keyboardSetUp(){
-        kb.sizeToFit()
-        kb.items = [flexibleSpace, doneButton]
+    internal func keyboardSetUp(){
+        toolBar.sizeToFit()
+        toolBar.items = [flexibleBarSpace, doneBarButton]
     }
     
-    @objc func doneClick(){
+    @objc internal func doneClick(){
         self.view.endEditing(true)
     }
     
-    func generateLayout() {
-        print("Generated Layout")
+    internal func setUpOverlay() {
+        print("Overlay")
     }
     
-    func configureViews() {
+    internal func configureViews() {
         print("Views Configured")
     }
     
-    func setActions() {
+    internal func setActions() {
         print("Actions Set")
     }
 }
