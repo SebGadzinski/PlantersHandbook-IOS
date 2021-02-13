@@ -22,47 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-                
-        let navigationController = UINavigationController(rootViewController: WelcomeVC())
-        SwiftSpinner.show("")
-        if let _ = app.currentUser{
-            print("user is logged in")
-            
-            var configuration = app.currentUser!.configuration(partitionValue: "user=\(app.currentUser!.id)")
-            configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, CoordinateInput.self, Coordinate.self]
-            
-            Realm.asyncOpen(configuration: configuration) { [weak self](result) in
-                print(result)
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        fatalError("Failed to open realm: \(error)")
-                    case .success(let realm):
-                        realmDatabase.connectToRealm(realm: realm)
-                        if let user = realmDatabase.getLocalUser(){
-                            if(user.company != ""){
-                                navigationController.pushViewController(HomeTBC(), animated: false)
-                            }
-                            else{
-                                navigationController.pushViewController(GetCompanyVC(), animated: true)
-                            }
-                        }
-                            
-                        SwiftSpinner.hide()
-                        
-                        self!.window?.rootViewController = navigationController
-                        
-                        guard let _ = (scene as? UIWindowScene) else { return }
-                        
-                    }
-                }
-            }
-        } else {
-            SwiftSpinner.hide()
-            window?.rootViewController = navigationController
-            guard let _ = (scene as? UIWindowScene) else { return }
-            print("not logged in; present sign in/signup view")
-        }
+        window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
+
+        guard let _ = (scene as? UIWindowScene) else { return }
+    }
+    
+    func enterApplication(){
         
     }
 
