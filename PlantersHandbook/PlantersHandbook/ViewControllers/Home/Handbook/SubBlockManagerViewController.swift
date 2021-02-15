@@ -13,6 +13,7 @@ class SubBlockManagerViewController: SubBlockManagerView {
     fileprivate let blockId: String
     fileprivate var subBlockNotificationToken: NotificationToken?
     fileprivate let subBlocks: Results<SubBlock>
+    fileprivate var subBlockBeingEdited = -1
     
     required init(title: String, blockId: String) {
         self.subBlocks = realmDatabase.getSubBlockRealm(predicate: NSPredicate(format: "blockId = %@", blockId)).sorted(byKeyPath: "_id")
@@ -100,6 +101,14 @@ class SubBlockManagerViewController: SubBlockManagerView {
         view.endEditing(true)
         return false
     }
+    
+    @objc func hamdbugerMenuTapped(sender: UIButton) {
+        subBlockBeingEdited = sender.tag
+        let oneTextFieldModal = OneTextFieldModalViewController(title: "Rename Sub Block", textForTextField: subBlocks[subBlockBeingEdited].title)
+        oneTextFieldModal.delegate = self
+        oneTextFieldModal.modalPresentationStyle = .popover
+        present(oneTextFieldModal, animated: true)
+    }
 
 }
 
@@ -109,11 +118,13 @@ extension SubBlockManagerViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EditCell", for: indexPath) as! EditableTableViewCell
         cell.textLabel?.text = subBlocks[indexPath.row].title
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraLarge))
         cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
+        cell.hamburgerMenu.tag = indexPath.row
         return cell
     }
     
@@ -136,6 +147,16 @@ extension SubBlockManagerViewController: UITableViewDelegate, UITableViewDataSou
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
             }
+        }
+    }
+}
+
+extension SubBlockManagerViewController: OneTextFieldModalDelegate{
+    func completionHandler(returningText: String) {
+        if subBlockBeingEdited > -1 && subBlockBeingEdited < subBlocks.count{
+            realmDatabase.updateSubBlock(subBlock: subBlocks[subBlockBeingEdited], _partition: nil, blockId: nil, title: returningText, date: nil, caches: nil)
+            let indexPath = IndexPath(item: subBlockBeingEdited, section: 0)
+            managerTableView.reloadRows(at: [indexPath], with: .fade)
         }
     }
 }

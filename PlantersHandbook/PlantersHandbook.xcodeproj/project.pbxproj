@@ -94,6 +94,10 @@
 		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
 		86920D9325D9A07300758CA0 /* GetStepLengthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920D9225D9A07300758CA0 /* GetStepLengthView.swift */; };
 		86920D9825D9A9C700758CA0 /* GetStepLengthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920D9725D9A9C700758CA0 /* GetStepLengthViewController.swift */; };
+		86920D9D25DACCC500758CA0 /* OneTextFieldModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920D9C25DACCC500758CA0 /* OneTextFieldModalViewController.swift */; };
+		86920DA225DACD7900758CA0 /* OneTextFieldModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DA125DACD7900758CA0 /* OneTextFieldModalView.swift */; };
+		86920DA725DACFBB00758CA0 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DA625DACFBB00758CA0 /* EditableTableViewCell.swift */; };
+		86920DAC25DAE14D00758CA0 /* RealmExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DAB25DAE14D00758CA0 /* RealmExtensions.swift */; };
 		86C741AE25AB5D71000547F9 /* SUIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* SUIViews.swift */; };
 		86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */; };
 		86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */; };
@@ -234,6 +238,10 @@
 		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		86920D9225D9A07300758CA0 /* GetStepLengthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStepLengthView.swift; sourceTree = "<group>"; };
 		86920D9725D9A9C700758CA0 /* GetStepLengthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStepLengthViewController.swift; sourceTree = "<group>"; };
+		86920D9C25DACCC500758CA0 /* OneTextFieldModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTextFieldModalViewController.swift; sourceTree = "<group>"; };
+		86920DA125DACD7900758CA0 /* OneTextFieldModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTextFieldModalView.swift; sourceTree = "<group>"; };
+		86920DA625DACFBB00758CA0 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
+		86920DAB25DAE14D00758CA0 /* RealmExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmExtensions.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* SUIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUIViews.swift; sourceTree = "<group>"; };
 		86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramicVC.swift; sourceTree = "<group>"; };
 		86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -448,6 +456,7 @@
 				86854B9E25BA5A620089CF2D /* DoubleExtension.swift */,
 				86854BA625BA60680089CF2D /* StringExtension.swift */,
 				8637691825C5B96100580108 /* FloatExtensions.swift */,
+				86920DAB25DAE14D00758CA0 /* RealmExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -502,6 +511,7 @@
 		860BECC525A94AAD00B3D699 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				86920DA625DACFBB00758CA0 /* EditableTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -619,6 +629,7 @@
 				86672C6A25CE576600D0C34C /* GPSTreeTrackingModalView.swift */,
 				86672C6F25CE578300D0C34C /* SeasonsPickerViewModalView.swift */,
 				8659628F25D7576900663DFC /* AddEntryModalView.swift */,
+				86920DA125DACD7900758CA0 /* OneTextFieldModalView.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -650,6 +661,7 @@
 				860BED7125A9577200B3D699 /* GPSTreeTrackingModalViewController.swift */,
 				86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModalViewController.swift */,
 				8659628725D7573A00663DFC /* AddEntryModalViewController.swift */,
+				86920D9C25DACCC500758CA0 /* OneTextFieldModalViewController.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -898,7 +910,9 @@
 				860BECED25A94BB200B3D699 /* WelcomeViewController.swift in Sources */,
 				86672C7025CE578300D0C34C /* SeasonsPickerViewModalView.swift in Sources */,
 				86672C1525CE4A1000D0C34C /* SignUpView.swift in Sources */,
+				86920D9D25DACCC500758CA0 /* OneTextFieldModalViewController.swift in Sources */,
 				8659626D25D6F5E300663DFC /* Validation.swift in Sources */,
+				86920DA725DACFBB00758CA0 /* EditableTableViewCell.swift in Sources */,
 				86672C4525CE4D0800D0C34C /* CacheManagerView.swift in Sources */,
 				86920D9325D9A07300758CA0 /* GetStepLengthView.swift in Sources */,
 				860BED2025A94DB900B3D699 /* HandbookEntry.swift in Sources */,
@@ -915,6 +929,7 @@
 				860BED3425A9512E00B3D699 /* HandbookNC.swift in Sources */,
 				8659629025D7576900663DFC /* AddEntryModalView.swift in Sources */,
 				86672C4025CE4CDC00D0C34C /* SubBlockManagerView.swift in Sources */,
+				86920DAC25DAE14D00758CA0 /* RealmExtensions.swift in Sources */,
 				8637694425C784EC00580108 /* TotalCashCell.swift in Sources */,
 				86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */,
 				86672C4D25CE4D2500D0C34C /* StatisticsView.swift in Sources */,
@@ -946,6 +961,7 @@
 				860BEC5525A9442700B3D699 /* SceneDelegate.swift in Sources */,
 				860BECDE25A94B2E00B3D699 /* SUITableViews.swift in Sources */,
 				86672C3625CE4B1100D0C34C /* ManagerView.swift in Sources */,
+				86920DA225DACD7900758CA0 /* OneTextFieldModalView.swift in Sources */,
 				860BED7225A9577300B3D699 /* GPSTreeTrackingModalViewController.swift in Sources */,
 				8637696025C7856200580108 /* HorizontalBarGraphCell.swift in Sources */,
 				867BC9F325D44B35003EAC3E /* LogoAnimationView.swift in Sources */,

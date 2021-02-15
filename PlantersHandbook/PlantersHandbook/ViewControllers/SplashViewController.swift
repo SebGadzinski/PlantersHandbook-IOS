@@ -56,13 +56,20 @@ class SplashViewController: SplashView {
         if foundRealm != nil{
             realmDatabase.connectToRealm(realm: foundRealm!)
         }else{
-            let realm = try! Realm(configuration: configuration)
+            guard let realm = Realm.safeInit(configuration: configuration) else {
+                let alertController = UIAlertController(title: "** ERROR **", message: "We cannot open database. Please close application and restart.", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                    self.saveFirstTimer(finishedFirstTime: true)
+                })
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
             realmDatabase.connectToRealm(realm: realm)
         }
         if let user = realmDatabase.getLocalUser(){
             if user.company == ""{
                 self.navigationController!.pushViewController(GetCompanyViewController(), animated: true)
-                print("INSIDE THE COMPANY FVIEIOASNFAS")
                 return
             }
             else if user.stepDistance == 0{

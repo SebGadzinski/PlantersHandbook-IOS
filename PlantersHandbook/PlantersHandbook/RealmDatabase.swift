@@ -9,9 +9,21 @@ import Foundation
 import RealmSwift
 typealias CompletionHandler = (_ success:Bool) -> Void
 
+/*
+ This should only be used after the connecToRealm funciton has been called.
+ It was needed to be initialized in a global scope but can only be connected once realm has been given from async.
+ So the initializer is plain and struct is vulnerable to error before getting connected.
+ Therefore no funcitons should be used until connect woth Realm.async as shown in Login and Splash controllers
+ 
+ Reason for connecting Realm once for the whole applicaiton?
+    - Conserves reopening realm for every function
+    - MongoDB docs say to open realm specificially for a view controller for security issues but with
+      this note management application, there is no security issues so opening specific realms so it is a waste of lines
+ */
+
 struct RealmDatabase{
-    private var realm : Realm?
-    private var partitionValue: String?
+    fileprivate var realm : Realm?
+    fileprivate var partitionValue: String?
     
     public mutating func connectToRealm(realm: Realm){
         self.realm = realm
@@ -90,7 +102,7 @@ struct RealmDatabase{
         deleteBunchEntrys(entriesToDelete: entriesToDelete, entryCompletionHandler: {(success) -> Void in
             if success{
                 print("Deleting Season: \(seasonIdString)")
-                try! realm!.write {
+                realm!.safeWrite{
                     realm!.delete(season)
                 }
                 print("Season Deleted")
@@ -111,7 +123,7 @@ struct RealmDatabase{
         deleteBunchBlocks(blocksToDelete: blocksToDelete, blockCompletionHandler: {(success) -> Void in
             if success{
                 print("Deleting Entry: \(entryIdString)")
-                try! realm!.write {
+                realm!.safeWrite {
                     realm!.delete(entry)
                 }
                 print("Entry Deleted")
@@ -133,7 +145,7 @@ struct RealmDatabase{
                 deleteBunchBlocks(blocksToDelete: blocksToDelete, blockCompletionHandler: {(success) -> Void in
                     if success{
                         print("Deleting Entry: \(aEntry._id)")
-                        try! realm!.write {
+                        realm!.safeWrite {
                             realm!.delete(aEntry)
                         }
                         print("Entry Deleted")
@@ -159,7 +171,7 @@ struct RealmDatabase{
         deleteBunchSubBlocks(subBlocksToDelete: subBlocksToDelete, subBlockCompletionHandler: {(success) -> Void in
             if success{
                 print("Deletin Block: \(blockIdString)")
-                try! realm!.write {
+                realm!.safeWrite {
                     realm!.delete(block)
                 }
                 print("Block Deleted")
@@ -181,7 +193,7 @@ struct RealmDatabase{
                 deleteBunchSubBlocks(subBlocksToDelete: subBlocksToDelete,subBlockCompletionHandler: {(success) -> Void in
                     if success{
                         print("Deleting Block: \(aBlock._id)")
-                        try! realm!.write {
+                        realm!.safeWrite {
                             realm!.delete(aBlock)
                         }
                         print("Block Deleted")
@@ -207,7 +219,7 @@ struct RealmDatabase{
         deleteBunchCaches(cachesToDelete: cachesToDelete,  cacheCompletionHandler: {(success) -> Void in
             if success{
                 print("Deleting SubBlock: \(subBlockIdString)")
-                try! realm!.write {
+                realm!.safeWrite {
                     realm!.delete(subBlock)
                 }
                 print("SubBlock Deleted")
@@ -229,7 +241,7 @@ struct RealmDatabase{
                 deleteBunchCaches(cachesToDelete: cachesToDelete, cacheCompletionHandler: {(success) -> Void in
                     if success{
                         print("Deleting SubBlock: \(aSubBlock._id)")
-                        try! realm!.write {
+                        realm!.safeWrite {
                             realm!.delete(aSubBlock)
                         }
                         print("SubBlock Deleted")
@@ -249,7 +261,7 @@ struct RealmDatabase{
 
     func deleteCache(cache: Cache, completionHandler: CompletionHandler) {
         print("Deleting Cache: \(cache._id)")
-        try! realm!.write {
+        realm!.safeWrite {
             for list in cache.bagUpsPerTreeTypes{
                 list.input.removeAll()
             }
@@ -278,7 +290,7 @@ struct RealmDatabase{
     //===============UPDATE================
     
     public func updateUser(user: User, _partition: String?, name: String?, company: String?, stepDistance: Int?, seasons: List<String>?){
-        try! realm!.write{
+        realm!.safeWrite{
             if let parition = _partition{
                 user._partition = parition
             }
@@ -291,26 +303,125 @@ struct RealmDatabase{
             if let stepDistance = stepDistance{
                 user.stepDistance = stepDistance
             }
-            if let seasons = seasons{
-                updateList(list: user.seasons, newList: seasons)
+        }
+        if let seasons = seasons{
+            updateList(list: user.seasons, newList: seasons)
+        }
+    }
+    
+    public func updateBlock(block: Block, _partition: String?, entryId: String?, title: String?, date: Date?, subBlocks: List<String>?){
+        realm!.safeWrite{
+            if let parition = _partition{
+                block._partition = parition
             }
+            if let entryId = entryId{
+                block.entryId = entryId
+            }
+            if let title = title{
+                block.title = title
+            }
+            if let date = date{
+                block.date = date
+            }
+        }
+        if let subBlocks = subBlocks{
+            updateList(list: block.subBlocks, newList: subBlocks)
+        }
+    }
+    
+    public func updateSubBlock(subBlock: SubBlock, _partition: String?, blockId: String?, title: String?, date: Date?, caches: List<String>?){
+        realm!.safeWrite{
+            if let parition = _partition{
+                subBlock._partition = parition
+            }
+            if let blockId = blockId{
+                subBlock.blockId = blockId
+            }
+            if let title = title{
+                subBlock.title = title
+            }
+            if let date = date{
+                subBlock.date = date
+            }
+        }
+        if let caches = caches{
+            updateList(list: subBlock.caches, newList: caches)
+        }
+    }
+    
+    public func updateCache(cache: Cache, _partition: String?, subBlockId: String?, title: String?, isPlanting: Bool?, treePerPlot: Int?, secondsPlanted: List<Int>?, treeTypes: List<String>?, centPerTreeTypes: List<Double>?, bundlesPerTreeTypes: List<Int>?, totalCashPerTreeTypes: List<Double>?, totalTreesPerTreeTypes: List<Int>?, bagUpsPerTreeTypes: List<BagUpInput>?, plots: List<PlotInput>?, coordinatesCovered: List<CoordinateInput>?){
+        realm!.safeWrite{
+            if let parition = _partition{
+                cache._partition = parition
+            }
+            if let subBlockId = subBlockId{
+                cache.subBlockId = subBlockId
+            }
+            if let title = title{
+                cache.title = title
+            }
+            if let isPlanting = isPlanting{
+                cache.isPlanting = isPlanting
+            }
+            if let treePerPlot = treePerPlot{
+                cache.treePerPlot = treePerPlot
+            }
+        }
+        if let secondsPlanted = secondsPlanted{
+            updateList(list: cache.secondsPlanted, newList: secondsPlanted)
+        }
+        if let treeTypes = treeTypes{
+            updateList(list: cache.treeTypes, newList: treeTypes)
+        }
+        if let centPerTreeTypes = centPerTreeTypes{
+            updateList(list: cache.centPerTreeTypes, newList: centPerTreeTypes)
+        }
+        if let bundlesPerTreeTypes = bundlesPerTreeTypes{
+            updateList(list: cache.bundlesPerTreeTypes, newList: bundlesPerTreeTypes)
+        }
+        if let totalCashPerTreeTypes = totalCashPerTreeTypes{
+            updateList(list: cache.totalCashPerTreeTypes, newList: totalCashPerTreeTypes)
+        }
+        if let treeTypes = treeTypes{
+            updateList(list: cache.treeTypes, newList: treeTypes)
+        }
+        if let bagUpsPerTreeTypes = bagUpsPerTreeTypes{
+            for i in 0..<bagUpsPerTreeTypes.count{
+                bagUpsPerTreeTypes[i].input.removeAll()
+            }
+            updateList(list: cache.bagUpsPerTreeTypes, newList: bagUpsPerTreeTypes)
+        }
+        if let plots = plots{
+            updateList(list: cache.plots, newList: plots)
+        }
+        if let coordinatesCovered = coordinatesCovered{
+            for i in 0..<coordinatesCovered.count{
+                coordinatesCovered[i].input.removeAll()
+            }
+            updateList(list: cache.coordinatesCovered, newList: coordinatesCovered)
+        }
+    }
+    
+    public func updateCacheTitle(cache: Cache, title: String){
+        realm!.safeWrite{
+            cache.title = title
         }
     }
     
     public func updateCacheIsPlanting(cache: Cache, bool: Bool){
-        try! realm!.write{
+        realm!.safeWrite{
             cache.isPlanting = bool
         }
     }
     
     public func updateCacheTreePerPlot(cache: Cache, treesPerPlot: Int){
-        try! realm!.write{
+        realm!.safeWrite{
             cache.treePerPlot = treesPerPlot
         }
     }
     
     public func updateCachePlotInputs(plotArray: List<PlotInput>, row: Int, plotInputOne: Int?, plotInputTwo: Int?){
-        try! realm!.write{
+        realm!.safeWrite{
             if let inputOne = plotInputOne{
                 plotArray[row].inputOne = inputOne
             }
@@ -323,13 +434,13 @@ struct RealmDatabase{
     //===============LIST================
     
     public func addToList<T>(list: List<T>, item: T){
-        try! realm!.write{
+        realm!.safeWrite{
             list.append(item)
         }
     }
     
     public func updateList<T>(list: List<T>, newList: List<T>){
-        try! realm!.write{
+        realm!.safeWrite{
             list.removeAll()
             for item in newList{
                 list.append(item)
@@ -338,25 +449,25 @@ struct RealmDatabase{
     }
     
     public func updateList<T>(list: List<T>, index: Int, item: T){
-        try! realm!.write{
+        realm!.safeWrite{
             list[index] = item
         }
     }
     
     public func clearList<T>(list: List<T>){
-        try! realm!.write{
+        realm!.safeWrite{
             list.removeAll()
         }
     }
     
     public func removeLastInList<T>(list: List<T>){
-        try! realm!.write{
+        realm!.safeWrite{
             list.removeLast()
         }
     }
     
     public func add(item: Object){
-        try! realm!.write{
+        realm!.safeWrite{
             realm!.add(item)
         }
     }
@@ -376,7 +487,7 @@ struct RealmDatabase{
     
     //Meant for primitive types like : Double, Int, String
     func emptyTallyPrimitiveList<T>(list: List<T>, appending: T){
-        try! realm!.write{
+        realm!.safeWrite{
             list.removeAll()
             for _ in 0..<TallyNumbers.columns{
                 list.append(appending)
@@ -385,20 +496,20 @@ struct RealmDatabase{
     }
     
     func emptyTallyBagUps(list: List<BagUpInput>){
-        try! realm!.write{
+        realm!.safeWrite{
             list.removeAll()
         }
         for _ in 0..<TallyNumbers.bagUpRows{
             let bagUpInput = BagUpInput()
             emptyTallyPrimitiveList(list: bagUpInput.input, appending: 0)
-            try! realm!.write{
+            realm!.safeWrite{
                 list.append(bagUpInput)
             }
         }
     }
 
     func emptyTallyPlots(list: List<PlotInput>){
-        try! realm!.write{
+        realm!.safeWrite{
             list.removeAll()
             for _ in 0..<TallyNumbers.bagUpRows{
                 list.append(PlotInput())
@@ -407,7 +518,7 @@ struct RealmDatabase{
     }
     
     func emptyCacheCoordinates(list: List<CoordinateInput>){
-        try! realm!.write{
+        realm!.safeWrite{
             for coordinateList in list{
                 coordinateList.input.removeAll()
             }

@@ -13,6 +13,7 @@ class CacheManagerViewController: CacheManagerView {
     fileprivate let subBlockId: String
     fileprivate var cacheNotificationToken: NotificationToken?
     fileprivate let caches: Results<Cache>
+    fileprivate var cacheBeingEdited = -1
 
     required init(title: String, subBlockId: String) {
         self.caches = realmDatabase.getCacheRealm(predicate: NSPredicate(format: "subBlockId = %@", subBlockId)).sorted(byKeyPath: "_id")
@@ -100,6 +101,14 @@ class CacheManagerViewController: CacheManagerView {
         view.endEditing(true)
         return false
     }
+    
+    @objc func hamdbugerMenuTapped(sender: UIButton) {
+        cacheBeingEdited = sender.tag
+        let oneTextFieldModal = OneTextFieldModalViewController(title: "Rename Block", textForTextField: caches[cacheBeingEdited].title)
+        oneTextFieldModal.delegate = self
+        oneTextFieldModal.modalPresentationStyle = .popover
+        present(oneTextFieldModal, animated: true)
+    }
 
 }
 
@@ -109,11 +118,13 @@ extension CacheManagerViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EditCell", for: indexPath) as! EditableTableViewCell
         cell.textLabel?.text = caches[indexPath.row].title
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraLarge))
         cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
+        cell.hamburgerMenu.tag = indexPath.row
         return cell
     }
     
@@ -136,6 +147,16 @@ extension CacheManagerViewController: UITableViewDelegate, UITableViewDataSource
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
             }
+        }
+    }
+}
+
+extension CacheManagerViewController: OneTextFieldModalDelegate{
+    func completionHandler(returningText: String) {
+        if cacheBeingEdited > -1 && cacheBeingEdited < caches.count{
+            realmDatabase.updateCacheTitle(cache: caches[cacheBeingEdited], title: returningText)
+            let indexPath = IndexPath(item: cacheBeingEdited, section: 0)
+            managerTableView.reloadRows(at: [indexPath], with: .fade)
         }
     }
 }

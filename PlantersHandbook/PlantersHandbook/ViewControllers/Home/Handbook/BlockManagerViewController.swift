@@ -13,6 +13,7 @@ class BlockManagerViewController: BlockManagerView {
     fileprivate let handbookId: String
     fileprivate var blockNotificationToken: NotificationToken?
     fileprivate let blocks: Results<Block>
+    fileprivate var blockBeingEdited = -1
     
     required init(title: String, handbookId: String) {
         self.blocks = realmDatabase.getBlockRealm(predicate: NSPredicate(format: "entryId = %@", handbookId)).sorted(byKeyPath: "_id")
@@ -100,6 +101,14 @@ class BlockManagerViewController: BlockManagerView {
         view.endEditing(true)
         return false
     }
+    
+    @objc func hamdbugerMenuTapped(sender: UIButton) {
+        blockBeingEdited = sender.tag
+        let oneTextFieldModal = OneTextFieldModalViewController(title: "Rename Block", textForTextField: blocks[blockBeingEdited].title)
+        oneTextFieldModal.delegate = self
+        oneTextFieldModal.modalPresentationStyle = .popover
+        present(oneTextFieldModal, animated: true)
+    }
 
 }
 
@@ -109,11 +118,13 @@ extension BlockManagerViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EditCell", for: indexPath) as! EditableTableViewCell
         cell.textLabel?.text = blocks[indexPath.row].title
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(FontSize.extraLarge))
         cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
+        cell.hamburgerMenu.tag = indexPath.row
         return cell
     }
     
@@ -131,11 +142,21 @@ extension BlockManagerViewController: UITableViewDelegate, UITableViewDataSource
                 print("Block Deleted From BlockManager")
             }
             else{
-                let alertController = UIAlertController(title: "Error: Realm Erro", message: "Could Not Delete Block", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Block", preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
             }
+        }
+    }
+}
+
+extension BlockManagerViewController: OneTextFieldModalDelegate{
+    func completionHandler(returningText: String) {
+        if blockBeingEdited > -1 && blockBeingEdited < blocks.count{
+            realmDatabase.updateBlock(block: blocks[blockBeingEdited], _partition: nil, entryId: nil, title: returningText, date: nil, subBlocks: nil)
+            let indexPath = IndexPath(item: blockBeingEdited, section: 0)
+            managerTableView.reloadRows(at: [indexPath], with: .fade)
         }
     }
 }

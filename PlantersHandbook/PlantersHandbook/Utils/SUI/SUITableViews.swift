@@ -15,3 +15,11 @@ func SUI_TableView() -> UITableView{
     tv.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     return tv
 }
+
+func SUI_TableView_Editable() -> UITableView{
+    let tv = UITableView(frame: .zero)
+    tv.backgroundColor = .systemBackground
+    tv.translatesAutoresizingMaskIntoConstraints = false
+    tv.register(EditableTableViewCell.self, forCellReuseIdentifier: "EditCell")
+    return tv
+}

@@ -12,7 +12,7 @@ class ManagerView: TableViewActionViewController {
     internal let titleLabel = SUI_Label(title: "", fontSize: FontSize.largeTitle)
     internal let nameTextField = SUI_TextField_Form(placeholder: "", textType: .name)
     internal let addButton = PH_Button(title: "Add Something", fontSize: FontSize.large)
-    internal var managerTableView = SUI_TableView()
+    internal var managerTableView = SUI_TableView_Editable()
     
     internal override func setUpTitleLayout(){
         super.setUpTitleLayout()

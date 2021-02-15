@@ -21,9 +21,9 @@ class Cache: Object {
     var bundlesPerTreeTypes = List<Int>()
     var totalCashPerTreeTypes = List<Double>()
     var totalTreesPerTreeTypes = List<Int>()
-    var bagUpsPerTreeTypes = RealmSwift.List<BagUpInput>()
-    var plots = RealmSwift.List<PlotInput>()
-    var coordinatesCovered = RealmSwift.List<CoordinateInput>()
+    var bagUpsPerTreeTypes = List<BagUpInput>()
+    var plots = List<PlotInput>()
+    var coordinatesCovered = List<CoordinateInput>()
     
     override static func primaryKey() -> String? {
         return "_id"
