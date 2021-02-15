@@ -13,19 +13,21 @@ class User: Object {
     @objc dynamic var _partition: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var company: String = ""
+    @objc dynamic var stepDistance: Int = 0
     var seasons = List<String>()
     
     override static func primaryKey() -> String? {
         return "_id"
     }
     
-    convenience init(_id: String, partition: String, name: String, company: String, seasons: List<String>) {
+    convenience init(_id: String, partition: String, name: String, company: String, seasons: List<String>, stepDistance: Int) {
         self.init()
         self._id = _id
         self._partition = partition
         self.name = name
-        self.company = name
+        self.company = company
         self.seasons = seasons
+        self.stepDistance = stepDistance
     }
     
 }

@@ -39,7 +39,7 @@ class OneTotalCell: CardCell {
         totalLabel.anchor(top: titleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,  padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         totalLabel.anchorCenterX(to: containerView)
         
-        largeTotalLabel.anchor(top: totalLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: frame.height*0.4))
+        largeTotalLabel.anchor(top: totalLabel.bottomAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: frame.height*0.4))
     }
     
     

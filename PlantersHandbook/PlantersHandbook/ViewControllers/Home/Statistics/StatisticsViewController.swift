@@ -15,17 +15,24 @@ class StatisticsViewController: StatisticsView, IValueFormatter {
     
     fileprivate var seasons: Results<Season>
     fileprivate var longPressGesture = UILongPressGestureRecognizer()
-    fileprivate let userDefaults = UserDefaults.standard
 
     fileprivate var cardIndexs : [Int] = [0,1,2,3,4,5,6,7,8,9]
     fileprivate var graphSeasonsIndexs : [Int] = [0,0,0,0,0,0,0,0,0,0]
     fileprivate var lookingAtGraphWithIndex = 0
     fileprivate var seasonsStatistics : [SeasonStatistics] = []
     fileprivate var justInitalized = true
+    fileprivate let stepDistance : Int
     
     private let refreshControl = UIRefreshControl()
     
     required init() {
+        if let user = realmDatabase.getLocalUser(){
+            stepDistance = user.stepDistance
+        }else{
+            print("Could Not Find User")
+            //Setting average for human
+            stepDistance = 40
+        }
         seasons = realmDatabase.getSeasonRealm(predicate: nil).sorted(byKeyPath: "_id")
         super.init(nibName: nil, bundle: nil)
         cardIndexs = getOrderOfCards()
@@ -41,6 +48,15 @@ class StatisticsViewController: StatisticsView, IValueFormatter {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        firstTimerKey = "StatisticsViewController"
+        if(isFirstTimer()){
+            let alertController = UIAlertController(title: "Statistics", message: "Welcome to the Statistics section! \nThis is where you can...\n1. Move statistics you like above others (Press and hold, then move it up or down) \n2. Click the 3 bars on the top right of a statistic card to change the season for the statistic \n\n In order to view some of these statistic cards you must create a season and have some entrys inside of it. (Line charts require 5 entries)", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                self.saveFirstTimer(finishedFirstTime: true)
+            })
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 
     internal override func configureViews() {
@@ -81,6 +97,9 @@ class StatisticsViewController: StatisticsView, IValueFormatter {
         }
         
         seasonsStatistics.removeAll()
+        if seasons.isEmpty{
+            cardsCollectionView.reloadData()
+        }
         for season in seasons{
             var seasonStats = SeasonStatistics(seasonName: String(season.title))
             
@@ -213,11 +232,11 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
         if cardIndexs[indexPath.row] == 0{
             return .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.15)
         }
-        else if cardIndexs[indexPath.row] == 3 || cardIndexs[indexPath.row] == 5{
+        else if cardIndexs[indexPath.row] == 4 || cardIndexs[indexPath.row] == 6{
             return .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.25)
         }
-        else if cardIndexs[indexPath.row] == 9{
-            return .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.18)
+        else if cardIndexs[indexPath.row] == 1{
+            return .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.165)
         }
         else{
             return  .init(width: backgroundView.safeAreaFrame.width*0.9, height: view.frame.height*0.4)
@@ -248,6 +267,29 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
            return cell
         }
         else if cardIndexs[indexPath.row] == 1{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneTotalCell", for: indexPath) as! OneTotalCell
+            cell.totalLabel.text = "Time Spent Planting"
+            cell.titleLabel.text = "Seasons"
+            cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
+            cell.hamburgerMenu.tag = indexPath.row
+            if seasons.count > 0{
+                cell.seasonTitleLabel.text = seasons[graphSeasonsIndexs[indexPath.row]].title
+                for seasonStats in seasonsStatistics{
+                    if seasonStats.seasonName == cell.seasonTitleLabel.text{
+                        let (d,h,m,s) = GeneralFunctions.secondsToDaysHoursMinutesSeconds(seconds: seasonStats.totalTimeSecondsPlanting)
+                        cell.largeTotalLabel.text = (d < 10 ? "0" : "") + String(d) + " : " + (h < 10 ? "0" : "") + String(h) + " : " + (m < 9 ? "0" : "") + String(m) + " : " + (s < 9 ? "0" : "") + String(s)
+                        cell.largeTotalLabel.textColor = StatisticColors.time
+                    }
+                }
+            }
+            else{
+                cell.largeTotalLabel.text = "00:00:00:00"
+                cell.largeTotalLabel.textColor = StatisticColors.time
+                cell.seasonTitleLabel.text = "Season"
+            }
+            return cell
+        }
+        else if cardIndexs[indexPath.row] == 2{
             print("Entry Cash")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for:  indexPath) as! LineGraphCell
             createGraphCell(cell: cell, indexPath: indexPath, graphTitle: "Entrys", graphSubTitle: "Cash")
@@ -273,10 +315,12 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                         print("Finished Entrys Cash  Caclulations")
                     }
                 }
+            }else{
+                cell.seasonTitle.text = "Season"
             }
             return cell
         }
-        else if cardIndexs[indexPath.row] == 2{
+        else if cardIndexs[indexPath.row] == 3{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for:  indexPath) as! LineGraphCell
             createGraphCell(cell: cell, indexPath: indexPath, graphTitle: "Entrys", graphSubTitle: "Trees")
             if seasons.count > 0{
@@ -297,10 +341,12 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                         }
                     }
                 }
+            }else{
+                cell.seasonTitle.text = "Season"
             }
             return cell
         }
-        else if cardIndexs[indexPath.row] == 3{
+        else if cardIndexs[indexPath.row] == 4{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OverallStatsCell", for: indexPath) as! OverallStatsCell
             
             cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
@@ -326,7 +372,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
             }
             return cell
         }
-        else if cardIndexs[indexPath.row] == 4{
+        else if cardIndexs[indexPath.row] == 5{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PieChartCell", for: indexPath) as! PieChartCell
             cell.reloadInputViews()
             cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
@@ -358,10 +404,12 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                         }
                     }
                 }
+            }else{
+                cell.seasonTitle.text = "Season"
             }
             return cell
         }
-        else if cardIndexs[indexPath.row] == 5{
+        else if cardIndexs[indexPath.row] == 6{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OverallStatsCell", for: indexPath) as! OverallStatsCell
             cell.seasonTitleLabel.text = ""
             cell.hamburgerMenu.isHidden = true
@@ -390,7 +438,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
             }
             return cell
         }
-        else if cardIndexs[indexPath.row] == 6{
+        else if cardIndexs[indexPath.row] == 7{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for: indexPath) as! LineGraphCell
             createGraphCell(cell: cell, indexPath: indexPath, graphTitle: "Entrys", graphSubTitle: "Distance Travelled")
             if seasons.count > 0{
@@ -403,20 +451,42 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                         else{
                             if seasonStats.seasonName == cell.seasonTitle.text{
                                 var distanceEntries = [ChartDataEntry]()
+                                var stepsEntries = [ChartDataEntry]()
                                 var dates = [String]()
                                 for i in 0..<seasonStats.handbookEntrysStatistics.count{
                                     dates.append(GeneralFunctions.getDate(from: seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].date))
                                     distanceEntries.append(ChartDataEntry(x: Double(i), y: Double(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalDistanceTravelled/1000).round(to: 3)))
+
+                                    stepsEntries.append(ChartDataEntry(x: Double(i), y: Double(Int(seasonStats.handbookEntrysStatistics[seasonStats.handbookEntrysStatistics.count-i-1].totalDistanceTravelled/100000)/stepDistance)))
                                 }
-                                setUpLineChart(cell: cell, entries: distanceEntries, entryLabel: "Distance: KM", colors: [NSUIColor.init(cgColor: StatisticColors.distance.cgColor)], datesForXAxis: dates, lastIndex: Double(seasonStats.handbookEntrysStatistics.count))
+                                
+                                let distanceDataSet = LineChartDataSet(entries: distanceEntries, label: "Distance: KM")
+                                distanceDataSet.colors = [NSUIColor.init(cgColor: StatisticColors.distance.cgColor)]
+                                distanceDataSet.circleColors = [NSUIColor.init(cgColor: StatisticColors.distance.cgColor)]
+                                
+                                let stepsDataSet = LineChartDataSet(entries: stepsEntries, label: "Steps")
+                                                    
+                                let dataChart = LineChartData()
+                                dataChart.addDataSet(distanceDataSet)
+                                dataChart.addDataSet(stepsDataSet)
+                                dataChart.setDrawValues(true)
+                                
+                                cell.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(values: dates)
+                                cell.lineChart.xAxis.labelCount = dates.count
+                                cell.lineChart.xAxis.spaceMin = 0.5
+                                cell.lineChart.xAxis.spaceMax = 0.5
+                                cell.lineChart.moveViewToX(Double(seasonStats.handbookEntrysStatistics.count))
+                                cell.lineChart.data = dataChart
                             }
                         }
                     }
                 }
+            }else{
+                cell.seasonTitle.text = "Season"
             }
             return cell
         }
-        else if cardIndexs[indexPath.row] == 7{
+        else if cardIndexs[indexPath.row] == 8{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalBarGraphCell", for: indexPath) as! HorizontalBarGraphCell
             cell.hamburgerMenu.isHidden = true
             cell.graphTitle.text = "Seasons"
@@ -446,7 +516,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
             
             return cell
         }
-        else if cardIndexs[indexPath.row] == 8 {
+        else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LineGraphCell", for: indexPath) as! LineGraphCell
             createGraphCell(cell: cell, indexPath: indexPath, graphTitle: "Entrys", graphSubTitle: "Time Spent Planting")
             if seasons.count > 0{
@@ -470,24 +540,8 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
                         }
                     }
                 }
-            }
-            return cell
-        }
-        else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OneTotalCell", for: indexPath) as! OneTotalCell
-            cell.totalLabel.text = "Time Spent Planting"
-            cell.titleLabel.text = "Seasons"
-            cell.hamburgerMenu.addTarget(self, action: #selector(hamdbugerMenuTapped), for: .touchUpInside)
-            cell.hamburgerMenu.tag = indexPath.row
-            cell.seasonTitleLabel.text = seasons[graphSeasonsIndexs[indexPath.row]].title
-            if seasons.count > 0{
-                for seasonStats in seasonsStatistics{
-                    if seasonStats.seasonName == cell.seasonTitleLabel.text{
-                        let (h,m,s) = GeneralFunctions.secondsToHoursMinutesSeconds(seconds: seasonStats.totalTimeSecondsPlanting)
-                        cell.largeTotalLabel.text = String(h) + " : " + (m < 9 ? "0" : "") + String(m) + " : " + (s < 9 ? "0" : "") + String(s)
-                        cell.largeTotalLabel.textColor = .magenta
-                    }
-                }
+            }else{
+                cell.seasonTitle.text = "Season"
             }
             return cell
         }
@@ -497,6 +551,7 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
         cell.bestTreesLabel.text = "0"
         cell.averageCashLabel.text = "$0.00"
         cell.averageTreesLabel.text = "0"
+        cell.seasonTitleLabel.text = "Season"
     }
     
     func createGraphCell(cell: GraphCardCell, indexPath: IndexPath, graphTitle: String, graphSubTitle: String){
@@ -530,6 +585,8 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
         cell.lineChart.moveViewToX(lastIndex)
         cell.lineChart.data = dataChart
     }
+    
+
     
 }
 
@@ -575,6 +632,7 @@ extension StatisticsViewController: SeasonsPickerViewModalDelegate{
             for i in 0..<graphSeasonsIndexs.count{
                 graphSeasonsIndexs[i] = indexOfSeason
             }
+            collectInformation()
             cardsCollectionView.reloadData()
             print("reloaded All")
         }

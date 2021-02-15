@@ -33,7 +33,8 @@ struct StatisticColors{
     static let trees = UIColor.systemGreen
     static let cash = UIColor.systemIndigo
     static let distance = UIColor.systemOrange
-    static let time = UIColor.magenta
+    static let steps = UIColor.systemTeal
+    static let time = UIColor.lightRed
 //    static let lightBackground = UIColor.init(red: 221/255, green: 255/255, blue: 211/255, alpha: 1.0) //Light Green
     static let lightBackground = UIColor.white
     static let darkBackground = UIColor.black

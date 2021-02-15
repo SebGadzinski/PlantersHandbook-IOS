@@ -11,7 +11,6 @@ import JDropDownAlert
 
 class GetCompanyViewController: GetCompanyView {
     fileprivate var userData: User?
-    fileprivate var notificationToken: NotificationToken?
     fileprivate let companies = ["AkeHurst & Giltrap Reforestation", "Abderson & Yates Forest Consultants", "A&M Reforestation", "Backwoods Contracting", "Big Sky Silviculture", "Bivouac West Contracting", "Blue Collar Silviculture", "Brinkman & Associates", "Broland Enterprises", "Capstone Foresty", "Celtruc Reforestation", "Coast Range Contracting", "DJ Silviculture EnterPrises", "Dorsey Contracting", "Dynamic Reforestation", "Folklore Contracting", "Haveman Brothers Forestry Services", "Heritage Reforestation", "Hybrid 17 Contracting", "Leader Silviculture", "Little Smokey Forestry" , "Moose Creek Reforestation", "Nata Reforestation", "Nechako Reforestation Services", "Next Generation Reforestation", "New Growth Forestry", "Outland Reforestation", "Prt Frontier", "Quastuco Silviculture", "Ragen Forestry", "Rhino Reforestation Services", "SBS Forestry", "Seneca Enterprises", "Spectrum Resource Group", "Summit Reforestation & Forest Management LTD", "ThunderHouse Forest Services", "TreeLine Reforestation", "USIB Silviculture", "Wilderness Reforestation", "Wildwood Reforestation", "Windfirm Resources", "Zanzibar Holdings"]
     fileprivate var company: String? {
         get {
@@ -30,10 +29,6 @@ class GetCompanyViewController: GetCompanyView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        notificationToken?.invalidate()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -48,8 +43,13 @@ class GetCompanyViewController: GetCompanyView {
 
     @objc fileprivate func confirmAction(){
         if companyTextField.text != "" && "Success" == Validation.companyValidator(companyName: companyTextField.text!){
-            realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: company, seasons: nil)
-            self.navigationController!.pushViewController(HomeTabViewController(), animated: true)
+            realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: company, stepDistance: nil, seasons: nil)
+            if userData!.stepDistance == 0{
+                self.navigationController!.pushViewController(GetStepLengthViewController(), animated: true)
+            }
+            else{
+                self.navigationController!.pushViewController(HomeTabViewController(), animated: false)
+            }
         }
         else{
             let alert = JDropDownAlert()

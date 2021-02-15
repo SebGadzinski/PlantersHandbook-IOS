@@ -16,6 +16,7 @@ class StatisticsView: ProgramicVC {
         backgroundView.addSubview(cardsCollectionView)
         cardsCollectionView.fillSafeSuperView(to: backgroundView)
         cardsCollectionView.backgroundColor = .systemBackground
+        cardsCollectionView.contentInset = .init(top: 0, left: 0, bottom: 100, right: 0)
     }
     
 }

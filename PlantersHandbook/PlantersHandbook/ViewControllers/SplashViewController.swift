@@ -60,11 +60,17 @@ class SplashViewController: SplashView {
             realmDatabase.connectToRealm(realm: realm)
         }
         if let user = realmDatabase.getLocalUser(){
-            if(user.company != ""){
-                self.navigationController?.pushViewController(HomeTabViewController(), animated: true)
+            if user.company == ""{
+                self.navigationController!.pushViewController(GetCompanyViewController(), animated: true)
+                print("INSIDE THE COMPANY FVIEIOASNFAS")
+                return
+            }
+            else if user.stepDistance == 0{
+                self.navigationController!.pushViewController(GetStepLengthViewController(), animated: true)
+                return
             }
             else{
-                self.navigationController?.pushViewController(GetCompanyViewController(), animated: true)
+                self.navigationController!.pushViewController(HomeTabViewController(), animated: false)
             }
         }
         else{

@@ -277,7 +277,7 @@ struct RealmDatabase{
     
     //===============UPDATE================
     
-    public func updateUser(user: User, _partition: String?, name: String?, company: String?, seasons: List<String>?){
+    public func updateUser(user: User, _partition: String?, name: String?, company: String?, stepDistance: Int?, seasons: List<String>?){
         try! realm!.write{
             if let parition = _partition{
                 user._partition = parition
@@ -287,6 +287,9 @@ struct RealmDatabase{
             }
             if let company = company{
                 user.company = company
+            }
+            if let stepDistance = stepDistance{
+                user.stepDistance = stepDistance
             }
             if let seasons = seasons{
                 updateList(list: user.seasons, newList: seasons)

@@ -92,6 +92,8 @@
 		867BCA0B25D44BA7003EAC3E /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 867BCA0A25D44BA7003EAC3E /* logo.gif */; };
 		86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854B9E25BA5A620089CF2D /* DoubleExtension.swift */; };
 		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
+		86920D9325D9A07300758CA0 /* GetStepLengthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920D9225D9A07300758CA0 /* GetStepLengthView.swift */; };
+		86920D9825D9A9C700758CA0 /* GetStepLengthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920D9725D9A9C700758CA0 /* GetStepLengthViewController.swift */; };
 		86C741AE25AB5D71000547F9 /* SUIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* SUIViews.swift */; };
 		86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */; };
 		86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */; };
@@ -230,6 +232,8 @@
 		867BCA0A25D44BA7003EAC3E /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
 		86854B9E25BA5A620089CF2D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		86920D9225D9A07300758CA0 /* GetStepLengthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStepLengthView.swift; sourceTree = "<group>"; };
+		86920D9725D9A9C700758CA0 /* GetStepLengthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStepLengthViewController.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* SUIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUIViews.swift; sourceTree = "<group>"; };
 		86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramicVC.swift; sourceTree = "<group>"; };
 		86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -510,6 +514,7 @@
 				860BECF925A94BE600B3D699 /* SignUpViewController.swift */,
 				860BED7925AA296A00B3D699 /* PasswordResetViewController.swift */,
 				86C7422025ABE8CF000547F9 /* GetCompanyViewController.swift */,
+				86920D9725D9A9C700758CA0 /* GetStepLengthViewController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -570,6 +575,7 @@
 				86672C1425CE4A1000D0C34C /* SignUpView.swift */,
 				86672C1925CE4A3200D0C34C /* PasswordResetView.swift */,
 				86672C1E25CE4A4300D0C34C /* GetCompanyVIew.swift */,
+				86920D9225D9A07300758CA0 /* GetStepLengthView.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -894,6 +900,7 @@
 				86672C1525CE4A1000D0C34C /* SignUpView.swift in Sources */,
 				8659626D25D6F5E300663DFC /* Validation.swift in Sources */,
 				86672C4525CE4D0800D0C34C /* CacheManagerView.swift in Sources */,
+				86920D9325D9A07300758CA0 /* GetStepLengthView.swift in Sources */,
 				860BED2025A94DB900B3D699 /* HandbookEntry.swift in Sources */,
 				86672C6B25CE576600D0C34C /* GPSTreeTrackingModalView.swift in Sources */,
 				86672C1025CE49FC00D0C34C /* LoginView.swift in Sources */,
@@ -922,6 +929,7 @@
 				860BED2A25A94E1C00B3D699 /* SubBlock.swift in Sources */,
 				860BED6D25A9573300B3D699 /* PlotsModalViewController.swift in Sources */,
 				8637695B25C7854700580108 /* OverallStatsCell.swift in Sources */,
+				86920D9825D9A9C700758CA0 /* GetStepLengthViewController.swift in Sources */,
 				8637695625C7853200580108 /* PieChartCell.swift in Sources */,
 				860BED1125A94CBD00B3D699 /* HandbookViewController.swift in Sources */,
 				86C7425E25B20E87000547F9 /* AddSeasonModalViewController.swift in Sources */,

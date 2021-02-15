@@ -37,7 +37,7 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
         self.secondsPlanted = secondsPlanted
         
         super.init(nibName: nil, bundle: nil)
-    
+        firstTimerKey = "GPSTreeTrackingModalViewController"
         self.title = title
     }
     
@@ -55,6 +55,14 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
         if let myLocation = self.locationManager.location {
             let camera = GMSCameraPosition.camera(withLatitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude, zoom: 18.0)
             self.mapView.camera = camera
+        }
+        if(isFirstTimer()){
+            let alertController = UIAlertController(title: "GPS Section", message: "Welcome to the GPS section! \nThis is where you can...\n1. Record where you planted \n2. Record the amount of time you planted \n 3. View total distance travelled \n 4. Based off your plots see how many trees you should have put in the ground. (This is a estimate based off calculations) \n\n Tracking location will occur until you leave the Tally Sheet View (Where you pressed the 'GPS' button)", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                self.saveFirstTimer(finishedFirstTime: true)
+            })
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -278,6 +286,7 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
         self.mapView.animate(toLocation: self.locationManager.location!.coordinate)
         return true
     }
+    
 }
 
 protocol GPSTreeTrackingModalDelegate:NSObjectProtocol {

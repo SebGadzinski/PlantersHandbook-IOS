@@ -59,7 +59,7 @@ class GPSTreeTrackingModalView: ProgramicVC {
         [undoImage, timerView].forEach{topBar.addSubview($0)}
         
         undoImage.anchor(top: topBar.topAnchor, leading: nil, bottom: nil, trailing: topBar.trailingAnchor,  padding: .init(top: 5, left: 0, bottom: 0, right: 5) ,size: .init(width: mapView.safeAreaFrame.width*0.13, height: mapView.safeAreaFrame.width*0.13))
-        timerView.anchor(top: topBar.topAnchor, leading: topBar.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 0, right: 0), size: .init(width: mapView.safeAreaFrame.width*0.35, height: mapView.safeAreaFrame.width*0.12))
+        timerView.anchor(top: topBar.topAnchor, leading: topBar.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 8, left: 5, bottom: 0, right: 0), size: .init(width: mapView.safeAreaFrame.width*0.35, height: mapView.safeAreaFrame.width*0.12))
         undoImage.isUserInteractionEnabled = true
     }
     

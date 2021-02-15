@@ -14,6 +14,8 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
     internal let doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneClick))
     internal let flexibleBarSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     internal var keyboardMoveUpWhenTextFieldTouched : CGFloat = 0
+    internal let userDefaults = UserDefaults.standard
+    internal var firstTimerKey = "key"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,20 @@ class ProgramicVC: UIViewController, ProgramicVCInterface {
     internal func setActions() {
         print("Actions Set")
     }
+    
+    internal func saveFirstTimer(finishedFirstTime: Bool){
+        let input = (finishedFirstTime ? "1" : "0")
+        userDefaults.set(input, forKey:firstTimerKey)
+    }
+    
+    internal func isFirstTimer() -> Bool{
+        if let bool = userDefaults.object(forKey: firstTimerKey){
+            let isTrue = bool as! NSString
+            return (isTrue != "1")
+        }
+        return true
+    }
+    
 }
 
 extension ProgramicVC : UITextFieldDelegate{

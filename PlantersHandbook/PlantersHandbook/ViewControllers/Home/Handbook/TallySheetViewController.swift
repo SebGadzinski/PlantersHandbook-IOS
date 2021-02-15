@@ -35,7 +35,6 @@ class TallySheetViewController: TallySheetView {
         cache.secondsPlanted.forEach{counter += $0}
         
         realmDatabase.updateCacheIsPlanting(cache: cache, bool: false)
-                        
         self.title = "Cache: " + cache.title
     }
     
@@ -45,6 +44,19 @@ class TallySheetViewController: TallySheetView {
     
     deinit {
         timer.invalidate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        firstTimerKey = "TallySheetViewController"
+        if(isFirstTimer()){
+            let alertController = UIAlertController(title: "Tally Sheet", message: "Welcome to the Tally Sheet! \nOn the top bar there is the date, buttons that represent the gps tracking modal, plots modal, and clearing the sheet. \n First 3 sets of inputs (rows of green lines) are meant for treetypes (SX), cent per trees (0.16), and bundle amounts (20). \nThe middle section is your bag ups. There is 20 inputs available, if you need more... start packing heavier 😜. \n Lastly at the bottom is your total trees and total cash for each tree type \n\n There are 8 columns total (8 different tree types) for each tally sheet (each Cache) \n\n", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                self.saveFirstTimer(finishedFirstTime: true)
+            })
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,7 +110,7 @@ class TallySheetViewController: TallySheetView {
             goToGPSModal()
         }
         else{
-            let alertController = UIAlertController(title: "Turn On Location", message: "Please go to Settings and turn on the location permissions", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Turn On Always Location", message: "Please go to Settings and turn on 'Always' location tracking to allow the application to track your phone while it is turned off and on different applications. \nThe location tracking gets turned off when you leave the Tally Sheet (ie. press 'Back' on the navigation bar) or when you press stop planting on the GPS Section. \n\n Without this the application wont track effectively", preferredStyle: .alert)
 
             let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -418,7 +430,7 @@ extension TallySheetViewController: GPSTreeTrackingModalDelegate{
     
     func getTimerCount() -> String{
         let (h, m, s) = GeneralFunctions.secondsToHoursMinutesSeconds(seconds: counter)
-        let timerString =  String(h) + " : " + (m > 9 ? "0" : "") + String(m) + " : " + (s > 9 ? "0" : "") + String(s)
+        let timerString =  (h < 10 ? "0" : "") + String(h) + ":" + (m < 10 ? "0" : "") + String(m) + ":" + (s < 10 ? "0" : "") + String(s)
         return timerString
     }
     

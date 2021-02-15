@@ -43,10 +43,10 @@ class HandbookViewController: HandbookView {
                     tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
                         with: .automatic)
                 })
-                if !insertions.isEmpty{
-                    print("inserted season")
-                    tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .middle)
-                }
+//                if !insertions.isEmpty{
+//                    print("inserted season")
+//                    tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .middle)
+//                }
             case .error(let error):
                 fatalError("\(error)")
             }
@@ -69,6 +69,16 @@ class HandbookViewController: HandbookView {
             seasonSelected = 0
             seasonTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
             setHandbookEntries(seasonId: seasons[seasonSelected]._id)
+        }
+        firstTimerKey = "HandbookViewController"
+        if(isFirstTimer()){
+            
+            let alertController = UIAlertController(title: "Handbook", message: "Welcome to the Handbook section! \nThis is where you can...\n1. Create seasons \n2. Once you select a season, create entrys ('days')  \n\n Press on a entry to edit it", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                self.saveFirstTimer(finishedFirstTime: true)
+            })
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     

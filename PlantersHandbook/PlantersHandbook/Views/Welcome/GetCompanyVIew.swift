@@ -54,6 +54,8 @@ class GetCompanyView: GeneralViewController{
         companyTextField.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: nil, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: textFieldBoundarySpace, bottom: 0, right: textFieldBoundarySpace))
         companyTextField.delegate = self
         companyTextField.anchorCenterY(to: companyLayout)
+        companyTextField.inactivePlaceholderTextColor = .label
+
         
         companyPickerView.anchor(top: companyLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: companyLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 10, right: 0))
         companyPickerView.isHidden = true

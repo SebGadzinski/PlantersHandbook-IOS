@@ -103,9 +103,28 @@ struct GeneralFunctions{
         }
     }
     
-    
     static func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
       return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
+    
+    static func secondsToDaysHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
+      return (seconds / 86400, (seconds % 86400) / 3600, (seconds % 86400) % 3600 / 60, (seconds % 86400) % 3600 % 60)
+    }
+    
+    static func stepCalculation(gender: String?, height: Int?) -> Double{
+        if gender == nil || height == nil{
+            return 0.0
+        }
+        if gender == "Male"{
+            return (Double(height!) * 0.415).round(to: 2)
+        }
+        else if gender == "Female"{
+            return (Double(height!) * 0.413).round(to: 2)
+        }
+        else {
+            return (Double(height!) * 0.414).round(to: 2)
+        }
+    }
+    
 }
 
