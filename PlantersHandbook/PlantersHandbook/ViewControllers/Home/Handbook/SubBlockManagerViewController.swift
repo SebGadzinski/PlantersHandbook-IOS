@@ -7,17 +7,18 @@
 
 import UIKit
 import RealmSwift
+import JDropDownAlert
 
 class SubBlockManagerViewController: SubBlockManagerView {
     
-    fileprivate let blockId: String
+    fileprivate let block: Block
     fileprivate var subBlockNotificationToken: NotificationToken?
     fileprivate let subBlocks: Results<SubBlock>
     fileprivate var subBlockBeingEdited = -1
     
-    required init(title: String, blockId: String) {
-        self.subBlocks = realmDatabase.getSubBlockRealm(predicate: NSPredicate(format: "blockId = %@", blockId)).sorted(byKeyPath: "_id")
-        self.blockId = blockId
+    required init(title: String, block: Block) {
+        self.subBlocks = realmDatabase.getSubBlockRealm(predicate: NSPredicate(format: "blockId = %@", block._id)).sorted(byKeyPath: "_id")
+        self.block = block
        
         super.init(nibName: nil, bundle: nil)
         
@@ -75,22 +76,19 @@ class SubBlockManagerViewController: SubBlockManagerView {
     
     fileprivate func nextVC(subBlock: SubBlock){
         self.navigationController?.pushViewController(
-            CacheManagerViewController(title: subBlock.title, subBlockId: subBlock._id),
+            CacheManagerViewController(title: subBlock.title, subBlock: subBlock),
             animated: true
         )
     }
     
     @objc fileprivate func addSubBlockAction(){
-        if (subBlocks.contains{$0.title == nameTextField.text!}) {
-                let alert = UIAlertController(title: "Duplicate SubBlock", message: "You already have a subBlock with that name in this entry, use a different name", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-                return
-        }
-        else{
-            if(nameTextField.text! != ""){
-                let subBlock = SubBlock(partition: realmDatabase.getParitionValue()!, title: nameTextField.text!, blockId: blockId)
-                realmDatabase.add(item: subBlock)
+        if(nameTextField.text! != ""){
+            let subBlock = SubBlock(partition: realmDatabase.getParitionValue()!, title: nameTextField.text!, blockId: block._id)
+            realmDatabase.addSubBlock(block: block, subBlock: subBlock){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith(error!)
+                }
             }
         }
         view.endEditing(true)
@@ -137,12 +135,12 @@ extension SubBlockManagerViewController: UITableViewDelegate, UITableViewDataSou
         guard editingStyle == .delete else { return }
         
         let subBlock = subBlocks[indexPath.row]
-        realmDatabase.deleteSubBlock(subBlock: subBlock){ (result) in
-            if(result){
+        realmDatabase.deleteSubBlock(subBlock: subBlock){ success, error in
+            if(success){
                 print("SubBlock Deleted From SubBlockManager")
             }
             else{
-                let alertController = UIAlertController(title: "Error: Realm Erro", message: "Could Not Delete SubBlock", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error: Realm Erro", message: error!, preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
@@ -154,7 +152,12 @@ extension SubBlockManagerViewController: UITableViewDelegate, UITableViewDataSou
 extension SubBlockManagerViewController: OneTextFieldModalDelegate{
     func completionHandler(returningText: String) {
         if subBlockBeingEdited > -1 && subBlockBeingEdited < subBlocks.count{
-            realmDatabase.updateSubBlock(subBlock: subBlocks[subBlockBeingEdited], _partition: nil, blockId: nil, title: returningText, date: nil, caches: nil)
+            realmDatabase.updateSubBlock(subBlock: subBlocks[subBlockBeingEdited], _partition: nil, blockId: nil, title: returningText, date: nil, caches: nil){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors : " + error!)
+                }
+            }
             let indexPath = IndexPath(item: subBlockBeingEdited, section: 0)
             managerTableView.reloadRows(at: [indexPath], with: .fade)
         }

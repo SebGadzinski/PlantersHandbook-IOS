@@ -14,7 +14,7 @@ class GetStepLengthView: GeneralViewController{
 
     internal let icon : UIImageView = UIImageView(image: UIImage(named: "icons8-oak-tree-64.png"))
     internal let titleLabel = SUI_Label(title: "Step Length", fontSize: FontSize.extraLarge)
-    internal let infoMessage = SUI_TextView_MultiLine(text: "For best calculations, we ask you to give us your distance per step", fontSize: FontSize.extraSmall)
+    internal let infoMessage = SUI_TextView_MultiLine(text: "For best calculations, we ask you to give us your distance per step (CM)", fontSize: FontSize.extraSmall)
     internal let stepDistanceTextField = SUI_TextField_Form(placeholder: "Step Distance (CM)", textType: .name)
     internal let confirmButton = PH_Button(title: "Confirm", fontSize: FontSize.large)
     
@@ -58,7 +58,7 @@ class GetStepLengthView: GeneralViewController{
         stepDistancePickerView.anchor(top: stepDistanceLayout.topAnchor, leading: infoLayout.leadingAnchor, bottom: stepDistanceLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 10, right: 0))
         stepDistancePickerView.isHidden = true
         
-        confirmButton.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: infoLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: infoLayoutFrame.width*0.3, bottom: infoLayoutFrame.height*0.1, right: infoLayoutFrame.width*0.3),size: .init(width: 0, height: infoLayoutFrame.height*0.1))
+        confirmButton.anchor(top: nil, leading: infoLayout.leadingAnchor, bottom: infoLayout.bottomAnchor, trailing: infoLayout.trailingAnchor, padding: .init(top: 0, left: infoLayoutFrame.width*0.3, bottom: infoLayoutFrame.height*0.2, right: infoLayoutFrame.width*0.3),size: .init(width: 0, height: infoLayoutFrame.height*0.1))
     }
     
 }

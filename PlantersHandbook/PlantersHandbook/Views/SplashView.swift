@@ -9,13 +9,13 @@ import UIKit
 
 class SplashView: ProgramicVC {
 
-    let logoAnimationView = LogoAnimationView()
+//    let logoAnimationView = LogoAnimationView()
      
     override func setUpOverlay() {
         super.setUpOverlay()
         view.backgroundColor = .clear
-        view.addSubview(logoAnimationView)
-        logoAnimationView.fillSuperView()
+//        view.addSubview(logoAnimationView)
+//        logoAnimationView.fillSuperView()
     }
     
 }

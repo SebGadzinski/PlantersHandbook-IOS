@@ -43,7 +43,11 @@ class GetCompanyViewController: GetCompanyView {
 
     @objc fileprivate func confirmAction(){
         if companyTextField.text != "" && "Success" == Validation.companyValidator(companyName: companyTextField.text!){
-            realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: company, stepDistance: nil, seasons: nil)
+            realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: company, stepDistance: nil, seasons: nil){ success, error in
+                if success{
+                    print("User company updated")
+                }
+            }
             if userData!.stepDistance == 0{
                 self.navigationController!.pushViewController(GetStepLengthViewController(), animated: true)
             }

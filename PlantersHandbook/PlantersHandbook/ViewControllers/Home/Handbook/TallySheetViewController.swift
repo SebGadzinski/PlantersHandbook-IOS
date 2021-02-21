@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 import CoreLocation
 import GoogleMaps
+import JDropDownAlert
 
 class TallySheetViewController: TallySheetView {
 
@@ -34,7 +35,12 @@ class TallySheetViewController: TallySheetView {
         locationManager.delegate = self
         cache.secondsPlanted.forEach{counter += $0}
         
-        realmDatabase.updateCacheIsPlanting(cache: cache, bool: false)
+        realmDatabase.updateCacheIsPlanting(cache: cache, bool: false){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors")
+            }
+        }
         self.title = "Cache: " + cache.title
     }
     
@@ -50,7 +56,7 @@ class TallySheetViewController: TallySheetView {
         super.viewWillAppear(animated)
         firstTimerKey = "TallySheetViewController"
         if(isFirstTimer()){
-            let alertController = UIAlertController(title: "Tally Sheet", message: "Welcome to the Tally Sheet! \nOn the top bar there is the date, buttons that represent the gps tracking modal, plots modal, and clearing the sheet. \n First 3 sets of inputs (rows of green lines) are meant for treetypes (SX), cent per trees (0.16), and bundle amounts (20). \nThe middle section is your bag ups. There is 20 inputs available, if you need more... start packing heavier 😜. \n Lastly at the bottom is your total trees and total cash for each tree type \n\n There are 8 columns total (8 different tree types) for each tally sheet (each Cache) \n\n", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Tally Sheet", message: "Welcome to the Tally Sheet! \nBeside the cache title is a button which leads to the GPS section. On the top bar there is the date, buttons that lead to QuickPrep, Plots, and clearing the sheet. \n First 3 sets of inputs (rows of green lines) are meant for treetypes (SX), cent per trees (0.16), and bundle amounts (20). \nThe middle section is your bag ups. There is 20 inputs available, if you need more... start packing heavier 😜. \n Lastly at the bottom is your total trees and total cash for each tree type \n\n There are 8 columns total (8 different tree types) for each tally sheet (each Cache) \n\n", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
                 self.saveFirstTimer(finishedFirstTime: true)
             })
@@ -62,7 +68,12 @@ class TallySheetViewController: TallySheetView {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if(cache.isPlanting){
-            realmDatabase.updateCacheIsPlanting(cache: cache, bool: false)
+            realmDatabase.updateCacheIsPlanting(cache: cache, bool: false){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors")
+                }
+            }
             stopTrackingLocation()
         }
     }
@@ -75,8 +86,10 @@ class TallySheetViewController: TallySheetView {
     
     internal override func setActions() {
         clearButton.addTarget(self, action: #selector(clearFieldsButton), for: .touchUpInside)
-        gpsButton.addTarget(self, action: #selector(gpsButtonAction), for: .touchUpInside)
+        quickFillButton.addTarget(self, action: #selector(quickPrepBarButtonAction), for: .touchUpInside)
         plotsButton.addTarget(self, action: #selector(plotsButtonAction), for: .touchUpInside)
+        let gpsButton = UIBarButtonItem(title: "GPS", style: .plain, target: self, action: #selector(gpsButtonAction))
+        self.navigationItem.rightBarButtonItem = gpsButton
     }
 
     fileprivate func setUpTableDelegates(){
@@ -100,6 +113,13 @@ class TallySheetViewController: TallySheetView {
         if let subBlock = realmDatabase.getSubBlockById(subBlockId: cache.subBlockId){
             dateLabel.text = GeneralFunctions.getDate(from: subBlock.date)
         }
+    }
+    
+    @objc fileprivate func quickPrepBarButtonAction(){
+        let quickPrepModal = QuickPrepModalViewController()
+        quickPrepModal.delegate = self
+        quickPrepModal.modalPresentationStyle = .popover
+        present(quickPrepModal, animated: true)
     }
     
     @objc fileprivate func gpsButtonAction(){
@@ -153,7 +173,12 @@ class TallySheetViewController: TallySheetView {
     }
     
     @objc fileprivate func treeTypesInputAction(sender: UITextField){
-        realmDatabase.updateList(list: cache.treeTypes, index: sender.tag, item: sender.text!)
+        realmDatabase.updateList(list: cache.treeTypes, index: sender.tag, item: sender.text!){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
     }
     
     @objc fileprivate func centPerTreeInputAction(sender: UITextField){
@@ -166,7 +191,12 @@ class TallySheetViewController: TallySheetView {
             sender.text = ""
         }
         else{
-            realmDatabase.updateList(list: cache.centPerTreeTypes, index: sender.tag, item: sender.text!.doubleValue)
+            realmDatabase.updateList(list: cache.centPerTreeTypes, index: sender.tag, item: sender.text!.doubleValue){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors")
+                }
+            }
             calculateTotalInLane(column: sender.tag)
         }
     }
@@ -181,7 +211,12 @@ class TallySheetViewController: TallySheetView {
             sender.text = ""
         }
         else{
-            realmDatabase.updateList(list: cache.bundlesPerTreeTypes, index: sender.tag, item: GeneralFunctions.integer(from: sender))
+            realmDatabase.updateList(list: cache.bundlesPerTreeTypes, index: sender.tag, item: GeneralFunctions.integer(from: sender)){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors : " + error!)
+                }
+            }
             if(cache.bundlesPerTreeTypes[sender.tag] == 0){
                 sender.text = ""
             }
@@ -218,7 +253,12 @@ class TallySheetViewController: TallySheetView {
                 sender.text = ""
             }
             else{
-                realmDatabase.updateList(list: cache.bagUpsPerTreeTypes[cvTag].input, index: tfTag, item: value)
+                realmDatabase.updateList(list: cache.bagUpsPerTreeTypes[cvTag].input, index: tfTag, item: value){ success, error in
+                    if error != nil{
+                        let alert = JDropDownAlert()
+                        alert.alertWith("Error with database, restart app if further errors : " + error!)
+                    }
+                }
                 calculateTotalInLane(column: tfTag)
                 if(cache.bagUpsPerTreeTypes[cvTag].input[tfTag] == 0){
                     sender.text = ""
@@ -229,9 +269,12 @@ class TallySheetViewController: TallySheetView {
     
     @objc fileprivate func clearFieldsButton(sender: UIButton){
         clearingData = true
-        realmDatabase.clearCacheTally(cache: cache){result in
-            if(result){
+        realmDatabase.clearCacheTally(cache: cache){ success, error in
+            if(success){
                 print("Tally Cleared")
+            }else{
+                let alert = JDropDownAlert()
+                alert.alertWith(error!)
             }
             treeTypesCollectionView.reloadData()
             centPerTreeTypeCollectionView.reloadData()
@@ -246,7 +289,12 @@ class TallySheetViewController: TallySheetView {
     @objc func updateTimer() {
         freshCounter += 1
         counter += 1
-        realmDatabase.updateList(list: cache.secondsPlanted, index: cache.secondsPlanted.endIndex-1, item: freshCounter)
+        realmDatabase.updateList(list: cache.secondsPlanted, index: cache.secondsPlanted.endIndex-1, item: freshCounter){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
     }
     
     fileprivate func calculateTotalInLane(column: Int){
@@ -254,8 +302,18 @@ class TallySheetViewController: TallySheetView {
         for x in 0...19{
             totalTreesInBagUps += cache.bagUpsPerTreeTypes[x].input[column]
         }
-        realmDatabase.updateList(list: cache.totalTreesPerTreeTypes, index: column, item: totalTreesInBagUps)
-        realmDatabase.updateList(list: cache.totalCashPerTreeTypes, index: column, item: (Double(totalTreesInBagUps)*cache.centPerTreeTypes[column]))
+        realmDatabase.updateList(list: cache.totalTreesPerTreeTypes, index: column, item: totalTreesInBagUps){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
+        realmDatabase.updateList(list: cache.totalCashPerTreeTypes, index: column, item: (Double(totalTreesInBagUps)*cache.centPerTreeTypes[column])){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
         totalTreesPerTreeTypesCollectionView.reloadData()
         totalCashPerTreeTypesCollectionView.reloadData()
     }
@@ -330,7 +388,12 @@ extension TallySheetViewController: CLLocationManagerDelegate {
                 var start = 0
                 if cache.coordinatesCovered.last!.input.isEmpty{
                     prevCoordinate = Coordinate(longitude: locations[0].coordinate.longitude, latitude: locations[0].coordinate.latitude)
-                    realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: prevCoordinate)
+                    realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: prevCoordinate){ success, error in
+                        if error != nil{
+                            let alert = JDropDownAlert()
+                            alert.alertWith("Error with database, restart app if further errors : " + error!)
+                        }
+                    }
                     start = 1
                 }
                 else{
@@ -340,7 +403,12 @@ extension TallySheetViewController: CLLocationManagerDelegate {
                     //Check if the coordinate is 5 meters from the last one
                     if GMSGeometryDistance(CLLocationCoordinate2D(latitude: prevCoordinate.latitude, longitude: prevCoordinate.longitude), CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)) >= 5.0{
                         let newCoordinate = Coordinate(longitude: locations[i].coordinate.longitude, latitude: locations[i].coordinate.latitude)
-                        realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: newCoordinate)
+                        realmDatabase.addToList(list: cache.coordinatesCovered.last!.input, item: newCoordinate){ success, error in
+                            if error != nil{
+                                let alert = JDropDownAlert()
+                                alert.alertWith("Error with database, restart app if further errors : " + error!)
+                            }
+                        }
                     }
                 }
             }
@@ -393,7 +461,12 @@ extension TallySheetViewController: CLLocationManagerDelegate {
 extension TallySheetViewController: GPSTreeTrackingModalDelegate{
     
     func flipBooleanIsPlanting() {
-        realmDatabase.updateCacheIsPlanting(cache: cache, bool: !cache.isPlanting)
+        realmDatabase.updateCacheIsPlanting(cache: cache, bool: !cache.isPlanting){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
     }
     
     func isPlanting() -> Bool{
@@ -410,7 +483,12 @@ extension TallySheetViewController: GPSTreeTrackingModalDelegate{
     
     func saveTreesPerPlot(treePerPlot: Int) {
         print("Saving Trees per Plot: \(treePerPlot)")
-        realmDatabase.updateCacheTreePerPlot(cache: cache, treesPerPlot: treePerPlot)
+        realmDatabase.updateCacheTreePerPlot(cache: cache, treesPerPlot: treePerPlot){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
     }
     
     func startTimer() {
@@ -440,5 +518,30 @@ extension TallySheetViewController: GPSTreeTrackingModalDelegate{
         counter = 0
         cache.secondsPlanted.forEach{counter += $0}
     }
-    
+}
+
+extension TallySheetViewController: QuickPrepModalViewDelegate{
+    func fillInfo(treeTypes: [String], centPerTreeTypes: [Double], bundlePerTreeTypes: [Int]) {
+        realmDatabase.updateList(list: cache.treeTypes, copyArray: treeTypes){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
+        realmDatabase.updateList(list: cache.centPerTreeTypes, copyArray: centPerTreeTypes){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
+        realmDatabase.updateList(list: cache.bundlesPerTreeTypes, copyArray: bundlePerTreeTypes){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
+        }
+        treeTypesCollectionView.reloadData()
+        centPerTreeTypeCollectionView.reloadData()
+        bundlePerTreeTypeCollectionView.reloadData()
+    }
 }

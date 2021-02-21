@@ -31,3 +31,15 @@ func SUI_TextView_RoundedBackground(text: String, fontSize: Float) -> UITextView
 //    textView.layer.borderWidth = 0.5
     return textView
 }
+
+func SUI_TextView_EditableBox(text: String, fontSize: Float) -> UITextView {
+    let textField = UITextView()
+    textField.text = text
+    textField.translatesAutoresizingMaskIntoConstraints = false
+    textField.isEditable = true
+    textField.backgroundColor = .systemBackground
+    textField.textColor = .label
+    textField.textAlignment = .left
+    textField.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize))
+    return textField
+}

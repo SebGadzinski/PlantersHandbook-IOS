@@ -107,6 +107,10 @@ class StatisticsViewController: StatisticsView, IValueFormatter {
             for handbookEntry in handbookEntries{
                 var handbookEntryStats = HandbookEntryStatistics(date: handbookEntry.date)
                 
+                for entry in handbookEntry.extraCash{
+                    handbookEntryStats.totalCash += entry.cash
+                }
+                
                 let blocks = realmDatabase.getBlockRealm(predicate: .init(format: "entryId = %@", handbookEntry._id))
                 for block in blocks{
                     let subBlocks = realmDatabase.getSubBlockRealm(predicate: .init(format: "blockId = %@", block._id))

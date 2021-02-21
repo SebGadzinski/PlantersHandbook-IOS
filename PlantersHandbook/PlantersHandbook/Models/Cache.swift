@@ -34,14 +34,39 @@ class Cache: Object {
         self._partition = partition
         self.subBlockId = subBlockId
         self.title = title
-        realmDatabase.emptyTallyPrimitiveList(list: self.treeTypes, appending: "" )
-        realmDatabase.emptyTallyPrimitiveList(list: self.centPerTreeTypes, appending: 0.0)
-        realmDatabase.emptyTallyPrimitiveList(list: self.bundlesPerTreeTypes, appending: 0)
-        realmDatabase.emptyTallyPrimitiveList(list: self.totalCashPerTreeTypes, appending: 0.0)
-        realmDatabase.emptyTallyPrimitiveList(list: self.totalTreesPerTreeTypes, appending: 0)
-        realmDatabase.emptyTallyBagUps(list: self.bagUpsPerTreeTypes)
-        realmDatabase.emptyTallyPlots(list: self.plots)
-        realmDatabase.emptyCacheCoordinates(list: self.coordinatesCovered)
+        realmDatabase.emptyTallyPrimitiveList(list: self.treeTypes, appending: "" ){ success, error in
+            if success{
+                realmDatabase.emptyTallyPrimitiveList(list: self.centPerTreeTypes, appending: 0.0){ success, error in
+                    if success{
+                        realmDatabase.emptyTallyPrimitiveList(list: self.bundlesPerTreeTypes, appending: 0){ success, error in
+                            if success{
+                                realmDatabase.emptyTallyPrimitiveList(list: self.totalCashPerTreeTypes, appending: 0.0){ success, error in
+                                    if success{
+                                        realmDatabase.emptyTallyPrimitiveList(list: self.totalTreesPerTreeTypes, appending: 0){ success, error in
+                                            if success{
+                                                realmDatabase.emptyTallyBagUps(list: self.bagUpsPerTreeTypes){ success, error in
+                                                    if success{
+                                                        realmDatabase.emptyTallyPlots(list: self.plots){ success, error in
+                                                            if success{
+                                                                realmDatabase.emptyCacheCoordinates(list: self.coordinatesCovered){ success, error in
+                                                                    if success{
+                                                                        print("Cache created")
+                                                                    }else{print(error!)}
+                                                                }
+                                                            }else{print(error!)}
+                                                        }
+                                                    }else{print(error!)}
+                                                }
+                                            }else{print(error!)}
+                                        }
+                                    }else{print(error!)}
+                                }
+                            }else{print(error!)}
+                        }
+                    }else{print(error!)}
+                }
+            }else{print(error!)}
+        }
     }
     
 }

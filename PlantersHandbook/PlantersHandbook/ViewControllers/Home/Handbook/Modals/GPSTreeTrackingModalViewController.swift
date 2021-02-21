@@ -10,6 +10,7 @@ import RealmSwift
 import UnderLineTextField
 import CoreLocation
 import GoogleMaps
+import JDropDownAlert
 
 class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDelegate {
     weak var delegate : GPSTreeTrackingModalDelegate?
@@ -37,7 +38,6 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
         self.secondsPlanted = secondsPlanted
         
         super.init(nibName: nil, bundle: nil)
-        firstTimerKey = "GPSTreeTrackingModalViewController"
         self.title = title
     }
     
@@ -56,6 +56,7 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
             let camera = GMSCameraPosition.camera(withLatitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude, zoom: 18.0)
             self.mapView.camera = camera
         }
+        firstTimerKey = "GPSTreeTrackingModalViewController"
         if(isFirstTimer()){
             let alertController = UIAlertController(title: "GPS Section", message: "Welcome to the GPS section! \nThis is where you can...\n1. Record where you planted \n2. Record the amount of time you planted \n 3. View total distance travelled \n 4. Based off your plots see how many trees you should have put in the ground. (This is a estimate based off calculations) \n\n Tracking location will occur until you leave the Tally Sheet View (Where you pressed the 'GPS' button)", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
@@ -124,12 +125,22 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
                 prevTrackingCoordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
             }
             else{
-                realmDatabase.addToList(list: secondsPlanted, item: 0)
+                realmDatabase.addToList(list: secondsPlanted, item: 0){ success, error in
+                    if error != nil{
+                        let alert = JDropDownAlert()
+                        alert.alertWith("Error with database, restart app if further errors")
+                    }
+                }
                 delegate.startTimer()
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
                 trackingPath.removeAllCoordinates()
                 setEngageButtonStop()
-                realmDatabase.addToList(list: cacheCoordinates, item: CoordinateInput())
+                realmDatabase.addToList(list: cacheCoordinates, item: CoordinateInput()){ success, error in
+                    if error != nil{
+                        let alert = JDropDownAlert()
+                        alert.alertWith("Error with database, restart app if further errors")
+                    }
+                }
                 setNotificationForTrackingList()
             }
             delegate.flipBooleanIsPlanting()
@@ -150,8 +161,18 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
         if let coordinatesCovered = cacheCoordinates.last{
             if let delegate = delegate{
                 timer.invalidate()
-                realmDatabase.clearList(list: coordinatesCovered.input)
-                realmDatabase.removeLastInList(list: cacheCoordinates)
+                realmDatabase.clearList(list: coordinatesCovered.input){ success, error in
+                    if error != nil{
+                        let alert = JDropDownAlert()
+                        alert.alertWith("Error with database, restart app if further errors : " + error!)
+                    }
+                }
+                realmDatabase.removeLastInList(list: cacheCoordinates){ success, error in
+                    if error != nil{
+                        let alert = JDropDownAlert()
+                        alert.alertWith("Error with database, restart app if further errors : " + error!)
+                    }
+                }
                 if delegate.isPlanting(){
                     engageTrackingButtonAction()
                 }
@@ -159,7 +180,12 @@ class GPSTreeTrackingModalViewController: GPSTreeTrackingModalView, GMSMapViewDe
                     pathHistory.removeLast()
                 }
                 if !secondsPlanted.isEmpty{
-                    realmDatabase.removeLastInList(list: secondsPlanted)
+                    realmDatabase.removeLastInList(list: secondsPlanted){ success, error in
+                        if error != nil{
+                            let alert = JDropDownAlert()
+                            alert.alertWith("Error with database, restart app if further errors : " + error!)
+                        }
+                    }
                     delegate.reCalculateCounter()
                 }
                 updateTimer()

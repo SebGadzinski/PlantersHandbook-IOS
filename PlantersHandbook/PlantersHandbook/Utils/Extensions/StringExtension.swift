@@ -26,4 +26,28 @@ extension String {
         guard self.hasSuffix(suffix) else { return self }
         return String(self.dropLast(suffix.count))
     }
+    
+    var firstCoupleWords: String{
+        let amountOfChars = 25
+        let wordsArr = self.components(separatedBy: " ")
+        var finalSentence = ""
+        if(wordsArr[0].count > amountOfChars){
+            return String(wordsArr[0].prefix(amountOfChars)) + "..."
+        }
+        if(wordsArr.count == 0){
+            return "Reason..."
+        }
+        for word in wordsArr {
+            if(word.count + finalSentence.count > amountOfChars){
+                finalSentence += " " + word.prefix(amountOfChars - finalSentence.count) + "..."
+                break
+            }
+            else{
+                finalSentence += " " + word
+            }
+        }
+        return finalSentence
+    }
+    
+    
 }

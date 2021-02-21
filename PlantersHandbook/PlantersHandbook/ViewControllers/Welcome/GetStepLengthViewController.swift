@@ -54,12 +54,17 @@ class GetStepLengthViewController: GetStepLengthView {
         if let stepDistance = stepDistance{
             let finalStepDistance = Int(stepDistance.deletingSuffix("cm"))!
             if stepDistance != "" && finalStepDistance > 0{
-                realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: nil, stepDistance: finalStepDistance, seasons: nil)
-                self.navigationController!.pushViewController(HomeTabViewController(), animated: true)
+                realmDatabase.updateUser(user: userData!, _partition: nil, name: nil, company: nil, stepDistance: finalStepDistance, seasons: nil){ success, error in
+                    if success{
+                        print("Successfully Updated User")
+                        self.navigationController!.pushViewController(HomeTabViewController(), animated: true)
+                    }else{
+                        let alert = JDropDownAlert()
+                        alert.alertWith("Could Not Update User")
+                    }
+                }
             }
-        }
-        
-        else{
+        }else{
             let alert = JDropDownAlert()
             alert.alertWith("Please fill in fields")
         }

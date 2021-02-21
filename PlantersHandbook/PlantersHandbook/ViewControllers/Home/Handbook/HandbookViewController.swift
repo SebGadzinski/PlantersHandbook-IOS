@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import JDropDownAlert
 
 class HandbookViewController: HandbookView {
     
@@ -43,10 +44,7 @@ class HandbookViewController: HandbookView {
                     tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
                         with: .automatic)
                 })
-//                if !insertions.isEmpty{
-//                    print("inserted season")
-//                    tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .middle)
-//                }
+
             case .error(let error):
                 fatalError("\(error)")
             }
@@ -73,7 +71,7 @@ class HandbookViewController: HandbookView {
         firstTimerKey = "HandbookViewController"
         if(isFirstTimer()){
             
-            let alertController = UIAlertController(title: "Handbook", message: "Welcome to the Handbook section! \nThis is where you can...\n1. Create seasons \n2. Once you select a season, create entrys ('days')  \n\n Press on a entry to edit it", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Handbook", message: "Welcome to the Handbook section! \nThis is where you can...\n1. Create seasons \n2. Once you select a season, create entrys ('days')  \n\n Press on a entry to edit it, swipe left on an entry or any item in a table to delete it", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
                 self.saveFirstTimer(finishedFirstTime: true)
             })
@@ -135,7 +133,7 @@ class HandbookViewController: HandbookView {
     
     fileprivate func nextVC(entry: HandbookEntry) {
         self.navigationController?.pushViewController(
-            BlockManagerViewController(title: GeneralFunctions.getDate(from: entry.date), handbookId: entry._id),
+            BlockManagerViewController(title: GeneralFunctions.getDate(from: entry.date), handbookEntry: entry),
             animated: true
         );
     }
@@ -157,14 +155,33 @@ class HandbookViewController: HandbookView {
     }
     
     @objc fileprivate func logoutAction(){
-        app.currentUser?.logOut(){ [weak self] error in
-            DispatchQueue.main.async {
-                if(error == nil){
-                    self!.navigationController?.navigationController?.popToRootViewController(animated: true)
-                    self!.navigationController?.pushViewController(WelcomeViewController(), animated: false)
+        let alertController = UIAlertController(title: "Logout", message: "Logging out deletes your quickPrep set up and formation of statistics, are you sure you want to logout?", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Logout", style: .destructive, handler: {_ in
+            app.currentUser?.logOut(){ [weak self] error in
+                DispatchQueue.main.async {
+                    if(error == nil){
+                        self!.userDefaults.removeObject(forKey: "prepTreeTypes")
+                        self!.userDefaults.removeObject(forKey: "prepCentPerTreeTypes")
+                        self!.userDefaults.removeObject(forKey: "prepBundlesPerTreeTypes")
+                        self!.userDefaults.removeObject(forKey: "cardsOrderArray")
+                        self!.userDefaults.removeObject(forKey: "seasonsOrderArray")
+                        self!.userDefaults.removeObject(forKey: "TallySheetViewController")
+                        self!.userDefaults.removeObject(forKey: "StatisticsViewController")
+                        self!.userDefaults.removeObject(forKey: "GPSTreeTrackingModalViewController")
+                        self!.userDefaults.removeObject(forKey: "HandbookViewController")
+                        self!.userDefaults.removeObject(forKey: "BlockManagerViewController")
+                        self!.userDefaults.removeObject(forKey: "QuickPrepModalViewController")
+                        self!.navigationController?.navigationController?.popToRootViewController(animated: true)
+                        self!.navigationController?.pushViewController(WelcomeViewController(), animated: false)
+                        
+                    }
                 }
             }
-        }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -205,12 +222,12 @@ extension HandbookViewController: UITableViewDelegate, UITableViewDataSource{
         
         if(tableView == handbookEntrysTableView){
             let entry = handbookEntries[indexPath.row]
-            realmDatabase.deleteEntry(entry: entry){ (result) in
-                if(result){
+            realmDatabase.deleteEntry(entry: entry){ success, error in
+                if(success){
                     print("Entry Deleted From Entry Manager")
                 }
                 else{
-                    let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Handbook Entry", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Error: Realm Error", message: error!, preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
                     self.present(alertController, animated: true, completion: nil)
@@ -219,8 +236,8 @@ extension HandbookViewController: UITableViewDelegate, UITableViewDataSource{
         }
         else{
             let season = seasons[indexPath.row]
-            realmDatabase.deleteSeason(season: season){ (result) in
-                if(result){
+            realmDatabase.deleteSeason(season: season){ success, error in
+                if(success){
                     print("Season Deleted From Season Manager")
                     if(!seasons.isEmpty){
                         seasonSelected = 0
@@ -229,7 +246,7 @@ extension HandbookViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 else{
-                    let alertController = UIAlertController(title: "Error: Realm", message: "Error Could Not Delete Season", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Error: Realm", message: error!, preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
                     self.present(alertController, animated: true, completion: nil)
@@ -241,15 +258,13 @@ extension HandbookViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension HandbookViewController: AddSeasonModalDelegate{
     func createSeason(season: Season) {
-        if(seasons.contains {$0.title == season.title}){
-            let alertController = UIAlertController(title: "Error: Could Not Add Season", message: "Name already taken", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                                
-            alertController.addAction(defaultAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-        else{
-            realmDatabase.add(item: season)
+        if let user = realmDatabase.getLocalUser(){
+            realmDatabase.addSeason(user: user, season: season){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith(error!)
+                }
+            }
         }
     }
 }
@@ -257,17 +272,11 @@ extension HandbookViewController: AddSeasonModalDelegate{
 extension HandbookViewController: AddEntryModalDelegate{
     func createEntry(entry: HandbookEntry) {
         if (seasonSelected > -1) {
-            let entries = realmDatabase.getHandbookEntryRealm(predicate: NSPredicate(format: "seasonId = %@", seasons[seasonSelected]._id)).sorted(byKeyPath: "date", ascending: false)
-            if entries.contains{GeneralFunctions.getDate(from: $0.date) == GeneralFunctions.getDate(from: entry.date)}{
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
-                    let alert = UIAlertController(title: "Duplicate Entry", message: "You already have a entry for today, please edit or delete it to add entry", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true)
+            realmDatabase.addEntry(season: seasons[seasonSelected], entry: entry){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith(error!)
                 }
-                return
-            }
-            else{
-                realmDatabase.add(item: entry)
             }
         }
         else{

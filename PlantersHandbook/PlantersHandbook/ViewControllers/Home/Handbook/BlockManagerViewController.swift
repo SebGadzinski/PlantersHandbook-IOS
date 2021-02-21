@@ -7,17 +7,18 @@
 
 import UIKit
 import RealmSwift
+import JDropDownAlert
 
 class BlockManagerViewController: BlockManagerView {
     
-    fileprivate let handbookId: String
     fileprivate var blockNotificationToken: NotificationToken?
     fileprivate let blocks: Results<Block>
     fileprivate var blockBeingEdited = -1
+    fileprivate var handbookEntry : HandbookEntry
     
-    required init(title: String, handbookId: String) {
-        self.blocks = realmDatabase.getBlockRealm(predicate: NSPredicate(format: "entryId = %@", handbookId)).sorted(byKeyPath: "_id")
-        self.handbookId = handbookId
+    required init(title: String, handbookEntry: HandbookEntry) {
+        self.handbookEntry = handbookEntry
+        self.blocks = realmDatabase.getBlockRealm(predicate: NSPredicate(format: "entryId = %@", self.handbookEntry._id)).sorted(byKeyPath: "_id")
         
         super.init(nibName: nil, bundle: nil)
         
@@ -58,6 +59,19 @@ class BlockManagerViewController: BlockManagerView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        firstTimerKey = "BlockManagerViewController"
+        if(isFirstTimer()){
+            let alertController = UIAlertController(title: "Block Manager", message: "Welcome to Block Manager! \n\n This is where you can...\n1. Make notes on the day \n2. Add extra cash that you made (Other than planting) \n\n Once you create a block you move into SubBlock Manager and then Cache Manager. Each cache has its own tally", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                self.saveFirstTimer(finishedFirstTime: true)
+            })
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     internal override func configureViews() {
         super.configureViews()
         setUpTableDelegates()
@@ -66,6 +80,8 @@ class BlockManagerViewController: BlockManagerView {
     
     internal override func setActions() {
         addButton.addTarget(self, action: #selector(addBlockAction), for: .touchUpInside)
+        notesButton.addTarget(self, action: #selector(notesButtonAction), for: .touchUpInside)
+        extraCashButton.addTarget(self, action: #selector(extraCashButtonAction), for: .touchUpInside)
     }
     
     fileprivate func setUpTableDelegates(){
@@ -75,26 +91,36 @@ class BlockManagerViewController: BlockManagerView {
     
     fileprivate func nextVC(block: Block){
         self.navigationController?.pushViewController(
-            SubBlockManagerViewController(title: block.title, blockId: block._id),
+            SubBlockManagerViewController(title: block.title, block: block),
             animated: true
         )
     }
     
     @objc fileprivate func addBlockAction(){
-        if (blocks.contains{$0.title == nameTextField.text!}) {
-                let alert = UIAlertController(title: "Duplicate Block", message: "You already have a block with that name in this entry, use a different name", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-                return
-        }
-        else{
-            if(nameTextField.text! != ""){
-                let block = Block(partition: realmDatabase.getParitionValue()!, title: nameTextField.text!, entryId: handbookId)
-                realmDatabase.add(item: block)
+        if(nameTextField.text! != ""){
+            let block = Block(partition: realmDatabase.getParitionValue()!, title: nameTextField.text!, entryId: handbookEntry._id)
+            realmDatabase.addBlock(entry: handbookEntry, block: block){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith(error!)
+                }
             }
         }
         view.endEditing(true)
         nameTextField.text = ""
+    }
+    
+    @objc func notesButtonAction(_ sender: Any) {
+        let vc = NotesModalViewController(text: handbookEntry.notes)
+        vc.modalPresentationStyle = .popover
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
+    @objc func extraCashButtonAction(_ sender: Any) {
+        let vc = ExtraCashModalViewController(extraCashList: handbookEntry.extraCash)
+        vc.modalPresentationStyle = .pageSheet
+        present(vc, animated: true)
     }
     
     fileprivate func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -137,12 +163,12 @@ extension BlockManagerViewController: UITableViewDelegate, UITableViewDataSource
         guard editingStyle == .delete else { return }
         
         let block = blocks[indexPath.row]
-        realmDatabase.deleteBlock(block: block){ (result) in
-            if(result){
+        realmDatabase.deleteBlock(block: block){ success, error in
+            if(success){
                 print("Block Deleted From BlockManager")
             }
             else{
-                let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Block", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error: Realm Error", message: error!, preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
@@ -154,9 +180,25 @@ extension BlockManagerViewController: UITableViewDelegate, UITableViewDataSource
 extension BlockManagerViewController: OneTextFieldModalDelegate{
     func completionHandler(returningText: String) {
         if blockBeingEdited > -1 && blockBeingEdited < blocks.count{
-            realmDatabase.updateBlock(block: blocks[blockBeingEdited], _partition: nil, entryId: nil, title: returningText, date: nil, subBlocks: nil)
+            realmDatabase.updateBlock(block: blocks[blockBeingEdited], _partition: nil, entryId: nil, title: returningText, date: nil, subBlocks: nil){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors : " + error!)
+                }
+            }
             let indexPath = IndexPath(item: blockBeingEdited, section: 0)
             managerTableView.reloadRows(at: [indexPath], with: .fade)
+        }
+    }
+}
+
+extension BlockManagerViewController: NotesModalViewDelegate{
+    func saveNotes(notes: String) {
+        realmDatabase.updateHandbookEntry(entry: handbookEntry, _partition: nil, seasonId: nil, notes: notes, date: nil, blocks: nil, extraCash: nil){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors : " + error!)
+            }
         }
     }
 }

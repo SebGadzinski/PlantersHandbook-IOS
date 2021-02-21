@@ -7,17 +7,18 @@
 
 import UIKit
 import RealmSwift
+import JDropDownAlert
 
 class CacheManagerViewController: CacheManagerView {
     
-    fileprivate let subBlockId: String
+    fileprivate let subBlock: SubBlock
     fileprivate var cacheNotificationToken: NotificationToken?
     fileprivate let caches: Results<Cache>
     fileprivate var cacheBeingEdited = -1
 
-    required init(title: String, subBlockId: String) {
-        self.caches = realmDatabase.getCacheRealm(predicate: NSPredicate(format: "subBlockId = %@", subBlockId)).sorted(byKeyPath: "_id")
-        self.subBlockId = subBlockId
+    required init(title: String, subBlock: SubBlock) {
+        self.caches = realmDatabase.getCacheRealm(predicate: NSPredicate(format: "subBlockId = %@", subBlock._id)).sorted(byKeyPath: "_id")
+        self.subBlock = subBlock
         
         super.init(nibName: nil, bundle: nil)
         
@@ -81,16 +82,13 @@ class CacheManagerViewController: CacheManagerView {
     }
     
     @objc fileprivate func addCacheAction(){
-        if (caches.contains{$0.title == nameTextField.text!}) {
-                let alert = UIAlertController(title: "Duplicate Cache", message: "You already have a cache with that name in this entry, use a different name", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
-                return
-        }
-        else{
-            if(nameTextField.text! != ""){
-                let cache = Cache(partition: realmDatabase.getParitionValue()!, title: nameTextField.text!, subBlockId: subBlockId)
-                realmDatabase.add(item: cache)
+        if(nameTextField.text! != ""){
+            let cache = Cache(partition: realmDatabase.getParitionValue()!, title: nameTextField.text!, subBlockId: subBlock._id)
+            realmDatabase.addCache(subBlock: subBlock, cache: cache){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith(error!)
+                }
             }
         }
         view.endEditing(true)
@@ -137,12 +135,12 @@ extension CacheManagerViewController: UITableViewDelegate, UITableViewDataSource
         guard editingStyle == .delete else { return }
         
         let cache = caches[indexPath.row]
-        realmDatabase.deleteCache(cache: cache){ (result) in
-            if(result){
+        realmDatabase.deleteCache(cache: cache){ success, error in
+            if(success){
                 print("Cache Deleted From CacheManager")
             }
             else{
-                let alertController = UIAlertController(title: "Error: Realm Error", message: "Could Not Delete Cache", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error: Realm Error", message: error!, preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
@@ -154,7 +152,12 @@ extension CacheManagerViewController: UITableViewDelegate, UITableViewDataSource
 extension CacheManagerViewController: OneTextFieldModalDelegate{
     func completionHandler(returningText: String) {
         if cacheBeingEdited > -1 && cacheBeingEdited < caches.count{
-            realmDatabase.updateCacheTitle(cache: caches[cacheBeingEdited], title: returningText)
+            realmDatabase.updateCacheTitle(cache: caches[cacheBeingEdited], title: returningText){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors : " + error!)
+                }
+            }
             let indexPath = IndexPath(item: cacheBeingEdited, section: 0)
             managerTableView.reloadRows(at: [indexPath], with: .fade)
         }

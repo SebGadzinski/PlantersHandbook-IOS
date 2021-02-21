@@ -6,6 +6,7 @@
 //
 
 import RealmSwift
+import JDropDownAlert
 
 class PlotsModalViewController: PlotsModalView {
     
@@ -34,7 +35,12 @@ class PlotsModalViewController: PlotsModalView {
     @objc fileprivate func plotOneAction(_ sender: UITextField) {
         let cel  = sender.superview!.superview! as! PlotCell
         let row = Int(cel.number.text!)! - 1
-        realmDatabase.updateCachePlotInputs(plotArray: plots, row: row, plotInputOne: GeneralFunctions.integer(from: sender), plotInputTwo: nil)
+        realmDatabase.updateCachePlotInputs(plotArray: plots, row: row, plotInputOne: GeneralFunctions.integer(from: sender), plotInputTwo: nil){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors")
+            }
+        }
         if(plots[row].inputOne == 0){
             sender.text = ""
         }
@@ -43,7 +49,12 @@ class PlotsModalViewController: PlotsModalView {
     @objc fileprivate func plotTwoAction(_ sender: UITextField) {
         let cel  = sender.superview!.superview! as! PlotCell
         let row = Int(cel.number.text!)! - 1
-        realmDatabase.updateCachePlotInputs(plotArray: plots, row: row, plotInputOne: GeneralFunctions.integer(from: sender), plotInputTwo: nil)
+        realmDatabase.updateCachePlotInputs(plotArray: plots, row: row, plotInputOne: GeneralFunctions.integer(from: sender), plotInputTwo: nil){ success, error in
+            if error != nil{
+                let alert = JDropDownAlert()
+                alert.alertWith("Error with database, restart app if further errors")
+            }
+        }
         if(plots[row].inputTwo == 0){
             sender.text = ""
         }

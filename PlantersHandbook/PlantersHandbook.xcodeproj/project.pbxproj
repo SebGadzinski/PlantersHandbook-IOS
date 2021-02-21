@@ -74,7 +74,7 @@
 		86672C1025CE49FC00D0C34C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C0F25CE49FC00D0C34C /* LoginView.swift */; };
 		86672C1525CE4A1000D0C34C /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C1425CE4A1000D0C34C /* SignUpView.swift */; };
 		86672C1A25CE4A3200D0C34C /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C1925CE4A3200D0C34C /* PasswordResetView.swift */; };
-		86672C1F25CE4A4300D0C34C /* GetCompanyVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C1E25CE4A4300D0C34C /* GetCompanyVIew.swift */; };
+		86672C1F25CE4A4300D0C34C /* GetCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C1E25CE4A4300D0C34C /* GetCompanyView.swift */; };
 		86672C2925CE4AC200D0C34C /* HandbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C2825CE4AC200D0C34C /* HandbookView.swift */; };
 		86672C3125CE4AD200D0C34C /* BlockManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C3025CE4AD200D0C34C /* BlockManagerView.swift */; };
 		86672C3625CE4B1100D0C34C /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86672C3525CE4B1100D0C34C /* ManagerView.swift */; };
@@ -90,6 +90,8 @@
 		867BC9EE25D44ACC003EAC3E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867BC9ED25D44ACC003EAC3E /* SplashViewController.swift */; };
 		867BC9F325D44B35003EAC3E /* LogoAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867BC9F225D44B35003EAC3E /* LogoAnimationView.swift */; };
 		867BCA0B25D44BA7003EAC3E /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 867BCA0A25D44BA7003EAC3E /* logo.gif */; };
+		86850E5825E09F33009E8AB4 /* PrintHandbookEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86850E5725E09F33009E8AB4 /* PrintHandbookEntryViewController.swift */; };
+		86850E5D25E09F56009E8AB4 /* PrintHandbookEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86850E5C25E09F56009E8AB4 /* PrintHandbookEntryView.swift */; };
 		86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854B9E25BA5A620089CF2D /* DoubleExtension.swift */; };
 		86854BA725BA60680089CF2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86854BA625BA60680089CF2D /* StringExtension.swift */; };
 		86920D9325D9A07300758CA0 /* GetStepLengthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920D9225D9A07300758CA0 /* GetStepLengthView.swift */; };
@@ -98,6 +100,12 @@
 		86920DA225DACD7900758CA0 /* OneTextFieldModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DA125DACD7900758CA0 /* OneTextFieldModalView.swift */; };
 		86920DA725DACFBB00758CA0 /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DA625DACFBB00758CA0 /* EditableTableViewCell.swift */; };
 		86920DAC25DAE14D00758CA0 /* RealmExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DAB25DAE14D00758CA0 /* RealmExtensions.swift */; };
+		86920DB125DB2D0C00758CA0 /* ExtraCashModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DB025DB2D0C00758CA0 /* ExtraCashModalView.swift */; };
+		86920DB625DB31B300758CA0 /* ExtraCashModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DB525DB31B300758CA0 /* ExtraCashModalViewController.swift */; };
+		86920DBB25DB3DF600758CA0 /* NotesModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DBA25DB3DF600758CA0 /* NotesModalView.swift */; };
+		86920DC025DB3EF700758CA0 /* NotesModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DBF25DB3EF700758CA0 /* NotesModalViewController.swift */; };
+		86920DCB25DC283A00758CA0 /* QuickPrepModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DCA25DC283A00758CA0 /* QuickPrepModalView.swift */; };
+		86920DD025DC2B5500758CA0 /* QuickPrepModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86920DCF25DC2B5500758CA0 /* QuickPrepModalViewController.swift */; };
 		86C741AE25AB5D71000547F9 /* SUIViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741AD25AB5D71000547F9 /* SUIViews.swift */; };
 		86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */; };
 		86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */; };
@@ -218,7 +226,7 @@
 		86672C0F25CE49FC00D0C34C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		86672C1425CE4A1000D0C34C /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		86672C1925CE4A3200D0C34C /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetView.swift; sourceTree = "<group>"; };
-		86672C1E25CE4A4300D0C34C /* GetCompanyVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCompanyVIew.swift; sourceTree = "<group>"; };
+		86672C1E25CE4A4300D0C34C /* GetCompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCompanyView.swift; sourceTree = "<group>"; };
 		86672C2825CE4AC200D0C34C /* HandbookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandbookView.swift; sourceTree = "<group>"; };
 		86672C3025CE4AD200D0C34C /* BlockManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManagerView.swift; sourceTree = "<group>"; };
 		86672C3525CE4B1100D0C34C /* ManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
@@ -234,6 +242,8 @@
 		867BC9ED25D44ACC003EAC3E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		867BC9F225D44B35003EAC3E /* LogoAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoAnimationView.swift; sourceTree = "<group>"; };
 		867BCA0A25D44BA7003EAC3E /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
+		86850E5725E09F33009E8AB4 /* PrintHandbookEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintHandbookEntryViewController.swift; sourceTree = "<group>"; };
+		86850E5C25E09F56009E8AB4 /* PrintHandbookEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintHandbookEntryView.swift; sourceTree = "<group>"; };
 		86854B9E25BA5A620089CF2D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		86854BA625BA60680089CF2D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		86920D9225D9A07300758CA0 /* GetStepLengthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStepLengthView.swift; sourceTree = "<group>"; };
@@ -242,6 +252,12 @@
 		86920DA125DACD7900758CA0 /* OneTextFieldModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTextFieldModalView.swift; sourceTree = "<group>"; };
 		86920DA625DACFBB00758CA0 /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		86920DAB25DAE14D00758CA0 /* RealmExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmExtensions.swift; sourceTree = "<group>"; };
+		86920DB025DB2D0C00758CA0 /* ExtraCashModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraCashModalView.swift; sourceTree = "<group>"; };
+		86920DB525DB31B300758CA0 /* ExtraCashModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraCashModalViewController.swift; sourceTree = "<group>"; };
+		86920DBA25DB3DF600758CA0 /* NotesModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModalView.swift; sourceTree = "<group>"; };
+		86920DBF25DB3EF700758CA0 /* NotesModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModalViewController.swift; sourceTree = "<group>"; };
+		86920DCA25DC283A00758CA0 /* QuickPrepModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPrepModalView.swift; sourceTree = "<group>"; };
+		86920DCF25DC2B5500758CA0 /* QuickPrepModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPrepModalViewController.swift; sourceTree = "<group>"; };
 		86C741AD25AB5D71000547F9 /* SUIViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUIViews.swift; sourceTree = "<group>"; };
 		86C741BA25AB7DA9000547F9 /* ProgramicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramicVC.swift; sourceTree = "<group>"; };
 		86C741BF25AB7F0C000547F9 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -584,7 +600,7 @@
 				86672C0F25CE49FC00D0C34C /* LoginView.swift */,
 				86672C1425CE4A1000D0C34C /* SignUpView.swift */,
 				86672C1925CE4A3200D0C34C /* PasswordResetView.swift */,
-				86672C1E25CE4A4300D0C34C /* GetCompanyVIew.swift */,
+				86672C1E25CE4A4300D0C34C /* GetCompanyView.swift */,
 				86920D9225D9A07300758CA0 /* GetStepLengthView.swift */,
 			);
 			path = Welcome;
@@ -630,6 +646,10 @@
 				86672C6F25CE578300D0C34C /* SeasonsPickerViewModalView.swift */,
 				8659628F25D7576900663DFC /* AddEntryModalView.swift */,
 				86920DA125DACD7900758CA0 /* OneTextFieldModalView.swift */,
+				86920DB025DB2D0C00758CA0 /* ExtraCashModalView.swift */,
+				86920DBA25DB3DF600758CA0 /* NotesModalView.swift */,
+				86920DCA25DC283A00758CA0 /* QuickPrepModalView.swift */,
+				86850E5C25E09F56009E8AB4 /* PrintHandbookEntryView.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -662,6 +682,10 @@
 				86672BA825CC9EBB00D0C34C /* SeasonsPickerViewModalViewController.swift */,
 				8659628725D7573A00663DFC /* AddEntryModalViewController.swift */,
 				86920D9C25DACCC500758CA0 /* OneTextFieldModalViewController.swift */,
+				86920DB525DB31B300758CA0 /* ExtraCashModalViewController.swift */,
+				86920DBF25DB3EF700758CA0 /* NotesModalViewController.swift */,
+				86920DCF25DC2B5500758CA0 /* QuickPrepModalViewController.swift */,
+				86850E5725E09F33009E8AB4 /* PrintHandbookEntryViewController.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -893,6 +917,7 @@
 				86672BC725CDC2E500D0C34C /* HandbookEntryStatistics.swift in Sources */,
 				86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */,
 				86672C3B25CE4CB000D0C34C /* TallySheetView.swift in Sources */,
+				86850E5D25E09F56009E8AB4 /* PrintHandbookEntryView.swift in Sources */,
 				860BED5925A9568400B3D699 /* BlockManagerViewController.swift in Sources */,
 				8637691925C5B96100580108 /* FloatExtensions.swift in Sources */,
 				8659628825D7573A00663DFC /* AddEntryModalViewController.swift in Sources */,
@@ -903,9 +928,11 @@
 				8659625525D5A54000663DFC /* TableViewActionViewController.swift in Sources */,
 				8659625A25D5A58100663DFC /* TableViewActionViewControllerInterface.swift in Sources */,
 				8637693F25C7824500580108 /* GraphCardCell.swift in Sources */,
+				86920DD025DC2B5500758CA0 /* QuickPrepModalViewController.swift in Sources */,
 				860BED2525A94E0F00B3D699 /* Block.swift in Sources */,
 				860BECC725A94B0400B3D699 /* SUIScrollVIews.swift in Sources */,
 				86C7424925B090ED000547F9 /* SUITextViews.swift in Sources */,
+				86850E5825E09F33009E8AB4 /* PrintHandbookEntryViewController.swift in Sources */,
 				86854B9F25BA5A620089CF2D /* DoubleExtension.swift in Sources */,
 				860BECED25A94BB200B3D699 /* WelcomeViewController.swift in Sources */,
 				86672C7025CE578300D0C34C /* SeasonsPickerViewModalView.swift in Sources */,
@@ -916,6 +943,7 @@
 				86672C4525CE4D0800D0C34C /* CacheManagerView.swift in Sources */,
 				86920D9325D9A07300758CA0 /* GetStepLengthView.swift in Sources */,
 				860BED2025A94DB900B3D699 /* HandbookEntry.swift in Sources */,
+				86920DBB25DB3DF600758CA0 /* NotesModalView.swift in Sources */,
 				86672C6B25CE576600D0C34C /* GPSTreeTrackingModalView.swift in Sources */,
 				86672C1025CE49FC00D0C34C /* LoginView.swift in Sources */,
 				86672C3125CE4AD200D0C34C /* BlockManagerView.swift in Sources */,
@@ -923,7 +951,7 @@
 				86672C1A25CE4A3200D0C34C /* PasswordResetView.swift in Sources */,
 				86672C2925CE4AC200D0C34C /* HandbookView.swift in Sources */,
 				860BED1625A94D3700B3D699 /* User.swift in Sources */,
-				86672C1F25CE4A4300D0C34C /* GetCompanyVIew.swift in Sources */,
+				86672C1F25CE4A4300D0C34C /* GetCompanyView.swift in Sources */,
 				86854BA725BA60680089CF2D /* StringExtension.swift in Sources */,
 				860BED2F25A94E2A00B3D699 /* Cache.swift in Sources */,
 				860BED3425A9512E00B3D699 /* HandbookNC.swift in Sources */,
@@ -931,12 +959,14 @@
 				86672C4025CE4CDC00D0C34C /* SubBlockManagerView.swift in Sources */,
 				86920DAC25DAE14D00758CA0 /* RealmExtensions.swift in Sources */,
 				8637694425C784EC00580108 /* TotalCashCell.swift in Sources */,
+				86920DC025DB3EF700758CA0 /* NotesModalViewController.swift in Sources */,
 				86C741BB25AB7DA9000547F9 /* ProgramicVC.swift in Sources */,
 				86672C4D25CE4D2500D0C34C /* StatisticsView.swift in Sources */,
 				860BECD925A94B2400B3D699 /* SUILabels.swift in Sources */,
 				86C7422125ABE8CF000547F9 /* GetCompanyViewController.swift in Sources */,
 				860BED4425A9531900B3D699 /* ProgramicVCInterface.swift in Sources */,
 				860BED3E25A9526F00B3D699 /* HomeTabViewController.swift in Sources */,
+				86920DCB25DC283A00758CA0 /* QuickPrepModalView.swift in Sources */,
 				86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */,
 				86672B7625CAFB7200D0C34C /* Config.swift in Sources */,
 				860BECE425A94B4900B3D699 /* SUICollectionViews.swift in Sources */,
@@ -946,6 +976,7 @@
 				8637695B25C7854700580108 /* OverallStatsCell.swift in Sources */,
 				86920D9825D9A9C700758CA0 /* GetStepLengthViewController.swift in Sources */,
 				8637695625C7853200580108 /* PieChartCell.swift in Sources */,
+				86920DB125DB2D0C00758CA0 /* ExtraCashModalView.swift in Sources */,
 				860BED1125A94CBD00B3D699 /* HandbookViewController.swift in Sources */,
 				86C7425E25B20E87000547F9 /* AddSeasonModalViewController.swift in Sources */,
 				86C7425225B0B843000547F9 /* Enumerations.swift in Sources */,
@@ -961,6 +992,7 @@
 				860BEC5525A9442700B3D699 /* SceneDelegate.swift in Sources */,
 				860BECDE25A94B2E00B3D699 /* SUITableViews.swift in Sources */,
 				86672C3625CE4B1100D0C34C /* ManagerView.swift in Sources */,
+				86920DB625DB31B300758CA0 /* ExtraCashModalViewController.swift in Sources */,
 				86920DA225DACD7900758CA0 /* OneTextFieldModalView.swift in Sources */,
 				860BED7225A9577300B3D699 /* GPSTreeTrackingModalViewController.swift in Sources */,
 				8637696025C7856200580108 /* HorizontalBarGraphCell.swift in Sources */,

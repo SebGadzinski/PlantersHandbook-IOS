@@ -91,6 +91,22 @@ class LoginViewController: LoginView {
         self.navigationController!.pushViewController(PasswordResetViewController(emailGivenFromLogin: email!), animated: true)
     }
     
+    func nextVC(){
+        if let user = realmDatabase.getLocalUser(){
+            if(user.company == ""){
+                self.navigationController!.pushViewController(GetCompanyViewController(), animated: true)
+                return
+            }
+            else if user.stepDistance == 0{
+                self.navigationController!.pushViewController(GetStepLengthViewController(), animated: true)
+                return
+            }
+            else{
+                self.navigationController!.pushViewController(HomeTabViewController(), animated: false)
+            }
+        }
+    }
+    
     @objc fileprivate func signIn() {
         print("Log in as user: \(email!)");
         setLoading(true, message: "Checking Info");
@@ -117,7 +133,7 @@ class LoginViewController: LoginView {
                     
                     var configuration = user.configuration(partitionValue: "user=\(user.id)", cancelAsyncOpenOnNonFatalErrors: true)
                     
-                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, CoordinateInput.self, Coordinate.self]
+                    configuration.objectTypes = [User.self, Season.self, HandbookEntry.self, Block.self, SubBlock.self, Cache.self, BagUpInput.self, PlotInput.self, CoordinateInput.self, Coordinate.self, ExtraCash.self]
                                       
                     Realm.asyncOpen(configuration: configuration) { [weak self](result) in
                         DispatchQueue.main.async {
@@ -130,27 +146,24 @@ class LoginViewController: LoginView {
                                  realmDatabase.connectToRealm(realm: realm)
                                 //If just signed up, create a user and add to realm
                                 if realmDatabase.getLocalUser() == nil{
-                                    realmDatabase.add(item: User(_id: user.id, partition: "user=\(user.id)", name: self!.email!, company: "", seasons: List<String>(), stepDistance: 0))
-                                }
-                                if let user = realmDatabase.getLocalUser(){
-                                    if(user.company == ""){
-                                        self!.navigationController!.pushViewController(GetCompanyViewController(), animated: true)
-                                        return
+                                    realmDatabase.addUser(user: User(_id: user.id, partition: "user=\(user.id)", name: self!.email!, company: "", seasons: List<String>(), stepDistance: 0)){ success, error in
+                                        if success{
+                                            self!.nextVC()
+                                        }else{
+                                            let alert = JDropDownAlert()
+                                            alert.alertWith("*** Error: \(error!) ***")
+                                            self!.setLoading(false, message: nil);
+                                        }
                                     }
-                                    else if user.stepDistance == 0{
-                                        self!.navigationController!.pushViewController(GetStepLengthViewController(), animated: true)
-                                        return
-                                    }
-                                    else{
-                                        self!.navigationController!.pushViewController(HomeTabViewController(), animated: false)
-                                    }
+                                }else{
+                                    self!.nextVC()
                                 }
                             }
                         }
                     }
                 }
             }
-        };
+        }
     }
 }
 

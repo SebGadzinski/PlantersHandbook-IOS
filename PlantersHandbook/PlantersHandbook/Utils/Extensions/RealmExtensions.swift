@@ -20,7 +20,7 @@ extension Realm {
         return nil
     }
 
-    func safeWrite(_ block: () -> ()) {
+    func safeWrite(_ block: () -> ()) -> String? {
         do {
             // Async safety, to prevent "Realm already in a write transaction" Exceptions
             if !isInWriteTransaction {
@@ -28,6 +28,8 @@ extension Realm {
             }
         } catch let error as NSError{
             NSLog("Error: ", error)
+            return error.localizedDescription
         }
+        return nil
     }
 }

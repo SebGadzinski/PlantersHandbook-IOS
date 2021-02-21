@@ -15,7 +15,7 @@ class TallySheetView: ProgramicVC {
     internal var totalsLayout = SUI_View(backgoundColor: .systemBackground)
     
     internal let dateLabel = SUI_Label(title: "", fontSize: FontSize.medium)
-    internal let gpsButton = PH_Button_Tally(title: "GPS", fontSize: FontSize.extraSmall, borderColor: UIColor.green.cgColor)
+    internal let quickFillButton = PH_Button_Tally(title: "QFill", fontSize: FontSize.extraSmall, borderColor: UIColor.green.cgColor)
     internal let plotsButton = PH_Button_Tally(title: "Plots", fontSize: FontSize.extraSmall, borderColor: UIColor.orange.cgColor)
     internal let clearButton = PH_Button_Tally(title: "Clear", fontSize: FontSize.extraSmall, borderColor: UIColor.red.cgColor)
     internal let treeTypesCollectionView = PH_CollectionView_Tally()
@@ -66,7 +66,7 @@ class TallySheetView: ProgramicVC {
     private func setUpTopLayout(){
         let topFrame = topLayout.safeAreaFrame
 
-        [dateLabel, gpsButton, plotsButton, clearButton].forEach{topLayout.addSubview($0)}
+        [dateLabel, quickFillButton, plotsButton, clearButton].forEach{topLayout.addSubview($0)}
 
         dateLabel.anchor(top: topLayout.topAnchor, leading: topLayout.leadingAnchor, bottom: topLayout.bottomAnchor, trailing: nil, padding: .init(top: topLayout.center.y, left: 5, bottom: 0, right: 0), size: .init(width: topFrame.width*0.4, height: 0))
 
@@ -76,8 +76,8 @@ class TallySheetView: ProgramicVC {
         plotsButton.anchor(top: topLayout.topAnchor, leading: nil, bottom: topLayout.bottomAnchor, trailing: clearButton.leadingAnchor, padding: .init(top: topFrame.height/6, left: 0, bottom: topFrame.height/6, right: 10), size: .init(width: topFrame.width*0.15, height: 0))
         plotsButton.layer.borderColor = UIColor.systemOrange.cgColor
 
-        gpsButton.anchor(top: topLayout.topAnchor, leading: nil, bottom: topLayout.bottomAnchor, trailing: plotsButton.leadingAnchor, padding: .init(top: topFrame.height/6, left: 0, bottom: topFrame.height/6, right: 10), size: .init(width: topFrame.width*0.2, height: 0))
-        gpsButton.layer.borderColor = UIColor.systemGreen.cgColor
+        quickFillButton.anchor(top: topLayout.topAnchor, leading: nil, bottom: topLayout.bottomAnchor, trailing: plotsButton.leadingAnchor, padding: .init(top: topFrame.height/6, left: 0, bottom: topFrame.height/6, right: 10), size: .init(width: topFrame.width*0.2, height: 0))
+        quickFillButton.layer.borderColor = UIColor.systemGreen.cgColor
     }
     
     private func setUpInfoLayout(){
