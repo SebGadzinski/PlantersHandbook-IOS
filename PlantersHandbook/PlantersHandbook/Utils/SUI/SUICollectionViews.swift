@@ -21,6 +21,16 @@ func PH_CollectionView_Tally() -> UICollectionView{
     return cv
 }
 
+func PH_CollectionView_PrintableCache() -> UICollectionView{
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    cv.backgroundColor = .systemBackground
+    cv.translatesAutoresizingMaskIntoConstraints = false
+    cv.register(PrintedTallyCell.self, forCellWithReuseIdentifier: "PrintedTallyCell")
+    return cv
+}
+
 func PH_CollectionView_Plots() -> UICollectionView{
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical

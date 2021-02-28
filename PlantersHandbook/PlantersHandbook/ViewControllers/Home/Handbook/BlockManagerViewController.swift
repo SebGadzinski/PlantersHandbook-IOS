@@ -82,6 +82,8 @@ class BlockManagerViewController: BlockManagerView {
         addButton.addTarget(self, action: #selector(addBlockAction), for: .touchUpInside)
         notesButton.addTarget(self, action: #selector(notesButtonAction), for: .touchUpInside)
         extraCashButton.addTarget(self, action: #selector(extraCashButtonAction), for: .touchUpInside)
+        let printButton = UIBarButtonItem(title: "Print", style: .plain, target: self, action: #selector(printButtonAction))
+        self.navigationItem.rightBarButtonItem = printButton
     }
     
     fileprivate func setUpTableDelegates(){
@@ -108,6 +110,12 @@ class BlockManagerViewController: BlockManagerView {
         }
         view.endEditing(true)
         nameTextField.text = ""
+    }
+    
+    @objc fileprivate func printButtonAction(){
+        let printModal = PrintHandbookEntryViewController(handbookEntry: handbookEntry)
+        printModal.modalPresentationStyle = .popover
+        present(printModal, animated: true)
     }
     
     @objc func notesButtonAction(_ sender: Any) {

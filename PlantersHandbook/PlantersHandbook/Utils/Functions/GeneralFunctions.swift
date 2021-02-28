@@ -75,16 +75,38 @@ struct GeneralFunctions{
        return false
     }
 
-    static func totalDensityFromArray(plotArray: List<PlotInput>) -> Float{
-        var totalPlots = Float()
-        var totalPlotsDensity = Float()
+    static func totalDensityFromArray(plotArray: List<PlotInput>) -> Double{
+        var totalPlots = Double()
+        var totalPlotsDensity = Double()
         for i in 0..<plotArray.count{
             totalPlots += (plotArray[i].inputOne > 0 ? 1 : 0)
             totalPlots += (plotArray[i].inputTwo > 0 ? 1 : 0)
-            totalPlotsDensity += Float(plotArray[i].inputOne)
-            totalPlotsDensity += Float(plotArray[i].inputTwo)
+            totalPlotsDensity += Double(plotArray[i].inputOne)
+            totalPlotsDensity += Double(plotArray[i].inputTwo)
         }
-        return (totalPlotsDensity != 0 ? (totalPlotsDensity/totalPlots) * 200 : 0)
+        return (totalPlotsDensity != 0.0 ? ((totalPlotsDensity/totalPlots) * 200.0) : 0.0)
+    }
+    
+    static func totalPlotsValueFromArray(plotArray: List<PlotInput>) -> Double{
+        var totalPlotsValue = Double()
+        for i in 0..<plotArray.count{
+            totalPlotsValue += Double(plotArray[i].inputOne)
+            totalPlotsValue += Double(plotArray[i].inputTwo)
+        }
+        return totalPlotsValue
+    }
+    
+    static func calculateDensity(plots: Double, plotsValue: Double) -> Double{
+        return ( plots > 0 ? (plotsValue/plots) * 200 : 0)
+    }
+    
+    static func totalPlotsFromArray(plotArray: List<PlotInput>) -> Double{
+        var totalPlots = Double()
+        for i in 0..<plotArray.count{
+            totalPlots += (plotArray[i].inputOne > 0 ? 1 : 0)
+            totalPlots += (plotArray[i].inputTwo > 0 ? 1 : 0)
+        }
+        return totalPlots
     }
 
     static func longPressGestureHandlerMethod(imageView: UIImageView, recognizer:UIPinchGestureRecognizer){

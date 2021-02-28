@@ -62,7 +62,7 @@ class PlotsModalViewController: PlotsModalView {
     }
     
     fileprivate func calculateDensity(){
-        densityLabel.text = "Density: " + GeneralFunctions.totalDensityFromArray(plotArray: plots).round(to: 2)
+        densityLabel.text = "Density: " + String(GeneralFunctions.totalDensityFromArray(plotArray: plots).round(to: 2))
     }
 }
 

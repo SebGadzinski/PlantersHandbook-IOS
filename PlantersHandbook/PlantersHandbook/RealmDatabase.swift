@@ -326,7 +326,7 @@ struct RealmDatabase{
                                 entryCompletionHandler(false, "Entry: \(entryId) Was Not Deleted | Linked To: " + error)
                                 return
                             }else{
-                                removeItemInList(list: season.entries, item: aEntry._id){ success, error in
+                                removeItemInList(list: season.entries, item: entryId){ success, error in
                                     if success{
                                         entryCompletionHandler(true, nil)
                                     }else{

@@ -27,6 +27,7 @@ class NotesModalView: GeneralViewController {
         notesField.layer.borderWidth = 3
         notesField.layer.borderColor = UIColor.tertiarySystemBackground.cgColor
         notesField.inputAccessoryView = toolBar
+
     }
 
 }

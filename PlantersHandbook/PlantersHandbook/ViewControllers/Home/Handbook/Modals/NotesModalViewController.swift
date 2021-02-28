@@ -25,12 +25,13 @@ class NotesModalViewController: NotesModalView {
         super.viewWillAppear(animated)
         notesField.text = initalText
         placeHolder()
+        notesField.isScrollEnabled = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let delegate = delegate{
-            delegate.saveNotes(notes: notesField.text)
+            delegate.saveNotes(notes: notesField.text.trimmingCharacters(in: .whitespacesAndNewlines))
         }
         self.dismiss(animated: true, completion: nil)
         // Dismiss current Viewcontroller and back to Original
@@ -46,7 +47,8 @@ class NotesModalViewController: NotesModalView {
         if(notesField.text == ""){
             notesField.text = motivationArray[Int.random(in: 0..<motivationArray.count - 1)]
         }
-        notesField.becomeFirstResponder()
+        notesField.isScrollEnabled = false
+        notesField.text += "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
     }
 }
 

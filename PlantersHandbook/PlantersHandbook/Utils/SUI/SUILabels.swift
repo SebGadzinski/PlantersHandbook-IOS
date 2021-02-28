@@ -27,6 +27,18 @@ func SUI_Label_Date(fontSize: Float?) -> UILabel {
     return lb
 }
 
+func SUI_Label_MutliLine(text: String?, fontSize: Float, numberOfLines: Int) -> UILabel  {
+    let lb = UILabel()
+    lb.text = (text != nil ? text :"")
+    lb.font = UIFont(name: Fonts.avenirNextMeduim, size: CGFloat(fontSize))
+    lb.numberOfLines = numberOfLines
+    lb.textColor = .label
+    lb.adjustsFontSizeToFitWidth = true
+    lb.textAlignment = .center
+    lb.sizeToFit()
+    return lb
+}
+
 // Custom Developed For Planters Handbook
 
 func PH_Label_Number(title: String?) -> UILabel {

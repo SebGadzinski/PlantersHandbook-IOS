@@ -39,6 +39,11 @@ extension UIView {
         centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
+    func anchorHeightAndWidthConstants(width: CGFloat, height: CGFloat){
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+    
     func anchorUnderline(to view: UIView){
         anchor(top: view.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
     }
@@ -98,6 +103,7 @@ extension UIView {
         }
         return bounds
     }
+    
 }
 
 extension Date

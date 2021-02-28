@@ -132,6 +132,7 @@
 		86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7427925B673A7000547F9 /* TallyCell.swift */; };
 		86D2220325BDEC9D003D7394 /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D2220225BDEC9D003D7394 /* undo.png */; };
 		86D2221025BF9AE4003D7394 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */; };
+		86E5E5F425E993D4004EA131 /* PrintedTallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5E5F325E993D4004EA131 /* PrintedTallyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,6 +285,7 @@
 		86C7427925B673A7000547F9 /* TallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallyCell.swift; sourceTree = "<group>"; };
 		86D2220225BDEC9D003D7394 /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
 		86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		86E5E5F325E993D4004EA131 /* PrintedTallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintedTallyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -520,6 +522,7 @@
 				86C7427925B673A7000547F9 /* TallyCell.swift */,
 				8637690E25C5B37200580108 /* PlotCell.swift */,
 				865962B125D86B0500663DFC /* OneTotalCell.swift */,
+				86E5E5F325E993D4004EA131 /* PrintedTallyCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				860BED6D25A9573300B3D699 /* PlotsModalViewController.swift in Sources */,
 				8637695B25C7854700580108 /* OverallStatsCell.swift in Sources */,
 				86920D9825D9A9C700758CA0 /* GetStepLengthViewController.swift in Sources */,
+				86E5E5F425E993D4004EA131 /* PrintedTallyCell.swift in Sources */,
 				8637695625C7853200580108 /* PieChartCell.swift in Sources */,
 				86920DB125DB2D0C00758CA0 /* ExtraCashModalView.swift in Sources */,
 				860BED1125A94CBD00B3D699 /* HandbookViewController.swift in Sources */,

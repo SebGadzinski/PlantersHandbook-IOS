@@ -8,14 +8,15 @@
 import UIKit
 
 class PrintHandbookEntryView: ProgramicVC {
-
-    override func setUpOverlay() {
-        
-    }
+    let stackView = SUI_StackView()
+    let topLayout = SUI_View(backgoundColor: .systemBackground)
+    let pdfButton = PH_Button(title: "Share", fontSize: FontSize.medium)
     
-    override func configureViews() {
-        
-    
+//    override func setUpOverlay() {
+//        super.setUpOverlay()
+////        [stackView].forEach{backgroundView.addSubview($0)}
+////
+////        stackView.fillSafeSuperView(to: backgroundView)
+//    }
 
-    }
 }

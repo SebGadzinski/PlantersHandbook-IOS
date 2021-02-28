@@ -138,6 +138,8 @@ class HandbookViewController: HandbookView {
         );
     }
     
+
+    
     @objc fileprivate func addEntryAction(){
         if (seasonSelected > -1) {
             let entryModal = AddEntryModalViewController(seasonId: seasons[seasonSelected]._id)

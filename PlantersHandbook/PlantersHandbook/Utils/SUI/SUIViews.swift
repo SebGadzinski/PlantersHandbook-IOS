@@ -40,12 +40,15 @@ func SUI_DatePicker() -> UIDatePicker{
     return dp
 }
 
-func SUI_StackView(){
+func SUI_StackView() -> UIStackView{
     let stackView   = UIStackView()
     stackView.axis  = NSLayoutConstraint.Axis.vertical
     stackView.distribution  = UIStackView.Distribution.equalSpacing
-    stackView.alignment = UIStackView.Alignment.top
-    stackView.spacing   = 2.0
+    stackView.alignment = UIStackView.Alignment.center
+    stackView.spacing   = 5
+    stackView.backgroundColor = .systemBackground
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    return stackView
 }
 
 
