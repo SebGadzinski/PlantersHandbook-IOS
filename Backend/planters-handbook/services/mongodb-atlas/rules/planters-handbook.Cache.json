@@ -1,0 +1,133 @@
+{
+    "collection": "Cache",
+    "database": "planters-handbook",
+    "id": "5ff9dc0231e90db8109eb558",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "string"
+            },
+            "_partition": {
+                "bsonType": "string"
+            },
+            "subBlockId": {
+                "bsonType": "string"
+            },
+            "bagUpsPerTreeTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "input": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "int"
+                            }
+                        }
+                    },
+                    "title": "BagUpInput"
+                }
+            },
+            "bundlesPerTreeTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "int"
+                }
+            },
+            "centPerTreeTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "double"
+                }
+            },
+            "coordinatesCovered": {
+                "bsonType": "array",
+                "items": {
+                  "bsonType": "object",
+                  "properties": {
+                    "input": {
+                      "bsonType": "array",
+                        "items": {
+                        "bsonType": "object",
+                  "properties": {
+                    "longitude": {
+                      "bsonType": "double"
+                    },
+                   "latitude": {
+                      "bsonType": "double"
+                    }
+                  },
+                  "title": "Coordinate",
+                  "required": [
+                    "longitude",
+                    "latitude"
+                  ]
+                }
+                  }
+                },
+                "title": "CoordinateInput"
+              }
+            },
+            "plots": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "inputOne": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "int"
+                            }
+                        },
+                        "inputTwo": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "int"
+                            }
+                        }
+                    },
+                    "title": "PlotInput"
+                }
+            },
+            "title": {
+                "bsonType": "string"
+            },
+            "totalCashPerTreeTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "double"
+                }
+            },
+            "totalTreesPerTreeTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "int"
+                }
+            },
+            "treeTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            }
+           
+        },
+        "required": [
+            "_id",
+            "_partition",
+            "subBlockId",
+            "title"
+        ],
+        "title": "Cache"
+    }
+}

@@ -1,0 +1,46 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '14.0'
+use_frameworks!
+
+target 'PlantersHandbook' do
+  pod 'RealmSwift'
+  pod 'UnderLineTextField'
+  pod 'SwiftSpinner'
+  pod 'JDropDownAlert'
+  pod 'EmailValidator'
+  pod 'Navajo-Swift'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'Charts'
+  pod 'M13Checkbox'
+  pod 'SwiftyGif'
+  
+end
+
+target 'PlantersHandbookUITests' do
+  pod 'RealmSwift'
+  pod 'UnderLineTextField'
+  pod 'SwiftSpinner'
+  pod 'JDropDownAlert'
+  pod 'EmailValidator'
+  pod 'Navajo-Swift'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'Charts'
+  pod 'M13Checkbox'
+  pod 'SwiftyGif'
+end
+
+target 'PlantersHandbookTests' do
+  pod 'RealmSwift'
+  pod 'UnderLineTextField'
+  pod 'SwiftSpinner'
+  pod 'JDropDownAlert'
+  pod 'EmailValidator'
+  pod 'Navajo-Swift'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'Charts'
+  pod 'M13Checkbox'
+  pod 'SwiftyGif'
+end

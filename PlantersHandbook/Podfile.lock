@@ -1,0 +1,69 @@
+PODS:
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
+  - EmailValidator (1.0.2)
+  - GoogleMaps (4.2.0):
+    - GoogleMaps/Maps (= 4.2.0)
+  - GoogleMaps/Base (4.2.0)
+  - GoogleMaps/Maps (4.2.0):
+    - GoogleMaps/Base
+  - GooglePlaces (4.2.0):
+    - GoogleMaps/Base (= 4.2.0)
+  - JDropDownAlert (1.3.0)
+  - M13Checkbox (3.4.0)
+  - Navajo-Swift (2.1.0)
+  - Realm (10.7.2):
+    - Realm/Headers (= 10.7.2)
+  - Realm/Headers (10.7.2)
+  - RealmSwift (10.7.2):
+    - Realm (= 10.7.2)
+  - SwiftSpinner (2.2.0)
+  - SwiftyGif (5.4.0)
+  - UnderLineTextField (2.1.0)
+
+DEPENDENCIES:
+  - Charts
+  - EmailValidator
+  - GoogleMaps
+  - GooglePlaces
+  - JDropDownAlert
+  - M13Checkbox
+  - Navajo-Swift
+  - RealmSwift
+  - SwiftSpinner
+  - SwiftyGif
+  - UnderLineTextField
+
+SPEC REPOS:
+  trunk:
+    - Charts
+    - EmailValidator
+    - GoogleMaps
+    - GooglePlaces
+    - JDropDownAlert
+    - M13Checkbox
+    - Navajo-Swift
+    - Realm
+    - RealmSwift
+    - SwiftSpinner
+    - SwiftyGif
+    - UnderLineTextField
+
+SPEC CHECKSUMS:
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  EmailValidator: 366dc0ddedcc457ae14d269fa056416a6730d6ea
+  GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad
+  GooglePlaces: 196a9dd88580dcb3f3df46f415057703d0d2a310
+  JDropDownAlert: fd2aec99b685cb35530283b34f36c7cb46d44170
+  M13Checkbox: 6f59404540ac98ba83a3d1afac335895a40c6a5d
+  Navajo-Swift: 57b93e73efbfbf452433efbff04402de56beff51
+  Realm: e523da9ade306c5ae87e85dc09fdef148d3e1cc1
+  RealmSwift: 4f6758c3adbdcc87f7b7777107226532a077f61c
+  SwiftSpinner: f9b59477fe107427f2b5b835497d6636fa167ede
+  SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
+  UnderLineTextField: b3f5307b56962331e30a965e81b79aae2df1de83
+
+PODFILE CHECKSUM: 994c58ea69cc6deddf86686a077606f4e7e6a1d3
+
+COCOAPODS: 1.10.1

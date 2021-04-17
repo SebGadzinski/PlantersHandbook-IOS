@@ -1,0 +1,16 @@
+{
+    "id": "5ff9dc0231e90db8109eb563",
+    "name": "local-userpass",
+    "type": "local-userpass",
+    "config": {
+        "autoConfirm": false,
+        "confirmEmailSubject": "Confirm email address",
+        "emailConfirmationUrl": "https://stitch-statichosting-prod.s3.amazonaws.com/5ff9dc02291706c5eaae968f/confirmScript.html",
+        "resetFunctionName": "resetFunc",
+        "resetPasswordSubject": "Click this link to reset your password",
+        "resetPasswordUrl": "https://stitch-statichosting-prod.s3.amazonaws.com/5ff9dc02291706c5eaae968f/resetScript.html",
+        "runConfirmationFunction": false,
+        "runResetFunction": false
+    },
+    "disabled": false
+}
