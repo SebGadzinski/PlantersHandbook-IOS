@@ -286,8 +286,8 @@
             filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "signIn()"
             landmarkType = "7">
             <Locations>
@@ -349,8 +349,8 @@
             filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "signIn()"
             landmarkType = "7">
          </BreakpointContent>
@@ -365,8 +365,8 @@
             filePath = "PlantersHandbook/ViewControllers/Welcome/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "signIn()"
             landmarkType = "7">
          </BreakpointContent>
@@ -559,8 +559,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
-            landmarkName = "deleteSeason(season:completionHandler:)"
-            landmarkType = "7">
+            landmarkName = "RealmDatabase"
+            landmarkType = "14">
             <Locations>
                <Location
                   uuid = "04B5FE03-17A8-46DB-BB79-8E03BDC57FC0 - 6be9e96df330f406"
@@ -630,22 +630,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3F972DB3-1255-4AB9-9D33-1DFBD8A563FE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PlantersHandbook/ViewControllers/Home/Handbook/Modals/PrintHandbookEntryModalViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
-            landmarkName = "addCacheView(cache:tag:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E649636D-B16F-495B-B8DA-6658E81B9E2F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -653,8 +637,8 @@
             filePath = "PlantersHandbook/ViewControllers/Home/Handbook/TallySheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "init(cache:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -669,8 +653,8 @@
             filePath = "PlantersHandbook/ViewControllers/Home/Handbook/TallySheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -685,9 +669,57 @@
             filePath = "PlantersHandbook/ViewControllers/Home/Handbook/TallySheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "findHandbookDate()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FFD806B2-8842-43A1-82DB-7B8884AD525C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Home/Handbook/Modals/OneTextFieldModalViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2476589E-D732-492A-B23A-86DB04758315"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Home/Handbook/Modals/PrintHandbookEntryModalViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "fillStackView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5D7276A2-6EEB-4172-9948-E715E9C34174"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlantersHandbook/ViewControllers/Home/Handbook/Modals/PrintHandbookEntryModalViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
+            landmarkName = "addTotalTreeTypes(treeTypesTotals:backgroundColor:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

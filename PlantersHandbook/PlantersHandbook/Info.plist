@@ -33,6 +33,8 @@
 	<string>Need your location in order to create density and health analytics</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need your location in order to create density and health analytics</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Please allow tracking across other apps and websites as we use MongoDB Realm and Google APIs </string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

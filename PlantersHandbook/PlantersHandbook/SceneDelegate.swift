@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import SwiftSpinner
 
-let app = App(id: "Your App Id") 
+let app = App(id: "planters-handbook-unaje")
 var realmDatabase = RealmDatabase()
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -26,10 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
 
         guard let _ = (scene as? UIWindowScene) else { return }
-    }
-    
-    func enterApplication(){
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

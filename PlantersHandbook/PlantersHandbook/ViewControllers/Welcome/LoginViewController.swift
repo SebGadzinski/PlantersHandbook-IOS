@@ -10,6 +10,8 @@ import UnderLineTextField
 import SwiftSpinner
 import JDropDownAlert
 import RealmSwift
+import AppTrackingTransparency
+import AdSupport
 
 ///LoginViewController.swift - Login page
 class LoginViewController: LoginView {
@@ -106,7 +108,50 @@ class LoginViewController: LoginView {
     }
     
     ///Goes to the the next view controller
-    func nextVC(){
+    fileprivate func nextVC(){
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    // Tracking authorization dialog was shown
+                    // and we are authorized
+                    print("Authorized")
+                    self.pickController()
+                case .denied:
+                    // Tracking authorization dialog was
+                    // shown and permission is denied
+                    print("Denied")
+                    let alertController = UIAlertController(title: "Turn On App Tracking Transparency", message: "Please allow tracking across other apps and websites as we use Google APIs. Click the slider for 'Allow Tracking' to on, this will exit the app and you will need to restart it.", preferredStyle: .alert)
+
+                    let settingsAction = UIAlertAction(title: "Continue", style: .default) { (_) -> Void in
+                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in self.pickController()
+                                
+                            })
+                         }
+                    }
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){ (_) -> Void in
+                        self.pickController()
+                    }
+                    alertController.addAction(settingsAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true)
+                case .notDetermined:
+                    // Tracking authorization dialog has not been shown
+                    print("Not Determined")
+                case .restricted:
+                    print("Restricted")
+                @unknown default:
+                    print("Unknown")
+                }
+            }
+        }
+    }
+    
+    fileprivate func pickController(){
         if let user = realmDatabase.findLocalUser(){
             if(user.company == ""){
                 self.navigationController!.pushViewController(GetCompanyViewController(), animated: true)
@@ -130,7 +175,6 @@ class LoginViewController: LoginView {
     @objc fileprivate func signIn() {
         print("Log in as user: \(email!)");
         setLoading(true, message: "Checking Info");
-        
         app.login(credentials: Credentials.emailPassword(email: email!, password: password!)) { [weak self](result) in
             // Completion handlers are not necessarily called on the UI thread.
             // This call to DispatchQueue.main.async ensures that any changes to the UI,

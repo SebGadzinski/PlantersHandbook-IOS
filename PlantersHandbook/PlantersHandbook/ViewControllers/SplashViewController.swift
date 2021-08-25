@@ -14,7 +14,6 @@ class SplashViewController: SplashView {
     static let schemaVersion : UInt64 = 0
     var logoAnimationView : LogoAnimationView!
     
-    
     ///Configure all views in programic view controller
     internal override func configureViews() {
         super.configureViews()

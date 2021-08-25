@@ -14,7 +14,8 @@ struct SeasonStatistics{
     var totalTrees : Int
     var totalDistanceTravelled : Double
     var totalTimeSecondsPlanting : Int
-    var bestEntryStats : HandbookEntryStatistics?
+    var bestCashEntryStats : HandbookEntryStatistics?
+    var bestTreesEntryStats : HandbookEntryStatistics?
     var averages : AverageSeasonStatistics
     var handbookEntrysStatistics : [HandbookEntryStatistics]
     
@@ -27,13 +28,14 @@ struct SeasonStatistics{
     ///- Parameter bestEntryStats: Best Handbook Entry inside season
     ///- Parameter averages: Average season statistics
     ///- Parameter handbookEntrysStatistics: All HandbookEntry statisics
-    init(seasonName: String, totalCash: Double, totalTrees: Int, totalDistanceTravelled: Double, totalTimeSecondsPlanting: Int, bestEntryStats: HandbookEntryStatistics, averages: AverageSeasonStatistics, handbookEntrysStatistics: [HandbookEntryStatistics]){
+    init(seasonName: String, totalCash: Double, totalTrees: Int, totalDistanceTravelled: Double, totalTimeSecondsPlanting: Int, bestCashEntryStats: HandbookEntryStatistics, bestTreesEntryStats: HandbookEntryStatistics, averages: AverageSeasonStatistics, handbookEntrysStatistics: [HandbookEntryStatistics]){
         self.seasonName = seasonName
         self.totalCash = totalCash
         self.totalTrees = totalTrees
         self.totalDistanceTravelled = totalDistanceTravelled
         self.totalTimeSecondsPlanting = totalTimeSecondsPlanting
-        self.bestEntryStats = bestEntryStats
+        self.bestCashEntryStats = bestCashEntryStats
+        self.bestTreesEntryStats = bestTreesEntryStats
         self.averages = averages
         self.handbookEntrysStatistics = handbookEntrysStatistics
     }
@@ -46,7 +48,8 @@ struct SeasonStatistics{
         self.totalTrees = 0
         self.totalDistanceTravelled = 0
         self.totalTimeSecondsPlanting = 0
-        self.bestEntryStats = nil
+        self.bestCashEntryStats = nil
+        self.bestTreesEntryStats = nil
         self.averages = AverageSeasonStatistics()
         self.handbookEntrysStatistics = []
     }

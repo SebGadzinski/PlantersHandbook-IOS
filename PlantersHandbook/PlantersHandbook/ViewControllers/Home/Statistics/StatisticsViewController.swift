@@ -184,13 +184,21 @@ class StatisticsViewController: StatisticsView, IValueFormatter, SwiftyGifDelega
                         }
                     }
                 }
-                if seasonStats.bestEntryStats != nil{
-                    if handbookEntryStats.totalCash > seasonStats.bestEntryStats!.totalCash{
-                        seasonStats.bestEntryStats = handbookEntryStats
+                if seasonStats.bestCashEntryStats != nil{
+                    if handbookEntryStats.totalCash > seasonStats.bestCashEntryStats!.totalCash{
+                        seasonStats.bestCashEntryStats = handbookEntryStats
                     }
                 }
                 else{
-                    seasonStats.bestEntryStats = handbookEntryStats
+                    seasonStats.bestCashEntryStats = handbookEntryStats
+                }
+                if seasonStats.bestTreesEntryStats != nil{
+                    if handbookEntryStats.totalTrees > seasonStats.bestTreesEntryStats!.totalTrees{
+                        seasonStats.bestTreesEntryStats = handbookEntryStats
+                    }
+                }
+                else{
+                    seasonStats.bestTreesEntryStats = handbookEntryStats
                 }
                 seasonStats.totalCash += handbookEntryStats.totalCash
                 seasonStats.totalTrees += handbookEntryStats.totalTrees
@@ -429,9 +437,11 @@ extension StatisticsViewController: UICollectionViewDelegateFlowLayout, UICollec
             
             for seasonStats in seasonsStatistics{
                 if seasonStats.seasonName == cell.seasonTitleLabel.text{
-                    if let bestCashStats = seasonStats.bestEntryStats{
+                    if let bestCashStats = seasonStats.bestCashEntryStats{
                         cell.bestCashLabel.text = bestCashStats.totalCash.toCurrency()
-                        cell.bestTreesLabel.text = String(bestCashStats.totalTrees)
+                    }
+                    if let bestTreesStats = seasonStats.bestTreesEntryStats{
+                        cell.bestTreesLabel.text = String(bestTreesStats.totalTrees)
                     }
                     cell.averageCashLabel.text = seasonStats.averages.averageCash.toCurrency()
                     cell.averageTreesLabel.text = String(seasonStats.averages.averageTrees)

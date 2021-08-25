@@ -69,6 +69,7 @@
 		865C68DF25F6C54700E4A6D8 /* PHUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865C68DE25F6C54700E4A6D8 /* PHUI.swift */; };
 		865C68E425F6CC9600E4A6D8 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865C68E325F6CC9600E4A6D8 /* DatePicker.swift */; };
 		865C68E925F6CCCF00E4A6D8 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865C68E825F6CCCF00E4A6D8 /* StackView.swift */; };
+		865E8238268B694800664250 /* TreeStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865E8237268B694800664250 /* TreeStatsCell.swift */; };
 		865F4C9026162A39008D8CBF /* ProgrammaticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F4C8F26162A39008D8CBF /* ProgrammaticView.swift */; };
 		865F4C9826162CB8008D8CBF /* ProgrammaticViewControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F4C9726162CB8008D8CBF /* ProgrammaticViewControllerInterface.swift */; };
 		865F4CA6261B66BD008D8CBF /* ManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865F4CA5261B66BD008D8CBF /* ManagerViewController.swift */; };
@@ -100,6 +101,8 @@
 		867BC9E625D44A92003EAC3E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867BC9E525D44A92003EAC3E /* SplashView.swift */; };
 		867BC9EE25D44ACC003EAC3E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867BC9ED25D44ACC003EAC3E /* SplashViewController.swift */; };
 		867BC9F325D44B35003EAC3E /* LogoAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867BC9F225D44B35003EAC3E /* LogoAnimationView.swift */; };
+		868361C426812305000091AB /* AddTreeTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868361C326812305000091AB /* AddTreeTypeView.swift */; };
+		868361C9268136A3000091AB /* AddTreeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868361C8268136A3000091AB /* AddTreeTypeViewController.swift */; };
 		86850E5825E09F33009E8AB4 /* PrintHandbookEntryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86850E5725E09F33009E8AB4 /* PrintHandbookEntryModalViewController.swift */; };
 		86850E5D25E09F56009E8AB4 /* PrintHandbookEntryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86850E5C25E09F56009E8AB4 /* PrintHandbookEntryModalView.swift */; };
 		868512AA2620A26F00B5E723 /* GetNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868512A92620A26F00B5E723 /* GetNameViewController.swift */; };
@@ -144,6 +147,8 @@
 		86C7425E25B20E87000547F9 /* AddSeasonModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7425D25B20E87000547F9 /* AddSeasonModalViewController.swift */; };
 		86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7427925B673A7000547F9 /* TallyCell.swift */; };
 		86D2220325BDEC9D003D7394 /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D2220225BDEC9D003D7394 /* undo.png */; };
+		86DAA73E2675BAC2003E9924 /* CacheTotalsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DAA73D2675BAC2003E9924 /* CacheTotalsModalView.swift */; };
+		86DAA7432675BD50003E9924 /* CacheTotalsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DAA7422675BD50003E9924 /* CacheTotalsModalViewController.swift */; };
 		86E5E5F425E993D4004EA131 /* PrintedTallyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E5E5F325E993D4004EA131 /* PrintedTallyCell.swift */; };
 		9BE0D5286B99D0C23983F50A /* Pods_PlantersHandbookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FF360EEC73C60073B05950 /* Pods_PlantersHandbookUITests.framework */; };
 		FB9CB3C38958354206AFB788 /* Pods_PlantersHandbookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CB36455BAAE4D34CCAFD67 /* Pods_PlantersHandbookTests.framework */; };
@@ -241,6 +246,7 @@
 		865C68DE25F6C54700E4A6D8 /* PHUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHUI.swift; sourceTree = "<group>"; };
 		865C68E325F6CC9600E4A6D8 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		865C68E825F6CCCF00E4A6D8 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		865E8237268B694800664250 /* TreeStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeStatsCell.swift; sourceTree = "<group>"; };
 		865F4C8F26162A39008D8CBF /* ProgrammaticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticView.swift; sourceTree = "<group>"; };
 		865F4C9726162CB8008D8CBF /* ProgrammaticViewControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticViewControllerInterface.swift; sourceTree = "<group>"; };
 		865F4CA5261B66BD008D8CBF /* ManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +278,8 @@
 		867BC9E525D44A92003EAC3E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		867BC9ED25D44ACC003EAC3E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		867BC9F225D44B35003EAC3E /* LogoAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoAnimationView.swift; sourceTree = "<group>"; };
+		868361C326812305000091AB /* AddTreeTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTreeTypeView.swift; sourceTree = "<group>"; };
+		868361C8268136A3000091AB /* AddTreeTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTreeTypeViewController.swift; sourceTree = "<group>"; };
 		86850E5725E09F33009E8AB4 /* PrintHandbookEntryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintHandbookEntryModalViewController.swift; sourceTree = "<group>"; };
 		86850E5C25E09F56009E8AB4 /* PrintHandbookEntryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintHandbookEntryModalView.swift; sourceTree = "<group>"; };
 		868512A92620A26F00B5E723 /* GetNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNameViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +324,8 @@
 		86C7427925B673A7000547F9 /* TallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TallyCell.swift; sourceTree = "<group>"; };
 		86D2220225BDEC9D003D7394 /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
 		86D2220F25BF9AE4003D7394 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		86DAA73D2675BAC2003E9924 /* CacheTotalsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTotalsModalView.swift; sourceTree = "<group>"; };
+		86DAA7422675BD50003E9924 /* CacheTotalsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTotalsModalViewController.swift; sourceTree = "<group>"; };
 		86E5E5F325E993D4004EA131 /* PrintedTallyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintedTallyCell.swift; sourceTree = "<group>"; };
 		8A99C2A0D6570AC527081698 /* Pods-PlantersHandbookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantersHandbookUITests.debug.xcconfig"; path = "Target Support Files/Pods-PlantersHandbookUITests/Pods-PlantersHandbookUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9BC4D609337B61036F2E8CE1 /* Pods-PlantersHandbook-PlantersHandbookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantersHandbook-PlantersHandbookTests.release.xcconfig"; path = "Target Support Files/Pods-PlantersHandbook-PlantersHandbookTests/Pods-PlantersHandbook-PlantersHandbookTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -578,6 +588,7 @@
 				8637690E25C5B37200580108 /* PlotCell.swift */,
 				865962B125D86B0500663DFC /* OneTotalCell.swift */,
 				86E5E5F325E993D4004EA131 /* PrintedTallyCell.swift */,
+				865E8237268B694800664250 /* TreeStatsCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -712,6 +723,8 @@
 				86920DBA25DB3DF600758CA0 /* NotesModalView.swift */,
 				86920DCA25DC283A00758CA0 /* QuickPrepModalView.swift */,
 				86850E5C25E09F56009E8AB4 /* PrintHandbookEntryModalView.swift */,
+				86DAA73D2675BAC2003E9924 /* CacheTotalsModalView.swift */,
+				868361C326812305000091AB /* AddTreeTypeView.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -741,6 +754,8 @@
 				86920DBF25DB3EF700758CA0 /* NotesModalViewController.swift */,
 				86920DCF25DC2B5500758CA0 /* QuickPrepModalViewController.swift */,
 				86850E5725E09F33009E8AB4 /* PrintHandbookEntryModalViewController.swift */,
+				86DAA7422675BD50003E9924 /* CacheTotalsModalViewController.swift */,
+				868361C8268136A3000091AB /* AddTreeTypeViewController.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -1093,6 +1108,7 @@
 				860BECD425A94B1A00B3D699 /* Buttons.swift in Sources */,
 				86672BC725CDC2E500D0C34C /* HandbookEntryStatistics.swift in Sources */,
 				865F4CAB261B757F008D8CBF /* ManagerInterface.swift in Sources */,
+				86DAA7432675BD50003E9924 /* CacheTotalsModalViewController.swift in Sources */,
 				86C7427A25B673A7000547F9 /* TallyCell.swift in Sources */,
 				86672C3B25CE4CB000D0C34C /* TallySheetView.swift in Sources */,
 				86850E5D25E09F56009E8AB4 /* PrintHandbookEntryModalView.swift in Sources */,
@@ -1104,6 +1120,7 @@
 				867BC9E625D44A92003EAC3E /* SplashView.swift in Sources */,
 				86672BC225CDB60300D0C34C /* AverageSeasonStatistics.swift in Sources */,
 				8659625525D5A54000663DFC /* TableViewActionView.swift in Sources */,
+				868361C9268136A3000091AB /* AddTreeTypeViewController.swift in Sources */,
 				8659625A25D5A58100663DFC /* TableViewActionViewControllerInterface.swift in Sources */,
 				8637693F25C7824500580108 /* GraphCardCell.swift in Sources */,
 				86920DD025DC2B5500758CA0 /* QuickPrepModalViewController.swift in Sources */,
@@ -1151,6 +1168,7 @@
 				860BED3E25A9526F00B3D699 /* HomeTabViewController.swift in Sources */,
 				86920DCB25DC283A00758CA0 /* QuickPrepModalView.swift in Sources */,
 				86C741C025AB7F0C000547F9 /* UIViewExtensions.swift in Sources */,
+				865E8238268B694800664250 /* TreeStatsCell.swift in Sources */,
 				865C68CA25F6B1BA00E4A6D8 /* DateExtentions.swift in Sources */,
 				86672B7625CAFB7200D0C34C /* Config.swift in Sources */,
 				860BECE425A94B4900B3D699 /* CollectionViews.swift in Sources */,
@@ -1166,6 +1184,7 @@
 				860BED1125A94CBD00B3D699 /* HandbookViewController.swift in Sources */,
 				86C7425E25B20E87000547F9 /* AddSeasonModalViewController.swift in Sources */,
 				865C68DF25F6C54700E4A6D8 /* PHUI.swift in Sources */,
+				86DAA73E2675BAC2003E9924 /* CacheTotalsModalView.swift in Sources */,
 				86672BBD25CDB54900D0C34C /* SeasonStatistics.swift in Sources */,
 				865C68E425F6CC9600E4A6D8 /* DatePicker.swift in Sources */,
 				8637692725C7420C00580108 /* CardCell.swift in Sources */,
@@ -1179,6 +1198,7 @@
 				865F4C9026162A39008D8CBF /* ProgrammaticView.swift in Sources */,
 				860BEC5525A9442700B3D699 /* SceneDelegate.swift in Sources */,
 				860BECDE25A94B2E00B3D699 /* TableViews.swift in Sources */,
+				868361C426812305000091AB /* AddTreeTypeView.swift in Sources */,
 				86672C3625CE4B1100D0C34C /* ManagerView.swift in Sources */,
 				86920DB625DB31B300758CA0 /* ExtraCashModalViewController.swift in Sources */,
 				86920DA225DACD7900758CA0 /* OneTextFieldModalView.swift in Sources */,
@@ -1366,14 +1386,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.1;
+				CURRENT_PROJECT_VERSION = 1.5.6;
 				DEVELOPMENT_TEAM = 7J77DP9MR3;
 				INFOPLIST_FILE = PlantersHandbook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.6;
 				PRODUCT_BUNDLE_IDENTIFIER = Gadzinski.PlantersHandbook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1388,14 +1408,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.1;
+				CURRENT_PROJECT_VERSION = 1.5.6;
 				DEVELOPMENT_TEAM = 7J77DP9MR3;
 				INFOPLIST_FILE = PlantersHandbook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.6;
 				PRODUCT_BUNDLE_IDENTIFIER = Gadzinski.PlantersHandbook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

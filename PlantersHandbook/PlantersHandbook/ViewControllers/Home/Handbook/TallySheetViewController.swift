@@ -10,6 +10,8 @@ import RealmSwift
 import CoreLocation
 import GoogleMaps
 import JDropDownAlert
+import AppTrackingTransparency
+import AdSupport
 
 ///TallySheetViewController.swift - Represents a tally sheet for a cache
 class TallySheetViewController: TallySheetView {
@@ -137,7 +139,9 @@ class TallySheetViewController: TallySheetView {
         quickFillButton.addTarget(self, action: #selector(quickPrepButtonAction), for: .touchUpInside)
         plotsButton.addTarget(self, action: #selector(plotsButtonAction), for: .touchUpInside)
         let gpsButton = UIBarButtonItem(title: "GPS", style: .plain, target: self, action: #selector(gpsButtonAction))
-        self.navigationItem.rightBarButtonItem = gpsButton
+        let totalsButton = UIBarButtonItem(title: "TOTAL", style: .plain, target: self, action: #selector(totalsButtonAction))
+        self.navigationItem.setRightBarButtonItems([gpsButton, totalsButton], animated: true)
+        
     }
 
     ///Sets up any table delegates and datasources
@@ -181,40 +185,89 @@ class TallySheetViewController: TallySheetView {
     ///Calls to open gps modal if the user has location services on and privacy restraints checked to allow
     @objc fileprivate func gpsButtonAction(){
         gpsButtonClicked = true
-        locationManager.requestAlwaysAuthorization()
-        if locationManager.authorizationStatus == CLAuthorizationStatus.authorizedAlways{
-            gpsButtonClicked = false
-            goToGPSModal()
-        }
-        else{
-            let alertController = UIAlertController(title: "Turn On Always Location", message: "Please go to Settings and turn on 'Always' location tracking to allow the application to track your phone while it is turned off and on different applications. \nThe location tracking gets turned off when you leave the Tally Sheet (ie. press 'Back' on the navigation bar) or when you press stop planting on the GPS Section. \n\n Without this the application won't track effectively", preferredStyle: .alert)
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    // Tracking authorization dialog was shown
+                    // and we are authorized
+                    print("Authorized")
+                    self.locationManager.requestAlwaysAuthorization()
+                    if self.locationManager.authorizationStatus == CLAuthorizationStatus.authorizedAlways{
+                        self.gpsButtonClicked = false
+                        self.goToGPSModal()
+                    }
+                    else{
+                        let alertController = UIAlertController(title: "Turn On Always Location", message: "Please go to Settings and turn on 'Always' location tracking to allow the application to track your phone while it is turned off and on different applications. \nThe location tracking gets turned off when you leave the Tally Sheet (ie. press 'Back' on the navigation bar) or when you press stop planting on the GPS Section. \n\n Without this the application won't track effectively", preferredStyle: .alert)
 
-            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                    return
+                        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                                return
+                            }
+                            if UIApplication.shared.canOpenURL(settingsUrl) {
+                                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+                             }
+                        }
+                        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+
+                        alertController.addAction(cancelAction)
+                        alertController.addAction(settingsAction)
+
+                        // check the permission status
+                        switch(CLLocationManager.authorizationStatus()) {
+                            case .authorizedAlways, .authorizedWhenInUse:
+                                print("Authorized.")
+                                self.gpsButtonClicked = false
+                                self.goToGPSModal()
+                                // get the user location
+                            case .notDetermined, .restricted, .denied:
+                                // redirect the users to settings
+                                self.present(alertController, animated: true, completion: nil)
+                        }
+                    }
+                case .denied:
+                    // Tracking authorization dialog was
+                    // shown and permission is denied
+                    print("Denied")
+                    let alertController = UIAlertController(title: "Turn On App Tracking Transparency", message: "Please allow tracking across other apps and websites as we use Google APIs. Click the slider for 'Allow Tracking' to on.", preferredStyle: .alert)
+
+                    let settingsAction = UIAlertAction(title: "Continue", style: .default) { (_) -> Void in
+                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+                         }
+                    }
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                    alertController.addAction(settingsAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true)
+                case .notDetermined:
+                    // Tracking authorization dialog has not been shown
+                    print("Not Determined")
+                case .restricted:
+                    print("Restricted")
+                @unknown default:
+                    print("Unknown")
                 }
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
-                 }
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-
-            alertController.addAction(cancelAction)
-            alertController.addAction(settingsAction)
-
-            // check the permission status
-            switch(CLLocationManager.authorizationStatus()) {
-                case .authorizedAlways, .authorizedWhenInUse:
-                    print("Authorized.")
-                    gpsButtonClicked = false
-                    goToGPSModal()
-                    // get the user location
-                case .notDetermined, .restricted, .denied:
-                    // redirect the users to settings
-                    self.present(alertController, animated: true, completion: nil)
             }
         }
+        
     }
+    
+    ///Calls to open total modal if the user has location services on and privacy restraints checked to allow
+    @objc fileprivate func totalsButtonAction(){
+        var totalCash : Double = 0
+        var totalTrees : Int = 0
+        cache.totalCashPerTreeTypes.forEach{totalCash += $0}
+        cache.totalTreesPerTreeTypes.forEach{totalTrees += $0}
+        let totalsModal = CacheTotalsModalViewController(title: self.title! + " Totals", totalTrees: totalTrees, totalCash: totalCash)
+        totalsModal.modalPresentationStyle = .popover
+        totalsModal.setUpUIPopUpController(barButtonItem: self.navigationItem.rightBarButtonItem, sourceView: nil)
+        present(totalsModal, animated: true)
+    }
+    
     
     ///Opens GPSTreeTrackingModalViewController
     fileprivate func goToGPSModal(){
@@ -236,12 +289,12 @@ class TallySheetViewController: TallySheetView {
     ///Ensures changes to a treeType UITextField is put into the caches treeTypes and saved in the realm
     ///- Parameter sender: treeType UITextField
     @objc fileprivate func treeTypesInputAction(sender: UITextField){
-        realmDatabase.replaceItemInList(list: cache.treeTypes, index: sender.tag, item: sender.text!){ success, error in
-            if error != nil{
-                let alert = JDropDownAlert()
-                alert.alertWith("Error with database, restart app if further errors : " + error!)
-            }
-        }
+        self.view.endEditing(true)
+        let addTreeTypeModal = AddTreeTypeModalViewController(curTreeType: sender.text!, columnOnTally: sender.tag)
+        addTreeTypeModal.delegate = self
+        addTreeTypeModal.modalPresentationStyle = .popover
+        addTreeTypeModal.setUpUIPopUpController(barButtonItem: nil, sourceView: sender)
+        present(addTreeTypeModal, animated: true)
     }
     
     ///Ensures changes to a centPerTreeType UITextField is put into the caches centPerTreeTypes and saved in the realm
@@ -449,7 +502,7 @@ extension TallySheetViewController: UICollectionViewDelegate, UICollectionViewDa
         }
         else if(collectionView == self.treeTypesCollectionView){
             TallyCell.createAdvancedTallyCell(cell: cell, toolBar: toolBar, tag: indexPath.row, keyboardType: .default)
-            cell.input.addTarget(self, action: #selector(treeTypesInputAction), for: .editingDidEnd)
+            cell.input.addTarget(self, action: #selector(treeTypesInputAction), for: .editingDidBegin)
             cell.input.text = cache.treeTypes[indexPath.row]
             return cell
         }
@@ -667,6 +720,24 @@ extension TallySheetViewController: UITabBarControllerDelegate{
             checkIfGPSStillOn()
         }
     }
+}
+
+///Functionality required for using OneTextFieldModalDelegate
+extension TallySheetViewController: AddTreeTypeModalDelegate{
+    func addTreeType(treeType: String, columnOnTally: Int) {
+        if treeType != ""{
+            realmDatabase.replaceItemInList(list: cache.treeTypes, index: columnOnTally, item: treeType){ success, error in
+                if error != nil{
+                    let alert = JDropDownAlert()
+                    alert.alertWith("Error with database, restart app if further errors : " + error!)
+                }else{
+                    self.treeTypesCollectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+    
 }
 
 

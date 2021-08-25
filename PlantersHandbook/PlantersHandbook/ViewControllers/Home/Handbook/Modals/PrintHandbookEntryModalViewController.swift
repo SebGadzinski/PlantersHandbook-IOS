@@ -79,12 +79,11 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
         stackView.addArrangedSubview(titleLayout)
         
         let topLayoutHieght = view.frame.height*0.1
-        print(topLayoutHieght)
         let topLayout = SUI.view(backgoundColor: .systemBackground)
         topLayout.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         topLayout.heightAnchor.constraint(equalToConstant: topLayoutHieght).isActive = true
-        let totalCashLabel = SUI.label(title: "Total Trees : ", fontSize: FontSize.medium)
-        let totalTreesLabel = SUI.label(title: "Total Cash : ", fontSize: FontSize.medium)
+        let totalCashLabel = SUI.label(title: "Total Cash : ", fontSize: FontSize.medium)
+        let totalTreesLabel = SUI.label(title: "Total Trees : ", fontSize: FontSize.medium)
         let totalDensityLabel = SUI.label(title: "Total Density : ", fontSize: FontSize.medium)
         var totalTrees = 0
         var totalCash : Double = 0.0
@@ -103,9 +102,13 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
         totalDensityLabel.heightAnchor.constraint(equalToConstant: topLayoutHieght*0.33).isActive = true
         
         stackView.addArrangedSubview(topLayout)
+        
+        //Collected Information Needs to go here
+        
         stackView.addArrangedSubview(addBar())
         
         let extraCashTitle = SUI.label(title: " Extra Cash: ", fontSize: FontSize.medium)
+        var extraCashTotal = 0.0
         extraCashTitle.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         extraCashTitle.heightAnchor.constraint(equalToConstant: extraCashLineSpace).isActive = true
         extraCashTitle.textAlignment = .left
@@ -117,6 +120,7 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
             extraCashLine.widthAnchor.constraint(equalToConstant: view.frame.width-paddingForInsideText).isActive = true
             GeneralFunctions.adjustUITextViewHeight(arg: extraCashLine)
             stackView.addArrangedSubview(extraCashLine)
+            extraCashTotal += handbookEntry.extraCash[i].cash
         }
         
         stackView.addArrangedSubview(addBar())
@@ -140,7 +144,6 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
         stackView.addArrangedSubview(notes)
 
         //Gather all blocks of handbookNetry
-        print(handbookEntry.blocks)
         let blocks = realmDatabase.findObjectRealm(predicate: NSPredicate(format: "_id IN %@", handbookEntry.blocks), classType: Block()).sorted(byKeyPath: "_id")
         var blockIndex = 0
         for block in blocks{
@@ -149,6 +152,9 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
             var blockTotalDensity = 0.0
             var totalPlotsBlock = 0.0
             var totalPlotsValueBlock = 0.0
+            //Collected Tree Types And Totals For Block
+            var treeTypesWithTotalsBlock : [(treeType: String, total: Int)] = []
+            
             let subBlocks = realmDatabase.findObjectRealm(predicate: NSPredicate(format: "_id IN %@", block.subBlocks), classType: SubBlock()).sorted(byKeyPath: "_id")
             var subBlockIndex = 0
             var blockLevelCacheArray : [[Cache]] = []
@@ -158,6 +164,8 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
                 var subBlockTotalDensity = 0.0
                 var totalPlotsSubBlock = 0.0
                 var totalPlotsValueSubBlock = 0.0
+                //Collected Tree Types And Totals For Sub - Block
+                var treeTypesWithTotalsSubBlock : [(treeType: String, total: Int)] = []
                 let caches = realmDatabase.findObjectRealm(predicate: NSPredicate(format: "_id IN %@", subBlock.caches), classType: Cache()).sorted(byKeyPath: "_id")
                 var cacheIndex = 0
                 var subBlockLevelCacheArray : [Cache] = []
@@ -177,6 +185,24 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
                         subBlockTotalTrees += $0
                         blockTotalTrees += $0
                         totalTrees += $0
+                    }
+                    
+                    //Get the tree type totals for the subblock
+                    for i in 0..<cache.treeTypes.count{
+                        if(cache.treeTypes[i] != ""){
+                            //Check if there is a tree Type with that label
+                            var treeTypeAlreadyExists = false
+                            for y in 0..<treeTypesWithTotalsSubBlock.count{
+                                if treeTypesWithTotalsSubBlock[y].treeType == cache.treeTypes[i]{
+                                    treeTypesWithTotalsSubBlock[y].total += cache.totalTreesPerTreeTypes[i]
+                                    treeTypeAlreadyExists = true
+                                    break
+                                }
+                            }
+                            if !treeTypeAlreadyExists{
+                                treeTypesWithTotalsSubBlock.append((cache.treeTypes[i], cache.totalTreesPerTreeTypes[i]))
+                            }
+                        }
                     }
 
                     cacheTotalDensity = GeneralFunctions.totalDensityFromArray(plotArray: cache.plots)
@@ -200,21 +226,43 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
                     cacheIndex += 1
                 }
                 subBlockTotalDensity = GeneralFunctions.calculateDensity(plots: totalPlotsSubBlock, plotsValue: totalPlotsValueSubBlock)
-                views.append(addInfoView(title: ("SubBlock: " + subBlock.title), totalTrees: subBlockTotalTrees, totalCash: subBlockTotalCash, totalDensity: subBlockTotalDensity, backgroundColor: .tertiarySystemFill))
+                //Get the tree type totals for the block
+                for i in 0..<treeTypesWithTotalsSubBlock.count{
+                    //Check if there is a tree Type with that label
+                    var treeTypeAlreadyExists = false
+                    for y in 0..<treeTypesWithTotalsBlock.count{
+                        if treeTypesWithTotalsBlock[y].treeType == treeTypesWithTotalsSubBlock[i].treeType{
+                            treeTypesWithTotalsBlock[y].total += treeTypesWithTotalsSubBlock[i].total
+                            treeTypeAlreadyExists = true
+                            break
+                        }
+                    }
+                    if !treeTypeAlreadyExists{
+                        treeTypesWithTotalsBlock.append((treeTypesWithTotalsSubBlock[i].treeType, treeTypesWithTotalsSubBlock[i].total))
+                    }
+                }
+                views.append(stackViews(views: [
+                                            addInfoView(title: ("SubBlock: " + subBlock.title), totalTrees: subBlockTotalTrees, totalCash: subBlockTotalCash, totalDensity: subBlockTotalDensity, backgroundColor: .clear),
+                                            addTotalTreeTypes(treeTypesTotals: treeTypesWithTotalsSubBlock, backgroundColor: .clear)
+                ], backgroundColor: .tertiarySystemFill))
                 views.append(addBar())
 
                 blockLevelCacheArray.append(subBlockLevelCacheArray)
                 subBlockIndex += 1
             }
             blockTotalDensity = GeneralFunctions.calculateDensity(plots: totalPlotsBlock, plotsValue: totalPlotsValueBlock)
-            views.append((addInfoView(title: ("Block: " + block.title), totalTrees: blockTotalTrees, totalCash: blockTotalCash, totalDensity: blockTotalDensity, backgroundColor: .quaternarySystemFill)))
+            views.append(stackViews(views: [
+                addInfoView(title: ("Block: " + block.title), totalTrees: blockTotalTrees, totalCash: blockTotalCash, totalDensity: blockTotalDensity, backgroundColor: .clear),
+                addTotalTreeTypes(treeTypesTotals: treeTypesWithTotalsBlock, backgroundColor: .clear)
+                
+            ], backgroundColor: .quaternarySystemFill))
             views.append(addBar())
 
             caches.append(blockLevelCacheArray)
             blockIndex += 1
         }
         
-        totalCashLabel.text = totalCashLabel.text! + totalCash.toCurrency()
+        totalCashLabel.text = totalCashLabel.text! + (totalCash + extraCashTotal).toCurrency()
         totalTreesLabel.text = totalTreesLabel.text! + String(totalTrees)
         totalDensityLabel.text = totalDensityLabel.text! + String(GeneralFunctions.calculateDensity(plots: totalPlots, plotsValue: totalPlotsValue).round(to: 2))
         
@@ -270,6 +318,16 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
         } else {
             return ""
         }
+    }
+    
+    func stackViews(views: [UIView], backgroundColor: UIColor) -> UIStackView{
+        let newStackView = SUI.stackView()
+        newStackView.backgroundColor = backgroundColor
+        newStackView.spacing = 0
+        views.forEach{
+            newStackView.addArrangedSubview($0)
+        }
+        return newStackView
     }
     
     ///Creates a heading information view for a block, subBlock, or cache
@@ -331,21 +389,48 @@ class PrintHandbookEntryModalViewController: PrintHandbookEntryModalView, WKNavi
         return cacheView
     }
     
+    fileprivate func addTotalTreeTypes(treeTypesTotals: [(treeType: String, total: Int)], backgroundColor: UIColor) -> UIView{
+        
+        let treeTypeStackView = SUI.stackView()
+        treeTypeStackView.alignment = .center
+        treeTypeStackView.backgroundColor = backgroundColor
+        treeTypeStackView.spacing = 0
+        
+        let treeTypesTotalTitle = SUI.label(title: " Tree Types Planted", fontSize: FontSize.small)
+        treeTypesTotalTitle.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        treeTypesTotalTitle.heightAnchor.constraint(equalToConstant: extraCashLineSpace).isActive = true
+        treeTypesTotalTitle.textAlignment = .center
+        treeTypesTotalTitle.padding(padding: .init(top: 0, left: 2, bottom: 0, right: 0))
+        treeTypesTotalTitle.backgroundColor = backgroundColor
+        treeTypeStackView.addArrangedSubview(treeTypesTotalTitle)
+        
+        for i in 0..<treeTypesTotals.count{
+            let treeTypeLine = SUI.textViewMultiLine(text: treeTypesTotals[i].treeType + " : " + String(treeTypesTotals[i].total), fontSize: FontSize.small)
+            treeTypeLine.widthAnchor.constraint(equalToConstant: view.frame.width-paddingForInsideText).isActive = true
+            GeneralFunctions.adjustUITextViewHeight(arg: treeTypeLine)
+            treeTypeLine.backgroundColor = backgroundColor
+            treeTypeStackView.addArrangedSubview(treeTypeLine)
+        }
+        
+        return treeTypeStackView
+    }
+    
     ///Share the pdf view of the printed HandbookEntry
     ///- Parameter sender: Share button
     @objc func share(_ sender: UIBarButtonItem) {
         shareButton.isHidden = true
-        let url = NSURL.fileURL(withPath: exportAsPdfFromView(fileName: "Tally Sheet : " + GeneralFunctions.getDate(from: handbookEntry.date)))
-        shareButton.isHidden = false
-      let activity = UIActivityViewController(
-        activityItems: [url],
-        applicationActivities: nil
-      )
-        activity.popoverPresentationController?.delegate = self
-        activity.popoverPresentationController?.sourceView = shareButton
-//        self.preferredContentSize = CGSize(width: view.frame.width, height: view.frame.height-100)
-        activity.popoverPresentationController?.permittedArrowDirections = .any
-      present(activity, animated: true, completion: nil)
+        if let user = realmDatabase.findLocalUser(){
+            let url = NSURL.fileURL(withPath: exportAsPdfFromView(fileName: user.name + " : " + GeneralFunctions.getDate(from: handbookEntry.date)))
+            shareButton.isHidden = false
+            let activity = UIActivityViewController(
+            activityItems: [url],
+            applicationActivities: nil
+            )
+            activity.popoverPresentationController?.delegate = self
+            activity.popoverPresentationController?.sourceView = shareButton
+            activity.popoverPresentationController?.permittedArrowDirections = .any
+            present(activity, animated: true, completion: nil)
+        }
     }
     
 }
@@ -430,7 +515,7 @@ extension PrintHandbookEntryModalViewController: UICollectionViewDelegate, UICol
                 cell.input.backgroundColor = .secondarySystemFill
             }
             else if(indexPath.row == 1){
-                cell.input.text = String(caches[blockIndex][subBlockIndex][cacheIndex].centPerTreeTypes[indexPath.section-3].toCurrency())
+                cell.input.text = String(caches[blockIndex][subBlockIndex][cacheIndex].centPerTreeTypes[indexPath.section-3].toCurrency(numOfDecimals: nil))
                 cell.input.backgroundColor = .secondarySystemFill
             }
             else if(indexPath.row == 2){
